@@ -1,0 +1,62 @@
+name: fluttour
+description: A medium Flutter base-source
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.3 <3.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Networking
+  dio: ^4.0.6
+  pretty_dio_logger: ^1.1.1
+  dartz: ^0.10.1
+  get_it: ^7.2.0
+  retrofit: ^3.0.1+1
+  connectivity: ^3.0.6
+  # State management
+  flutter_bloc: ^8.0.1
+  # User interface
+  flutter_svg: ^1.1.0
+  flutter_screenutil: ^5.5.3+2
+  # Annotation
+  meta: any
+  # Data type
+  equatable: ^2.0.3
+  # Language
+  easy_localization: ^3.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  json_annotation: ^4.5.0
+  json_serializable: ^6.2.0
+  retrofit_generator: ^4.0.1
+  build_runner: ^2.1.11
+  mockito: ^5.2.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/fonts/
+    - assets/images/
+    - assets/locales/
+
+  fonts:
+    - family: Exo2
+      fonts:
+        - asset: assets/fonts/Exo2-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Exo2-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Exo2-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Exo2-Regular.ttf
+          weight: 400
