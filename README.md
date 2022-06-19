@@ -114,7 +114,18 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 ```
 
 ### [Unit Testing](#unit-testing)
-
+```
+  group('describes what component you are testing', () {
+    test('describes the purpose of the test or the current state of an object', () {
+    
+      // stub a mock method before interacting
+      when('mock.doMock()').thenAnswer((_) => 'stub');
+      
+      // the expected result of the test
+      expect('actual', 'matcher');
+    });
+  });
+```
 
 ### [Pitfalls](#pitfalls)
 - Make sure `flutter pub get` before you run the app.
