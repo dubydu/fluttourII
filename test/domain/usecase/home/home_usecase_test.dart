@@ -22,7 +22,7 @@ void main() {
     fluttourDoctorResponse = HomeResponsesMock.fluttourDoctorResponse;
   });
   group('HomeUseCase', () {
-    test('getFluttourDoctor should return a FluttourDoctor', () async {
+    test('getFluttourDoctor should return a FluttourDoctor response', () async {
       when(
           mockHomeRepository
               .getFluttourDoctor())

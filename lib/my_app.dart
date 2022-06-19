@@ -19,9 +19,9 @@ Future<void> myMain() async {
 
   runApp(
       EasyLocalization(
-        supportedLocales: const [AppLocales.en],
+        supportedLocales: const [AppLocales.en, AppLocales.zh],
         path: AppLocales.path,
-        fallbackLocale: AppLocales.en,
+        fallbackLocale: AppLocales.zh,
         child: MultiBlocProvider(
             providers: [
               BlocProvider(create: (_) => HomeBloc(

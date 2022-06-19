@@ -1,8 +1,7 @@
 library order_app.globals;
 import 'package:flutter/material.dart';
-import 'package:fluttour/router/navigation_observer.dart';
 
-NavigationObserver navigationObserver = NavigationObserver();
+RouteObserver<ModalRoute<void>> navigationObserver = RouteObserver<ModalRoute<void>>();
 
 ThemeData them = ThemeData(
     fontFamily: "Exo2",
