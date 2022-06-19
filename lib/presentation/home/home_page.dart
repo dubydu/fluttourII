@@ -58,32 +58,30 @@ class _HomePageState extends State<HomePage>
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state.fluttourDoctor != null) {
-              return Center(
-                child: SizedBox(
-
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      AppText.h6(
-                        LocaleTexts.appName.tr(),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 8.h),
-                      AppText.bodyMedium(
-                        state.fluttourDoctor?.flutterVersion ?? '',
-                        color: AppColor.black,
-                        textAlign: TextAlign.center,
-                        fontSize: 12,
-                      ),
-                      SizedBox(height: 32.h),
-                      AppPrimaryButton(
-                        title: LocaleTexts.next.tr(),
-                        onPressed: () {  }
-                        ,
-                      )
-                    ],
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  AppText.h6(
+                    LocaleTexts.appName.tr(),
+                    textAlign: TextAlign.center,
                   ),
-                ),
+                  SizedBox(height: 8.h),
+                  AppText.bodyMedium(
+                    state.fluttourDoctor?.flutterVersion ?? '',
+                    color: AppColor.black,
+                    textAlign: TextAlign.center,
+                    fontSize: 12,
+                  ),
+                  SizedBox(height: 32.h),
+                  /*
+                  AppPrimaryButton(
+                    title: LocaleTexts.next.tr(),
+                    onPressed: () {
+                      print('Hi there');
+                    },
+                  )
+                  */
+                ],
               );
             } else {
               return SizedBox(
