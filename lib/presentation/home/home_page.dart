@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttour/presentation/base/base_material_page.dart';
 import 'package:fluttour/presentation/home/home_bloc.dart';
@@ -76,8 +75,12 @@ class _HomePageState extends State<HomePage>
                         textAlign: TextAlign.center,
                         fontSize: 12,
                       ),
-                      SizedBox(height: 80.h),
-                      AppText.primary(LocaleTexts.next.tr())
+                      SizedBox(height: 32.h),
+                      AppPrimaryButton(
+                        title: LocaleTexts.next.tr(),
+                        onPressed: () {  }
+                        ,
+                      )
                     ],
                   ),
                 ),

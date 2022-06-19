@@ -7,3 +7,4 @@ export 'assets/app_icon.dart';
 export 'app_global.dart';
 export 'app_mixin.dart';
 export 'app_router.dart';
+export 'widget/app_primary_button.dart';

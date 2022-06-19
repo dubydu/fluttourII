@@ -58,7 +58,7 @@ class AppText extends StatelessWidget {
       : super(key: key);
 
   factory AppText.primary(String text, {
-    Color? color,
+    Color? color = AppColor.black,
     FontWeightType? fontWeight = FontWeightType.regular,
     bool scalable = true,
     String? configKey,
@@ -93,6 +93,32 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 16.0,
+    FontFamilyType? fontFamily = FontFamilyType.exo
+  }) {
+    return AppText._(
+      text,
+      textStyle: TextStyle(
+          fontWeight: fontWeight?.type(),
+          color: color,
+          fontSize: fontSize?.sp,
+          fontFamily: fontFamily?.name()
+      ),
+      scalable: scalable,
+      configKey: configKey,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
+  }
+
+  factory AppText.primaryButtonText(String text, {
+    Color? color = AppColor.textLightBlack,
+    FontWeightType? fontWeight = FontWeightType.medium,
+    bool scalable = true,
+    String? configKey,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? fontSize = 14.0,
     FontFamilyType? fontFamily = FontFamilyType.exo
   }) {
     return AppText._(
