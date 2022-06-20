@@ -8,6 +8,9 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 * Dart 2.17.3
 * Cocoapods 1.11.3
 
+### [Article](#article)
+* [`Flutter x Clean Architecture`](https://dubydu.medium.com/b53ce9e19d5a)
+
 ### [Main Packages](#main-packages)
 * [`flutter_bloc`](https://pub.dev/packages/flutter_bloc): State management package.
 * [`dio`](https://pub.dev/packages/dio): A powerful Http client for Dart.
