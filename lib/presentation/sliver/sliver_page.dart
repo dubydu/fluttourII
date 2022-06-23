@@ -24,9 +24,7 @@ class SliverPageState extends State<SliverPage>
   }
 
   void _scrollControllerObserver() {
-    RenderBox box = categoryWidgetKey.currentContext?.findRenderObject() as RenderBox;
-    Offset position = box.localToGlobal(Offset.zero);
-    double y = position.dy;
+    double y = AppDevice.detectWidgetPosition(globalKey: categoryWidgetKey).dy;
     if (y <= 10.h) {
       if (!isCategoryWidgetOnTop) {
         isCategoryWidgetOnTop = true;
@@ -38,7 +36,6 @@ class SliverPageState extends State<SliverPage>
         setState(() {});
       }
     }
-    print('============== $y');
   }
 
   @override
