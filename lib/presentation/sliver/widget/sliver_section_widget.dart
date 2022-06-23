@@ -8,19 +8,19 @@ class SliverSectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 18.h),
-      child: InkWell(
-        onTap: () {},
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            AppText.h4('Most Populars'),
-            SizedBox(height: 24.h),
-            ListView.separated(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return SizedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          AppText.h4('Most Populars'),
+          SizedBox(height: 24.h),
+          ListView.separated(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {},
+                child: SizedBox(
                   height: 110.h,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,18 +61,18 @@ class SliverSectionWidget extends StatelessWidget {
                       )
                     ],
                   ),
-                );
-              },
-              separatorBuilder: (_, __) {
-                return Container(
-                  margin: EdgeInsets.only(top: 16.h, bottom: 16.h),
-                  height: 1,
-                  color: AppColor.lightGray,
-                );
-              },
-              itemCount: 3)
-          ],
-        ),
+                ),
+              );
+            },
+            separatorBuilder: (_, __) {
+              return Container(
+                margin: EdgeInsets.only(top: 16.h, bottom: 16.h),
+                height: 1,
+                color: AppColor.lightGray,
+              );
+            },
+            itemCount: 3)
+        ],
       ),
     );
   }
