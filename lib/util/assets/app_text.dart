@@ -85,9 +85,9 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.bodyMedium(String text, {
+  factory AppText.body(String text, {
     Color? color = AppColor.textLightBlack,
-    FontWeightType? fontWeight = FontWeightType.medium,
+    FontWeightType? fontWeight = FontWeightType.regular,
     bool scalable = true,
     String? configKey,
     TextAlign? textAlign,
@@ -111,14 +111,118 @@ class AppText extends StatelessWidget {
     );
   }
 
+  factory AppText.itemTitleSmall(String text, {
+    Color? color = AppColor.black,
+    FontWeightType? fontWeight = FontWeightType.semiBold,
+    bool scalable = true,
+    String? configKey,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? fontSize = 16.0,
+    FontFamilyType? fontFamily = FontFamilyType.exo
+  }) {
+    return AppText._(
+      text,
+      textStyle: TextStyle(
+          fontWeight: fontWeight?.type(),
+          color: color,
+          fontSize: fontSize?.sp,
+          fontFamily: fontFamily?.name()
+      ),
+      scalable: scalable,
+      configKey: configKey,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
+  }
+
+  factory AppText.itemTitleLarge(String text, {
+    Color? color = AppColor.black,
+    FontWeightType? fontWeight = FontWeightType.semiBold,
+    bool scalable = true,
+    String? configKey,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? fontSize = 18.0,
+    FontFamilyType? fontFamily = FontFamilyType.exo
+  }) {
+    return AppText._(
+      text,
+      textStyle: TextStyle(
+          fontWeight: fontWeight?.type(),
+          color: color,
+          fontSize: fontSize?.sp,
+          fontFamily: fontFamily?.name()
+      ),
+      scalable: scalable,
+      configKey: configKey,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
+  }
+
   factory AppText.primaryButtonText(String text, {
     Color? color = AppColor.textLightBlack,
-    FontWeightType? fontWeight = FontWeightType.medium,
+    FontWeightType? fontWeight = FontWeightType.semiBold,
     bool scalable = true,
     String? configKey,
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 14.0,
+    FontFamilyType? fontFamily = FontFamilyType.exo
+  }) {
+    return AppText._(
+      text,
+      textStyle: TextStyle(
+          fontWeight: fontWeight?.type(),
+          color: color,
+          fontSize: fontSize?.sp,
+          fontFamily: fontFamily?.name()
+      ),
+      scalable: scalable,
+      configKey: configKey,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
+  }
+
+  factory AppText.regular(String text, {
+    Color? color = AppColor.textLightBlack,
+    FontWeightType? fontWeight = FontWeightType.regular,
+    bool scalable = true,
+    String? configKey,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? fontSize = 14.0,
+    FontFamilyType? fontFamily = FontFamilyType.exo
+  }) {
+    return AppText._(
+      text,
+      textStyle: TextStyle(
+          fontWeight: fontWeight?.type(),
+          color: color,
+          fontSize: fontSize?.sp,
+          fontFamily: fontFamily?.name()
+      ),
+      scalable: scalable,
+      configKey: configKey,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
+  }
+
+  factory AppText.small(String text, {
+    Color? color = AppColor.textLightBlack,
+    FontWeightType? fontWeight = FontWeightType.regular,
+    bool scalable = true,
+    String? configKey,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? fontSize = 12.0,
     FontFamilyType? fontFamily = FontFamilyType.exo
   }) {
     return AppText._(
@@ -145,6 +249,58 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 28.0,
+    FontFamilyType? fontFamily = FontFamilyType.exo
+  }) {
+    return AppText._(
+      text,
+      textStyle: TextStyle(
+          fontWeight: fontWeight?.type(),
+          color: color,
+          fontSize: fontSize?.sp,
+          fontFamily: fontFamily?.name()
+      ),
+      scalable: scalable,
+      configKey: configKey,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
+  }
+
+  factory AppText.h4(String text, {
+    Color? color = AppColor.black,
+    FontWeightType? fontWeight = FontWeightType.semiBold,
+    bool scalable = true,
+    String? configKey,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? fontSize = 20.0,
+    FontFamilyType? fontFamily = FontFamilyType.exo
+  }) {
+    return AppText._(
+      text,
+      textStyle: TextStyle(
+          fontWeight: fontWeight?.type(),
+          color: color,
+          fontSize: fontSize?.sp,
+          fontFamily: fontFamily?.name()
+      ),
+      scalable: scalable,
+      configKey: configKey,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
+  }
+
+  factory AppText.h3(String text, {
+    Color? color = AppColor.black,
+    FontWeightType? fontWeight = FontWeightType.semiBold,
+    bool scalable = true,
+    String? configKey,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? fontSize = 24.0,
     FontFamilyType? fontFamily = FontFamilyType.exo
   }) {
     return AppText._(

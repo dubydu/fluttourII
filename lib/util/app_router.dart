@@ -6,4 +6,8 @@ extension AppRouter<T extends StatefulWidget> on State<T> {
   void transitionToHomePage() {
     NavigationController.push(Routes.home.routeName, replace: true);
   }
+
+  void transitionToSliverPage() {
+    NavigationController.push(Routes.sliver.routeName);
+  }
 }

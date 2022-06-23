@@ -66,21 +66,19 @@ class _HomePageState extends State<HomePage>
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 8.h),
-                  AppText.bodyMedium(
+                  AppText.body(
                     state.fluttourDoctor?.flutterVersion ?? '',
                     color: AppColor.black,
                     textAlign: TextAlign.center,
                     fontSize: 12,
                   ),
                   SizedBox(height: 32.h),
-                  /*
                   AppPrimaryButton(
                     title: LocaleTexts.next.tr(),
                     onPressed: () {
-                      print('Hi there');
+                      transitionToSliverPage();
                     },
                   )
-                  */
                 ],
               );
             } else {

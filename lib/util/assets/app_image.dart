@@ -121,6 +121,16 @@ class ImageBuilder extends StatelessWidget {
             fit: fit ?? BoxFit.contain,
             alignment: alignment);
       }
+      if (isNetworkMedia) {
+        return SizedBox(
+          width: width,
+          height: height,
+          child: Image.network(
+            input,
+            fit: BoxFit.cover,
+          ),
+        );
+      }
       return Image(
           image: AssetImage(input),
           height: height,

@@ -3,7 +3,8 @@ import 'named_route.dart';
 enum AppRoute {
   unknown,
   root,
-  home
+  home,
+  sliver
 }
 
 class Routes {
@@ -16,9 +17,13 @@ class Routes {
   static NamedRoute get home =>
       NamedRoute(appRoute: AppRoute.home);
 
+  static NamedRoute get sliver =>
+      NamedRoute(appRoute: AppRoute.sliver);
+
   static List<NamedRoute> values = [
     unknown,
     root,
     home,
+    sliver
   ];
 }
