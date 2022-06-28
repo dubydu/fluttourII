@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fluttour/data/api/response/brand_response.dart';
 import 'package:fluttour/data/api/response/fluttour_doctor_response.dart';
 import 'package:retrofit/retrofit.dart' as retrofit;
 
@@ -10,4 +11,9 @@ abstract class APIClient {
 
   @retrofit.GET('/fluttour-doctor')
   Future<FluttourDoctorResponse> getFluttourDoctor();
+
+  @retrofit.GET('/brand/{id}')
+  Future<BrandResponse> getBrand({
+    @retrofit.Path('id') required int id
+  });
 }
