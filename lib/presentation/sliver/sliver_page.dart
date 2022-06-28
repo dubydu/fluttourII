@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttour/presentation/base/base_material_page.dart';
+import 'package:fluttour/presentation/sliver/sliver_bloc.dart';
 import 'package:fluttour/presentation/sliver/widget/sliver_section_widget.dart';
 import 'package:fluttour/util/assets/app_image.dart';
 import 'package:fluttour/util/util.dart';
@@ -14,26 +16,25 @@ class SliverPage extends StatefulWidget {
 class SliverPageState extends State<SliverPage>
     with AfterLayoutMixin, ResponsiveMixin {
 
+  late SliverBloc _sliverBloc;
   late final ScrollController _scrollController = ScrollController();
   final GlobalKey categoryWidgetKey = GlobalKey();
-  bool isCategoryWidgetOnTop = false;
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
+    _sliverBloc = BlocProvider.of(context, listen: false);
     _scrollController.addListener(_scrollControllerObserver);
   }
 
   void _scrollControllerObserver() {
     double y = AppDevice.detectWidgetPosition(globalKey: categoryWidgetKey).dy;
     if (y <= 10.h) {
-      if (!isCategoryWidgetOnTop) {
-        isCategoryWidgetOnTop = true;
-        setState(() {});
+      if (!_sliverBloc.state.isCategoryWidgetOnTop) {
+        _sliverBloc.onCategoryWidgetChanged(pinned: true);
       }
     } else {
-      if (isCategoryWidgetOnTop) {
-        isCategoryWidgetOnTop = false;
-        setState(() {});
+      if (_sliverBloc.state.isCategoryWidgetOnTop) {
+        _sliverBloc.onCategoryWidgetChanged(pinned: false);
       }
     }
   }
@@ -66,13 +67,17 @@ class SliverPageState extends State<SliverPage>
                 child: FeaturedItemsWidget()
             ),
             // Category Tabs
-            SliverPersistentHeader(
-                pinned: true,
-                delegate: CategoryWidget(
-                  categoryWidgetKey: categoryWidgetKey,
-                  isWidgetOnTop: isCategoryWidgetOnTop,
-                  isHasNotch: AppDevice.isHasNotch(context: this.context)
-                )
+            BlocBuilder<SliverBloc, SliverState>(
+              builder: (context, state) {
+                return SliverPersistentHeader(
+                    pinned: true,
+                    delegate: CategoryWidget(
+                        categoryWidgetKey: categoryWidgetKey,
+                        isWidgetOnTop: state.isCategoryWidgetOnTop,
+                        isHasNotch: AppDevice.isHasNotch(context: this.context)
+                    )
+                );
+              },
             ),
             const SliverToBoxAdapter(
                 child: SectionWidget()
@@ -254,18 +259,21 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return AnimatedContainer(
-      color: AppColor.white,
-      duration: const Duration(milliseconds: 150),
-      key: categoryWidgetKey,
-      padding: EdgeInsets.only(top: isHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 0.h),
-      alignment: Alignment.centerLeft,
-      child: DefaultTabController(
-        length: 4,
-        child: TabBar(
-          indicatorColor: AppColor.transparent,
-          isScrollable: true,
-          tabs: [AppText.h3('Dim Sum'), AppText.h3('Appetizers'), AppText.h3('Seafood'), AppText.h3('Beef & Lamb')]
+    return Material(
+      color: AppColor.white.withOpacity(.95),
+      elevation: isWidgetOnTop ? 2 : 0,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        key: categoryWidgetKey,
+        padding: EdgeInsets.only(top: isHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 0.h),
+        alignment: Alignment.centerLeft,
+        child: DefaultTabController(
+          length: 4,
+          child: TabBar(
+            indicatorColor: AppColor.transparent,
+            isScrollable: true,
+            tabs: [AppText.h3('Dim Sum'), AppText.h3('Appetizers'), AppText.h3('Seafood'), AppText.h3('Beef & Lamb')]
+          ),
         ),
       ),
     );
