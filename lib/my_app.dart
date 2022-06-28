@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttour/di/service%20_locator.dart';
 import 'package:fluttour/domain/usecase/home/home_usecase.dart';
+import 'package:fluttour/domain/usecase/sliver/sliver_usecase.dart';
 import 'package:fluttour/presentation/home/home_bloc.dart';
 import 'package:fluttour/presentation/sliver/sliver_bloc.dart';
 import 'package:fluttour/router/gen_route.dart';
@@ -26,10 +27,10 @@ Future<void> myMain() async {
         child: MultiBlocProvider(
             providers: [
               BlocProvider(create: (_) => HomeBloc(
-                useCase: GetIt.I<HomeUseCase>()
+                  useCase: GetIt.I<HomeUseCase>()
               )),
               BlocProvider(create: (_) => SliverBloc(
-
+                  useCase: GetIt.I<SliverUseCase>()
               ))
             ],
             child: const MyApp()),
