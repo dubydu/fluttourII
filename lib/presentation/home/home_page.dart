@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage>
       child: SafeArea(
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            if (state.fluttourDoctor != null) {
+            if (state.fluttour != null) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage>
                   ),
                   SizedBox(height: 8.h),
                   AppText.body(
-                    state.fluttourDoctor?.flutterVersion ?? '',
+                    state.fluttour?.flutterVersion ?? '',
                     color: AppColor.black,
                     textAlign: TextAlign.center,
                     fontSize: 12,

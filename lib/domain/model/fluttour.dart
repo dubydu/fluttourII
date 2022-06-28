@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class FluttourDoctor extends Equatable {
-  const FluttourDoctor({
+class Fluttour extends Equatable {
+  const Fluttour({
     required this.flutterVersion,
     required this.dartVersion,
     required this.devToolsVersion,

@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttour/domain/model/fluttour_doctor.dart';
+import 'package:fluttour/domain/model/fluttour.dart';
 import 'package:fluttour/domain/usecase/home/home_usecase.dart';
 
 class HomeBloc extends Cubit<HomeState> {
@@ -16,27 +16,27 @@ class HomeBloc extends Cubit<HomeState> {
     response.fold((error) {
       log('=============== $error');
     }, (response) {
-      emit(state.copyWith(fluttourDoctor: response));
+      emit(state.copyWith(fluttour: response));
     });
   }
 }
 
 class HomeState extends Equatable {
-  const HomeState({required this.fluttourDoctor});
-  final FluttourDoctor? fluttourDoctor;
+  const HomeState({required this.fluttour});
+  final Fluttour? fluttour;
 
   HomeState copyWith({
-    final FluttourDoctor? fluttourDoctor,
+    final Fluttour? fluttour,
   }) {
     return HomeState(
-      fluttourDoctor: fluttourDoctor ?? this.fluttourDoctor,
+      fluttour: fluttour ?? this.fluttour,
     );
   }
 
   @override
-  List<Object?> get props => [fluttourDoctor];
+  List<Object?> get props => [fluttour];
 }
 
 class HomeInitialState extends HomeState {
-  const HomeInitialState(): super(fluttourDoctor: null);
+  const HomeInitialState(): super(fluttour: null);
 }

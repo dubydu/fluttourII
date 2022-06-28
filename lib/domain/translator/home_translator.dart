@@ -1,10 +1,10 @@
-import 'package:fluttour/data/api/response/fluttour_doctor_response.dart';
-import 'package:fluttour/domain/model/fluttour_doctor.dart';
+import 'package:fluttour/data/api/response/fluttour_response.dart';
+import 'package:fluttour/domain/model/fluttour.dart';
 
 class HomeTranslator {
   /// To Model
-  static FluttourDoctor toModel({required FluttourDoctorResponse response}) {
-    return FluttourDoctor(
+  static Fluttour toModel({required FluttourResponse response}) {
+    return Fluttour(
         flutterVersion: response.flutterVersion,
         dartVersion: response.dartVersion,
         devToolsVersion: response.devToolsVersion,

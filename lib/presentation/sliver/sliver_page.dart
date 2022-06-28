@@ -294,7 +294,7 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         key: categoryWidgetKey,
-        padding: EdgeInsets.only(top: isHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 0.h),
+        padding: EdgeInsets.only(top: isHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 15.h),
         alignment: Alignment.centerLeft,
         child: DefaultTabController(
           length: 4,
@@ -314,7 +314,7 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
   }
 
   double get extentHeight {
-    return isHasNotch ? 90.h : 60.h;
+    return isHasNotch ? 90.h : 80.h;
   }
 
   @override

@@ -16,18 +16,18 @@ class _APIClient implements APIClient {
   String? baseUrl;
 
   @override
-  Future<FluttourDoctorResponse> getFluttourDoctor() async {
+  Future<FluttourResponse> getFluttourDoctor() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<FluttourDoctorResponse>(
+        _setStreamType<FluttourResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/fluttour-doctor',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = FluttourDoctorResponse.fromJson(_result.data!);
+    final value = FluttourResponse.fromJson(_result.data!);
     return value;
   }
 

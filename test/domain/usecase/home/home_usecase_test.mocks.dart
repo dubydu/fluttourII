@@ -7,8 +7,7 @@ import 'dart:async' as _i6;
 import 'package:connectivity/connectivity.dart' as _i3;
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:fluttour/data/api/api_client/error/error.dart' as _i7;
-import 'package:fluttour/data/api/response/fluttour_doctor_response.dart'
-    as _i8;
+import 'package:fluttour/data/api/response/fluttour_response.dart' as _i8;
 import 'package:fluttour/data/datasource/home/home_datasource.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -48,13 +47,13 @@ class MockMockHomeRepository extends _i1.Mock
       (super.noSuchMethod(Invocation.getter(#connectivity),
           returnValue: _FakeConnectivity_1()) as _i3.Connectivity);
   @override
-  _i6.Future<_i4.Either<_i7.Failure, _i8.FluttourDoctorResponse>>
+  _i6.Future<_i4.Either<_i7.Failure, _i8.FluttourResponse>>
       getFluttourDoctor() => (super.noSuchMethod(
-          Invocation.method(#getFluttourDoctor, []),
-          returnValue: Future<
-                  _i4.Either<_i7.Failure, _i8.FluttourDoctorResponse>>.value(
-              _FakeEither_2<_i7.Failure, _i8.FluttourDoctorResponse>())) as _i6
-          .Future<_i4.Either<_i7.Failure, _i8.FluttourDoctorResponse>>);
+              Invocation.method(#getFluttourDoctor, []),
+              returnValue:
+                  Future<_i4.Either<_i7.Failure, _i8.FluttourResponse>>.value(
+                      _FakeEither_2<_i7.Failure, _i8.FluttourResponse>()))
+          as _i6.Future<_i4.Either<_i7.Failure, _i8.FluttourResponse>>);
   @override
   _i6.Future<bool> isInConnection() =>
       (super.noSuchMethod(Invocation.method(#isInConnection, []),
