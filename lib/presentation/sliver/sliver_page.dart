@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttour/presentation/base/base_material_page.dart';
@@ -24,17 +25,18 @@ class SliverPageState extends State<SliverPage>
   Future<void> afterFirstLayout(BuildContext context) async {
     _sliverBloc = BlocProvider.of(context, listen: false);
     _scrollController.addListener(_scrollControllerObserver);
+    await _sliverBloc.fetchBrand();
   }
 
   void _scrollControllerObserver() {
     double y = AppDevice.detectWidgetPosition(globalKey: categoryWidgetKey).dy;
     if (y <= 10.h) {
       if (!_sliverBloc.state.isCategoryWidgetOnTop) {
-        _sliverBloc.onCategoryWidgetChanged(pinned: true);
+        _sliverBloc.onCategoryWidgetChanged(isOnTop: true);
       }
     } else {
       if (_sliverBloc.state.isCategoryWidgetOnTop) {
-        _sliverBloc.onCategoryWidgetChanged(pinned: false);
+        _sliverBloc.onCategoryWidgetChanged(isOnTop: false);
       }
     }
   }
@@ -45,58 +47,83 @@ class SliverPageState extends State<SliverPage>
     return BaseMaterialPage(
       child: Scaffold(
         backgroundColor: AppColor.white,
-        body: CustomScrollView(
-          controller: _scrollController,
-          slivers: <Widget>[
-            // Header
-            SliverPersistentHeader(
-              pinned: false,
-              delegate: HeaderImageWidget(),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 0.h,
-              ),
-            ),
-            // Description
-            const SliverToBoxAdapter(
-              child: HeaderDescriptionWidget()
-            ),
-            // Featured Items
-            const SliverToBoxAdapter(
-                child: FeaturedItemsWidget()
-            ),
-            // Category Tabs
-            BlocBuilder<SliverBloc, SliverState>(
-              builder: (context, state) {
-                return SliverPersistentHeader(
-                    pinned: true,
-                    delegate: CategoryWidget(
-                        categoryWidgetKey: categoryWidgetKey,
-                        isWidgetOnTop: state.isCategoryWidgetOnTop,
-                        isHasNotch: AppDevice.isHasNotch(context: this.context)
-                    )
-                );
-              },
-            ),
-            const SliverToBoxAdapter(
-                child: SectionWidget()
-            ),
-          ],
-        ),
+        body: BlocBuilder<SliverBloc, SliverState>(
+          buildWhen: (current, previous) => (current.brand != previous.brand),
+          builder: (context, state) {
+            if (state.brand != null) {
+              return CustomScrollView(
+                controller: _scrollController,
+                slivers: <Widget>[
+                  // Header
+                  SliverPersistentHeader(
+                    pinned: false,
+                    delegate: HeaderImageWidget(
+                      state: state
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 0.h,
+                    ),
+                  ),
+                  // Description
+                  SliverToBoxAdapter(
+                      child: HeaderDescriptionWidget(
+                        state: state,
+                      )
+                  ),
+                  // Featured Items
+                  const SliverToBoxAdapter(
+                      child: FeaturedItemsWidget()
+                  ),
+                  // Category Tabs
+                  BlocBuilder<SliverBloc, SliverState>(
+                    buildWhen: (previous, current)
+                    => (previous.isCategoryWidgetOnTop != current.isCategoryWidgetOnTop),
+                    builder: (context, state) {
+                      return SliverPersistentHeader(
+                          pinned: true,
+                          delegate: CategoryWidget(
+                              categoryWidgetKey: categoryWidgetKey,
+                              isWidgetOnTop: state.isCategoryWidgetOnTop,
+                              isHasNotch: AppDevice.isHasNotch(context: this.context)
+                          )
+                      );
+                    },
+                  ),
+                  const SliverToBoxAdapter(
+                      child: SectionWidget()
+                  ),
+                ],
+              );
+            } else {
+              return Center(
+                child: SizedBox(
+                  width: 24.sp,
+                  height: 24.sp,
+                  child: const CupertinoActivityIndicator(),
+                ),
+              );
+            }
+          },
+        )
       ),
     );
   }
 }
 
 class HeaderImageWidget extends SliverPersistentHeaderDelegate {
+  HeaderImageWidget({required this.state});
+
+  final SliverState state;
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox(
       width: double.infinity,
       height: 280.h,
-      child: const ImageBuilder('https://iili.io/hLyNI9.png', fit: BoxFit.cover),
+      child: ImageBuilder(state.brand?.image, fit: BoxFit.cover),
     );
   }
 
@@ -113,7 +140,9 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
 }
 
 class HeaderDescriptionWidget extends StatelessWidget {
-  const HeaderDescriptionWidget({Key? key}) : super(key: key);
+  const HeaderDescriptionWidget({Key? key, required this.state}) : super(key: key);
+
+  final SliverState state;
 
   @override
   Widget build(BuildContext context) {
@@ -122,10 +151,10 @@ class HeaderDescriptionWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          AppText.h3('Mayfield Bakery & Cafe'),
+          AppText.h3(state.brand?.name ?? ''),
           Container(
             padding: EdgeInsets.only(top: 14.h),
-            child: AppText.body('American • Deshi food • Chinese'),
+            child: AppText.body(state.brand?.tags?.join('  •  ') ?? ''),
           ),
           Container(
             padding: EdgeInsets.only(top: 14.h),
@@ -171,7 +200,7 @@ class HeaderDescriptionWidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            AppText.body('25', color: AppColor.black),
+                            AppText.body(state.brand?.duration ?? '', color: AppColor.black),
                             SizedBox(height: 4.h),
                             AppText.small('Minutes'),
                           ],
@@ -272,7 +301,12 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
           child: TabBar(
             indicatorColor: AppColor.transparent,
             isScrollable: true,
-            tabs: [AppText.h3('Dim Sum'), AppText.h3('Appetizers'), AppText.h3('Seafood'), AppText.h3('Beef & Lamb')]
+            tabs: [
+              AppText.h3('Dim Sum'),
+              AppText.h3('Appetizers'),
+              AppText.h3('Seafood'),
+              AppText.h3('Beef & Lamb')
+            ]
           ),
         ),
       ),
@@ -280,7 +314,7 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
   }
 
   double get extentHeight {
-    return isHasNotch ? (isWidgetOnTop ? 90.h : 60.h) : 60.h;
+    return isHasNotch ? 90.h : 60.h;
   }
 
   @override

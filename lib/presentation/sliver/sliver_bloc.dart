@@ -5,7 +5,7 @@ import 'package:fluttour/domain/model/brand.dart';
 import 'package:fluttour/domain/usecase/sliver/sliver_usecase.dart';
 
 class SliverBloc extends Cubit<SliverState> {
-  SliverBloc({required this.useCase}) : super(SliverInitialState());
+  SliverBloc({required this.useCase}) : super(const SliverInitialState());
 
   final SliverUseCase useCase;
 

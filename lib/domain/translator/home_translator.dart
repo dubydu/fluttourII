@@ -2,9 +2,7 @@ import 'package:fluttour/data/api/response/fluttour_doctor_response.dart';
 import 'package:fluttour/domain/model/fluttour_doctor.dart';
 
 class HomeTranslator {
-  /// To Request
-
-  /// To Models
+  /// To Model
   static FluttourDoctor toModel({required FluttourDoctorResponse response}) {
     return FluttourDoctor(
         flutterVersion: response.flutterVersion,
