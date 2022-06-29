@@ -73,12 +73,14 @@ class _HomePageState extends State<HomePage>
                     fontSize: 12,
                   ),
                   SizedBox(height: 32.h),
+                  /*
                   AppPrimaryButton(
                     title: LocaleTexts.next.tr(),
                     onPressed: () {
                       transitionToSliverPage();
                     },
                   )
+                  */
                 ],
               );
             } else {
