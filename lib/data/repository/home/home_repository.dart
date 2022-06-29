@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:fluttour/data/api/api_client/error/error.dart';
 import 'package:fluttour/data/api/response/fluttour_response.dart';
-import 'package:fluttour/data/datasource/home/home_datasource.dart';
+import 'package:fluttour/data/datasource/home/home_datasource_type.dart';
 import 'package:fluttour/util/app_mixin.dart';
 import 'home_repository_type.dart';
 
 class HomeRepository with ConnectivityMixin implements HomeRepositoryType  {
   HomeRepository({required this.dataSource});
 
-  final HomeDataSource dataSource;
+  final HomeDataSourceType dataSource;
 
   @override
   Future<Either<Failure, FluttourResponse>> getFluttourDoctor() async {

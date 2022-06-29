@@ -3,12 +3,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttour/domain/model/brand.dart';
 import 'package:fluttour/domain/model/dish.dart';
-import 'package:fluttour/domain/usecase/sliver/sliver_usecase.dart';
+import 'package:fluttour/domain/usecase/sliver/sliver_usecase_type.dart';
 
 class SliverBloc extends Cubit<SliverState> {
   SliverBloc({required this.useCase}) : super(const SliverInitialState());
 
-  final SliverUseCase useCase;
+  final SliverUseCaseType useCase;
 
   Future<void> fetchBrand() async {
     final response = await useCase.getBrand(id: 1);

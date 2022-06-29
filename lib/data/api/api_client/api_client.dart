@@ -1,19 +1,23 @@
 import 'package:dio/dio.dart';
-import 'package:fluttour/data/api/response/brand_response.dart';
-import 'package:fluttour/data/api/response/fluttour_response.dart';
-import 'package:retrofit/retrofit.dart' as retrofit;
+import 'api_client_type.dart';
+import 'interceptor/curl_log.dart';
+import 'interceptor/query.dart';
 
-part 'api_client.g.dart';
-
-@retrofit.RestApi()
-abstract class APIClient {
-  factory APIClient(Dio dio, {String baseUrl}) = _APIClient;
-
-  @retrofit.GET('/fluttour-doctor')
-  Future<FluttourResponse> getFluttourDoctor();
-
-  @retrofit.GET('/brand/{id}')
-  Future<BrandResponse> getBrand({
-    @retrofit.Path('id') required int id
-  });
+class APIClient {
+  static APIClientType apiClient({
+    required String baseDomain,
+    String? identityBaseDomain,
+    bool disableRequestBodyLogging = false,
+    bool ignoreToken = false,
+    bool ignoreConnection = false
+  }) {
+    final dio = Dio();
+    dio.interceptors.add(CurlLogInterceptor(disableRequestBody: disableRequestBodyLogging));
+    dio.interceptors.add(QueryInterceptor(
+      identityBaseDomain: identityBaseDomain,
+      ignoreConnection: ignoreConnection,
+      ignoreToken: ignoreToken,
+    ));
+    return APIClientType(dio, baseUrl: baseDomain);
+  }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_client.dart';
+part of 'api_client_type.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'api_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-class _APIClient implements APIClient {
-  _APIClient(this._dio, {this.baseUrl});
+class _APIClientType implements APIClientType {
+  _APIClientType(this._dio, {this.baseUrl});
 
   final Dio _dio;
 

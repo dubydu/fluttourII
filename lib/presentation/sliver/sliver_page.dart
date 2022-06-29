@@ -32,13 +32,13 @@ class SliverPageState extends State<SliverPage>
     _sliverBloc = BlocProvider.of(context, listen: false);
     // Add scroll listener
     _scrollController.addListener(_scrollControllerObserver);
-    // Fetch brand data
-    await _sliverBloc.fetchBrand();
     // Init tab controller
     _tabController = TabController(
         length: _sliverBloc.state.categories?.length ?? 0,
         vsync: this
     );
+    // Fetch brand data
+    await _sliverBloc.fetchBrand();
   }
 
   void _scrollControllerObserver() {
@@ -101,7 +101,6 @@ class SliverPageState extends State<SliverPage>
                             state: state,
                             categoryWidgetKey: categoryWidgetKey,
                             isWidgetOnTop: state.isCategoryWidgetOnTop,
-                            controller: _tabController,
                             isHasNotch: AppDevice.isHasNotch(context: this.context)
                           )
                       );
@@ -295,7 +294,6 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
   const CategoryWidget({
     required this.state,
     required this.categoryWidgetKey,
-    required this.controller,
     required this.isWidgetOnTop,
     required this.isHasNotch
   });
@@ -304,7 +302,6 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
   final GlobalKey categoryWidgetKey;
   final bool isWidgetOnTop;
   final bool isHasNotch;
-  final TabController controller;
 
   @override
   Widget build(

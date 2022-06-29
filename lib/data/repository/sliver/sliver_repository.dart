@@ -2,14 +2,14 @@ import 'package:dartz/dartz.dart';
 import 'package:fluttour/data/api/api_client/error/error.dart';
 import 'package:fluttour/data/api/request/brand_request.dart';
 import 'package:fluttour/data/api/response/brand_response.dart';
-import 'package:fluttour/data/datasource/sliver/sliver_datasource.dart';
+import 'package:fluttour/data/datasource/sliver/sliver_datasource_type.dart';
 import 'package:fluttour/data/repository/sliver/sliver_repository_type.dart';
 import 'package:fluttour/util/app_mixin.dart';
 
 class SliverRepository with ConnectivityMixin implements SliverRepositoryType {
   SliverRepository({required this.dataSource});
 
-  final SliverDataSource dataSource;
+  final SliverDataSourceType dataSource;
 
   @override
   Future<Either<Failure, BrandResponse>> getBrand({required BrandRequest request}) async {

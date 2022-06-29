@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fluttour/data/api/api_client/error/error.dart';
 import 'package:fluttour/data/api/request/brand_request.dart';
-import 'package:fluttour/data/repository/sliver/sliver_repository.dart';
+import 'package:fluttour/data/repository/sliver/sliver_repository_type.dart';
 import 'package:fluttour/domain/model/brand.dart';
 import 'package:fluttour/domain/model/dish.dart';
 import 'package:fluttour/domain/translator/sliver_translator.dart';
@@ -9,7 +9,8 @@ import 'package:fluttour/domain/usecase/sliver/sliver_usecase_type.dart';
 
 class SliverUseCase extends SliverUseCaseType {
   SliverUseCase({required this.repository});
-  SliverRepository repository;
+
+  SliverRepositoryType repository;
 
   @override
   Future<Either<Failure, Tuple2<Brand, List<DishCategory>>>> getBrand({required int id}) async {

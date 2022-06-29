@@ -6,6 +6,7 @@ import 'package:fluttour/data/repository/home/home_repository.dart';
 import 'package:fluttour/domain/model/fluttour.dart';
 import 'package:fluttour/domain/translator/home_translator.dart';
 import 'package:fluttour/domain/usecase/home/home_usecase.dart';
+import 'package:fluttour/domain/usecase/home/home_usecase_type.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import '../../../mock/home_responses_mock.dart';
@@ -28,7 +29,7 @@ void main() {
               .getFluttourDoctor())
           .thenAnswer((_) async => right(fluttourResponse)
       );
-      final HomeUseCase homeUseCase = HomeUseCase(repository: mockHomeRepository);
+      final HomeUseCaseType homeUseCase = HomeUseCase(repository: mockHomeRepository);
       final Either<Failure, Fluttour> response = await homeUseCase.getFluttourDoctor();
       expect(HomeTranslator.toModel(response: fluttourResponse), response.toOption().toNullable());
     });
@@ -39,7 +40,7 @@ void main() {
               .getFluttourDoctor())
           .thenAnswer((_) async => left(const NoAuthenticationFailure())
       );
-      final HomeUseCase homeUseCase = HomeUseCase(repository: mockHomeRepository);
+      final HomeUseCaseType homeUseCase = HomeUseCase(repository: mockHomeRepository);
       final Either<Failure, Fluttour> response = await homeUseCase.getFluttourDoctor();
       expect(response.isLeft(), isTrue);
     });
