@@ -15,7 +15,6 @@ dependencies:
   dio: ^4.0.6
   pretty_dio_logger: ^1.1.1
   dartz: ^0.10.1
-  get_it: ^7.2.0
   retrofit: ^3.0.1+1
   connectivity: ^3.0.6
   # State management
