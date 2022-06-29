@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_client.dart';
+part of 'api_client_type.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,26 +8,42 @@ part of 'api_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-class _APIClient implements APIClient {
-  _APIClient(this._dio, {this.baseUrl});
+class _APIClientType implements APIClientType {
+  _APIClientType(this._dio, {this.baseUrl});
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<FluttourDoctorResponse> getFluttourDoctor() async {
+  Future<FluttourResponse> getFluttourDoctor() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<FluttourDoctorResponse>(
+        _setStreamType<FluttourResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/fluttour-doctor',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = FluttourDoctorResponse.fromJson(_result.data!);
+    final value = FluttourResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BrandResponse> getBrand({required id}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BrandResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/brand/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BrandResponse.fromJson(_result.data!);
     return value;
   }
 

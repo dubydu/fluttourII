@@ -1,5 +1,5 @@
-import 'package:fluttour/data/api/response/fluttour_doctor_response.dart';
+import 'package:fluttour/data/api/response/fluttour_response.dart';
 
 abstract class HomeDataSourceType {
-  Future<FluttourDoctorResponse> getFluttourDoctor();
+  Future<FluttourResponse> getFluttourDoctor();
 }

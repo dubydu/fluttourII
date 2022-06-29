@@ -8,3 +8,4 @@ export 'app_global.dart';
 export 'app_mixin.dart';
 export 'app_router.dart';
 export 'widget/app_primary_button.dart';
+export 'extensions/app_device.dart';

@@ -6,8 +6,14 @@ abstract class AppIcon {
 
   static const String _assetPath = "assets/icons/";
 
-  static AppImageBuilder get iconBurgerMenu =>
-      AppImageBuilder('${_assetPath}ic_burger_menu.svg');
+  static AppImageBuilder get iconStar =>
+      AppImageBuilder('${_assetPath}ic_star.svg');
+
+  static AppImageBuilder get iconDeliveryTime =>
+      AppImageBuilder('${_assetPath}ic_delivery_time.svg');
+
+  static AppImageBuilder get iconDeliveryPrice =>
+      AppImageBuilder('${_assetPath}ic_delivery_price.svg');
 }
 
 class AppImageBuilder {

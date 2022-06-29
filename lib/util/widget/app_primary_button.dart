@@ -15,11 +15,14 @@ class AppPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-        colorScheme: const ColorScheme.light(primary: AppColor.darkGray),
+        colorScheme: const ColorScheme.light(primary: AppColor.active),
       ),
       child: OutlinedButton(
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(width: 1.sp, color: AppColor.active),
+          ),
           onPressed: onPressed,
-          child: AppText.primaryButtonText(title)
+          child: AppText.primaryButtonText(title, color: AppColor.active)
       ),
     );
   }

@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'fluttour_doctor_response.g.dart';
+part 'fluttour_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class FluttourDoctorResponse {
-  FluttourDoctorResponse({
+class FluttourResponse {
+  FluttourResponse({
     this.flutterVersion,
     this.dartVersion,
     this.devToolsVersion,
@@ -17,7 +17,7 @@ class FluttourDoctorResponse {
   final String? cocoapodsVersion;
   final String? frameworkRevision;
 
-  factory FluttourDoctorResponse.fromJson(Map<String, dynamic> json) =>
-      _$FluttourDoctorResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$FluttourDoctorResponseToJson(this);
+  factory FluttourResponse.fromJson(Map<String, dynamic> json) =>
+      _$FluttourResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$FluttourResponseToJson(this);
 }

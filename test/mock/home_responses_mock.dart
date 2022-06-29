@@ -1,8 +1,8 @@
-import 'package:fluttour/data/api/response/fluttour_doctor_response.dart';
+import 'package:fluttour/data/api/response/fluttour_response.dart';
 
 class HomeResponsesMock {
-  static get fluttourDoctorResponse {
-    return FluttourDoctorResponse(
+  static get fluttourResponse {
+    return FluttourResponse(
         flutterVersion: 'Channel stable, 3.0.2',
         dartVersion: '2.17.3',
         devToolsVersion: '2.12.2',

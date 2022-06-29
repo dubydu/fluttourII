@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'fluttour_doctor_response.dart';
+part of 'fluttour_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FluttourDoctorResponse _$FluttourDoctorResponseFromJson(
-        Map<String, dynamic> json) =>
-    FluttourDoctorResponse(
+FluttourResponse _$FluttourResponseFromJson(Map<String, dynamic> json) =>
+    FluttourResponse(
       flutterVersion: json['flutterVersion'] as String?,
       dartVersion: json['dartVersion'] as String?,
       devToolsVersion: json['devToolsVersion'] as String?,
@@ -16,8 +15,7 @@ FluttourDoctorResponse _$FluttourDoctorResponseFromJson(
       frameworkRevision: json['frameworkRevision'] as String?,
     );
 
-Map<String, dynamic> _$FluttourDoctorResponseToJson(
-        FluttourDoctorResponse instance) =>
+Map<String, dynamic> _$FluttourResponseToJson(FluttourResponse instance) =>
     <String, dynamic>{
       'flutterVersion': instance.flutterVersion,
       'dartVersion': instance.dartVersion,

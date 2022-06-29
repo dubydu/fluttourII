@@ -7,9 +7,8 @@ import 'dart:async' as _i6;
 import 'package:connectivity/connectivity.dart' as _i3;
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:fluttour/data/api/api_client/error/error.dart' as _i7;
-import 'package:fluttour/data/api/response/fluttour_doctor_response.dart'
-    as _i8;
-import 'package:fluttour/data/datasource/home/home_datasource.dart' as _i2;
+import 'package:fluttour/data/api/response/fluttour_response.dart' as _i8;
+import 'package:fluttour/data/datasource/home/home_datasource_type.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 import 'home_usecase_test.dart' as _i5;
@@ -24,7 +23,8 @@ import 'home_usecase_test.dart' as _i5;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeHomeDataSource_0 extends _i1.Fake implements _i2.HomeDataSource {}
+class _FakeHomeDataSourceType_0 extends _i1.Fake
+    implements _i2.HomeDataSourceType {}
 
 class _FakeConnectivity_1 extends _i1.Fake implements _i3.Connectivity {}
 
@@ -40,21 +40,21 @@ class MockMockHomeRepository extends _i1.Mock
   }
 
   @override
-  _i2.HomeDataSource get dataSource =>
+  _i2.HomeDataSourceType get dataSource =>
       (super.noSuchMethod(Invocation.getter(#dataSource),
-          returnValue: _FakeHomeDataSource_0()) as _i2.HomeDataSource);
+          returnValue: _FakeHomeDataSourceType_0()) as _i2.HomeDataSourceType);
   @override
   _i3.Connectivity get connectivity =>
       (super.noSuchMethod(Invocation.getter(#connectivity),
           returnValue: _FakeConnectivity_1()) as _i3.Connectivity);
   @override
-  _i6.Future<_i4.Either<_i7.Failure, _i8.FluttourDoctorResponse>>
+  _i6.Future<_i4.Either<_i7.Failure, _i8.FluttourResponse>>
       getFluttourDoctor() => (super.noSuchMethod(
-          Invocation.method(#getFluttourDoctor, []),
-          returnValue: Future<
-                  _i4.Either<_i7.Failure, _i8.FluttourDoctorResponse>>.value(
-              _FakeEither_2<_i7.Failure, _i8.FluttourDoctorResponse>())) as _i6
-          .Future<_i4.Either<_i7.Failure, _i8.FluttourDoctorResponse>>);
+              Invocation.method(#getFluttourDoctor, []),
+              returnValue:
+                  Future<_i4.Either<_i7.Failure, _i8.FluttourResponse>>.value(
+                      _FakeEither_2<_i7.Failure, _i8.FluttourResponse>()))
+          as _i6.Future<_i4.Either<_i7.Failure, _i8.FluttourResponse>>);
   @override
   _i6.Future<bool> isInConnection() =>
       (super.noSuchMethod(Invocation.method(#isInConnection, []),

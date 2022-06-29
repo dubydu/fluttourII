@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage>
       child: SafeArea(
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            if (state.fluttourDoctor != null) {
+            if (state.fluttour != null) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage>
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 8.h),
-                  AppText.bodyMedium(
-                    state.fluttourDoctor?.flutterVersion ?? '',
+                  AppText.body(
+                    state.fluttour?.flutterVersion ?? '',
                     color: AppColor.black,
                     textAlign: TextAlign.center,
                     fontSize: 12,
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage>
                   AppPrimaryButton(
                     title: LocaleTexts.next.tr(),
                     onPressed: () {
-                      print('Hi there');
+                      transitionToSliverPage();
                     },
                   )
                   */

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttour/presentation/home/home_page.dart';
+import 'package:fluttour/presentation/sliver/sliver_page.dart';
 import 'package:fluttour/presentation/splash/splash_page.dart';
 import 'package:fluttour/router/routes.dart';
 
@@ -20,6 +21,8 @@ Route<Object>? generateRoute(RouteSettings settings) {
       return _buildRoute(settings: settings, screen: const HomePage());
     case AppRoute.root:
       return _buildRoute(settings: settings, screen: const SplashPage());
+    case AppRoute.sliver:
+      return _buildRoute(settings: settings, screen: const SliverPage());
   }
 }
 
