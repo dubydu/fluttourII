@@ -3,6 +3,7 @@ import 'package:fluttour/data/api/api_client/error/error.dart';
 import 'package:fluttour/data/api/request/brand_request.dart';
 import 'package:fluttour/data/repository/sliver/sliver_repository.dart';
 import 'package:fluttour/domain/model/brand.dart';
+import 'package:fluttour/domain/model/dish.dart';
 import 'package:fluttour/domain/translator/sliver_translator.dart';
 import 'package:fluttour/domain/usecase/sliver/sliver_usecase_type.dart';
 
@@ -11,8 +12,13 @@ class SliverUseCase extends SliverUseCaseType {
   SliverRepository repository;
 
   @override
-  Future<Either<Failure, Brand>> getBrand({required int id}) async {
+  Future<Either<Failure, Tuple2<Brand, List<DishCategory>>>> getBrand({required int id}) async {
     final result = await repository.getBrand(request: BrandRequest(id: id));
-    return result.map((response) => SliverTranslator.toBrandModel(response: response));
+    return result.map((response) {
+      final brand = SliverTranslator.toBrandModel(response: response);
+      final dishCategories = SliverTranslator.toDishCategories(brand: brand);
+      return Tuple2(brand, dishCategories);
+      }
+    );
   }
 }

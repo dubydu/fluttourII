@@ -6,7 +6,7 @@ import 'package:fluttour/data/datasource/sliver/sliver_datasource.dart';
 import 'package:fluttour/data/repository/sliver/sliver_repository_type.dart';
 import 'package:fluttour/util/app_mixin.dart';
 
-class SliverRepository with ConnectivityMixin implements SliverRepositoryType  {
+class SliverRepository with ConnectivityMixin implements SliverRepositoryType {
   SliverRepository({required this.dataSource});
 
   final SliverDataSource dataSource;

@@ -36,3 +36,35 @@ class Dish extends Equatable {
     available,
   ];
 }
+
+
+class DishCategory extends Equatable {
+  const DishCategory({
+    required this.id,
+    required this.name,
+    required this.dishes,
+    required this.isSelected
+  });
+
+  final int? id;
+  final String? name;
+  final List<Dish>? dishes;
+  final bool isSelected;
+
+  DishCategory copyWith({
+    int? id,
+    String? name,
+    List<Dish>? dishes,
+    bool? isSelected
+  }) {
+    return DishCategory(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        dishes: dishes ?? this.dishes,
+        isSelected: isSelected ?? this.isSelected
+    );
+  }
+
+  @override
+  List<Object?> get props => [id, name, dishes, isSelected];
+}

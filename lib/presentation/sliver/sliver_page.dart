@@ -15,17 +15,30 @@ class SliverPage extends StatefulWidget {
 }
 
 class SliverPageState extends State<SliverPage>
-    with AfterLayoutMixin, ResponsiveMixin {
+    with AfterLayoutMixin, ResponsiveMixin, SingleTickerProviderStateMixin {
 
+  // Sliver bloc
   late SliverBloc _sliverBloc;
+  // Scroll controller
   late final ScrollController _scrollController = ScrollController();
+  // Global key
   final GlobalKey categoryWidgetKey = GlobalKey();
+  // Tab controller
+  late TabController _tabController;
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
+    // Init sliver bloc
     _sliverBloc = BlocProvider.of(context, listen: false);
+    // Add scroll listener
     _scrollController.addListener(_scrollControllerObserver);
+    // Fetch brand data
     await _sliverBloc.fetchBrand();
+    // Init tab controller
+    _tabController = TabController(
+        length: _sliverBloc.state.categories?.length ?? 0,
+        vsync: this
+    );
   }
 
   void _scrollControllerObserver() {
@@ -79,14 +92,17 @@ class SliverPageState extends State<SliverPage>
                   // Category Tabs
                   BlocBuilder<SliverBloc, SliverState>(
                     buildWhen: (previous, current)
-                    => (previous.isCategoryWidgetOnTop != current.isCategoryWidgetOnTop),
+                    => ((previous.isCategoryWidgetOnTop != current.isCategoryWidgetOnTop)
+                        || (previous.categories != current.categories)),
                     builder: (context, state) {
                       return SliverPersistentHeader(
                           pinned: true,
                           delegate: CategoryWidget(
-                              categoryWidgetKey: categoryWidgetKey,
-                              isWidgetOnTop: state.isCategoryWidgetOnTop,
-                              isHasNotch: AppDevice.isHasNotch(context: this.context)
+                            state: state,
+                            categoryWidgetKey: categoryWidgetKey,
+                            isWidgetOnTop: state.isCategoryWidgetOnTop,
+                            controller: _tabController,
+                            isHasNotch: AppDevice.isHasNotch(context: this.context)
                           )
                       );
                     },
@@ -277,14 +293,19 @@ class FeaturedItemsWidget extends StatelessWidget {
 
 class CategoryWidget extends  SliverPersistentHeaderDelegate {
   const CategoryWidget({
+    required this.state,
     required this.categoryWidgetKey,
+    required this.controller,
     required this.isWidgetOnTop,
     required this.isHasNotch
   });
 
+  final SliverState state;
   final GlobalKey categoryWidgetKey;
   final bool isWidgetOnTop;
   final bool isHasNotch;
+  final TabController controller;
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -294,19 +315,25 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         key: categoryWidgetKey,
-        padding: EdgeInsets.only(top: isHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 15.h),
+        padding: EdgeInsets.only(
+            top: isHasNotch
+                ? (isWidgetOnTop ? 30.h : 0.h)
+                : 15.h),
         alignment: Alignment.centerLeft,
         child: DefaultTabController(
-          length: 4,
+          length: state.categories!.length,
           child: TabBar(
+            onTap: (int index) {
+              context.read<SliverBloc>().onCategorySelected(dishCategory: state.categories![index]);
+            },
             indicatorColor: AppColor.transparent,
             isScrollable: true,
-            tabs: [
-              AppText.h3('Dim Sum'),
-              AppText.h3('Appetizers'),
-              AppText.h3('Seafood'),
-              AppText.h3('Beef & Lamb')
-            ]
+            tabs: state.categories!.map((category) =>
+                AppText.h3(
+                    category.name ?? '',
+                    color: category.isSelected ? AppColor.active : AppColor.black.withOpacity(.7)
+                )
+            ).toList()
           ),
         ),
       ),
