@@ -14,7 +14,6 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 ### [Main Packages](#main-packages)
 * [`flutter_bloc`](https://pub.dev/packages/flutter_bloc): State management package.
 * [`dio`](https://pub.dev/packages/dio): A powerful Http client for Dart.
-* [`get_it`](https://pub.dev/packages/get_it): A Service Locator for Dart and Flutter projects.
 * [`mockito`](https://pub.dev/packages/mockito): A mock framework with APIs for Fakes, Mocks, behavior verification, and stubbing.
 
 ### [Usage](#usage)
@@ -46,8 +45,8 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   │   │   ├── curl_log.dart
 │       │   │   │   │   └── query.dart
 │       │   │   │   ├── api_client.dart
-│       │   │   │   ├── api_client.g.dart
-│       │   │   │   └── api_client_type.dart 
+│       │   │   │   ├── api_client_type.dart
+│       │   │   │   └── api_client_type.g.dart 
 │       │   │   ├── request
 │       │   │   │   ├── dummy_request.dart
 │       │   │   │   └── dummy_request.g.dart
@@ -63,7 +62,10 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │       ├── dummy_repository.dart
 │       │   │       └── dummy_repository_type.dart
 │       ├── di
-│       │   └── service_locator.dart
+│       │   ├── client_module.dart
+│       │   ├── datasource_module.dart
+│       │   ├── repository_module.dart
+│       │   └── usecase_module.dart
 │       ├── domain
 │       │   ├── model
 │       │   │   ├── empty.dart
@@ -88,7 +90,6 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   ├── gen_route.dart
 │       │   ├── named_route.dart
 │       │   ├── navigation_controller.dart
-│       │   ├── navigation_observer.dart
 │       │   └── routes.dart
 │       ├── util
 │       │   ├── assets
@@ -97,6 +98,7 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   ├── app_image.dart
 │       │   │   ├── app_locale.dart
 │       │   │   └── app_text.dart
+│       │   ├── extension
 │       │   ├── widget
 │       │   ├── app_global.dart
 │       │   ├── app_mixin.dart
