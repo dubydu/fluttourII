@@ -13,7 +13,9 @@ class APIClient {
     required String authToken
   }) {
     final dio = Dio();
-    dio.interceptors.add(CurlLogInterceptor(disableRequestBody: disableRequestBodyLogging));
+    dio.interceptors.add(CurlLogInterceptor(
+        disableRequestBody: disableRequestBodyLogging)
+    );
     dio.interceptors.add(QueryInterceptor(
       identityBaseDomain: identityBaseDomain,
       ignoreConnection: ignoreConnection,
