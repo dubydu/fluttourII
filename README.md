@@ -35,7 +35,10 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │   │   └── locales
 │   └── lib
 │       ├── config
-│       │   └── app_config.dart
+│       │   ├── app_config.dart
+│       │   ├── app_config_type.dart
+│       │   ├── app_secure_config.dart
+│       │   └── app_secure_config_type.dart
 │       ├── data
 │       │   ├── api
 │       │   │   ├── api_client
@@ -63,6 +66,7 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │       └── dummy_repository_type.dart
 │       ├── di
 │       │   ├── client_module.dart
+│       │   ├── config_module.dart
 │       │   ├── datasource_module.dart
 │       │   ├── repository_module.dart
 │       │   └── usecase_module.dart

@@ -14,8 +14,8 @@ class APIClient {
   }) {
     final dio = Dio();
     dio.interceptors.add(CurlLogInterceptor(
-        disableRequestBody: disableRequestBodyLogging)
-    );
+        disableRequestBody: disableRequestBodyLogging
+    ));
     dio.interceptors.add(QueryInterceptor(
       identityBaseDomain: identityBaseDomain,
       ignoreConnection: ignoreConnection,
