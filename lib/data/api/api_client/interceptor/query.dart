@@ -13,12 +13,14 @@ class QueryInterceptor extends InterceptorsWrapper {
   final bool ignoreToken;
   final Connectivity connectivity = Connectivity();
   final bool ignoreConnection;
+  final String authToken;
 
   QueryInterceptor({
         this.expectResponseJson = false,
         required this.identityBaseDomain,
         this.ignoreConnection = false,
         this.ignoreToken = false,
+        required this.authToken
   });
 
   @override
@@ -31,8 +33,7 @@ class QueryInterceptor extends InterceptorsWrapper {
       }
     }
     if (!ignoreToken) {
-      const token = '';
-      options.headers.addAll(<String, String>{_authorization: token});
+      options.headers.addAll(<String, String>{_authorization: authToken});
     }
     return super.onRequest(options, handler);
   }

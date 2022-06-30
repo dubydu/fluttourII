@@ -9,7 +9,6 @@ mixin DatasourceModule on ClientModule {
   HomeDataSourceType get homeDataSource {
     return HomeDataSource(apiClient: apiClient);
   }
-
   /// SliverDataSource
   SliverDataSourceType get sliverDataSource {
     return SliverDataSource(apiClient: apiClient);

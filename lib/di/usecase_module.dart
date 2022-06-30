@@ -8,7 +8,6 @@ mixin UseCaseModule on RepositoryModule {
   HomeUseCase get homeUseCase {
     return HomeUseCase(repository: homeRepository);
   }
-
   /// SliverUseCase
   SliverUseCaseType get sliverUseCase {
     return SliverUseCase(repository: sliverRepository);

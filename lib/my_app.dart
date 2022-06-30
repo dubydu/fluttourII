@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttour/config/app_secure_config.dart';
 import 'package:fluttour/di/client_module.dart';
+import 'package:fluttour/di/config_module.dart';
 import 'package:fluttour/di/datasource_module.dart';
 import 'package:fluttour/di/repository_module.dart';
 import 'package:fluttour/di/usecase_module.dart';
@@ -36,7 +38,11 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp>
-    with ClientModule, DatasourceModule, RepositoryModule, UseCaseModule {
+    with ConfigModule,
+        ClientModule,
+        DatasourceModule,
+        RepositoryModule,
+        UseCaseModule {
 
   @override
   Widget build(BuildContext context) {

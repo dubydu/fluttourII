@@ -9,7 +9,6 @@ mixin RepositoryModule on DatasourceModule {
   HomeRepositoryType get homeRepository {
     return HomeRepository(dataSource: homeDataSource);
   }
-
   /// SliverRepository
   SliverRepositoryType get sliverRepository {
     return SliverRepository(dataSource: sliverDataSource);
