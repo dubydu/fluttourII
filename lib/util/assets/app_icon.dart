@@ -14,6 +14,15 @@ abstract class AppIcon {
 
   static AppImageBuilder get iconDeliveryPrice =>
       AppImageBuilder('${_assetPath}ic_delivery_price.svg');
+
+  static AppImageBuilder get iconBack =>
+      AppImageBuilder('${_assetPath}ic_back.svg');
+
+  static AppImageBuilder get iconShare =>
+      AppImageBuilder('${_assetPath}ic_share.svg');
+
+  static AppImageBuilder get iconSearch =>
+      AppImageBuilder('${_assetPath}ic_search.svg');
 }
 
 class AppImageBuilder {

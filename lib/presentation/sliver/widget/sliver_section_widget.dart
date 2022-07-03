@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:fluttour/domain/model/dish.dart';
+import 'package:fluttour/util/assets/app_image.dart';
 import 'package:fluttour/util/util.dart';
 
 class SliverSectionWidget extends StatelessWidget {
-  const SliverSectionWidget({Key? key}) : super(key: key);
+  const SliverSectionWidget({
+    Key? key,
+    required this.dishCategory,
+    required this.globalKey
+  }) : super(key: key);
+
+  final DishCategory dishCategory;
+  final GlobalKey globalKey;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 18.h),
+      key: globalKey,
+      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 9, bottom: 9.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          AppText.h4('Most Populars'),
+          AppText.h4(dishCategory.name ?? ''),
           SizedBox(height: 24.h),
           ListView.separated(
             padding: EdgeInsets.zero,
@@ -31,6 +41,7 @@ class SliverSectionWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8.sp)
                         ),
                         width: 110.h,
+                        child: ImageBuilder(dishCategory.dishes![index].image),
                       ),
                       Flexible(
                         child: Container(
@@ -43,16 +54,16 @@ class SliverSectionWidget extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  AppText.itemTitleLarge('Combo Burger', maxLines: 1),
+                                  AppText.itemTitleLarge(dishCategory.dishes![index].name!, maxLines: 1),
                                   SizedBox(height: 4.h),
-                                  AppText.body('Shortbread, chocolate turtle cookies, and red velvet.', maxLines: 2),
+                                  AppText.body(dishCategory.dishes![index].description!, maxLines: 2),
                                 ],
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  AppText.regular('Deshi  •  Chinese', color: AppColor.black),
-                                  AppText.regular('USD7.4', color: AppColor.active, fontWeight: FontWeightType.semiBold)
+                                  AppText.regular(dishCategory.dishes![index].category!, color: AppColor.black),
+                                  AppText.regular(dishCategory.dishes![index].price!, color: AppColor.active, fontWeight: FontWeightType.semiBold)
                                 ],
                               )
                             ],
@@ -71,7 +82,7 @@ class SliverSectionWidget extends StatelessWidget {
                 color: AppColor.lightGray,
               );
             },
-            itemCount: 3)
+            itemCount: dishCategory.dishes?.length ?? 0)
         ],
       ),
     );

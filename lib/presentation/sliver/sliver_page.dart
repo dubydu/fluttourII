@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttour/domain/model/dish.dart';
 import 'package:fluttour/presentation/base/base_material_page.dart';
 import 'package:fluttour/presentation/sliver/sliver_bloc.dart';
 import 'package:fluttour/presentation/sliver/widget/sliver_section_widget.dart';
@@ -24,7 +25,7 @@ class SliverPageState extends State<SliverPage>
   // Global key
   final GlobalKey categoryWidgetKey = GlobalKey();
   // Tab controller
-  late TabController _tabController;
+  TabController? _tabController;
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
@@ -32,26 +33,31 @@ class SliverPageState extends State<SliverPage>
     _sliverBloc = BlocProvider.of(context, listen: false);
     // Add scroll listener
     _scrollController.addListener(_scrollControllerObserver);
+    // Fetch brand data
+    await _sliverBloc.fetchBrand();
     // Init tab controller
     _tabController = TabController(
         length: _sliverBloc.state.categories?.length ?? 0,
         vsync: this
     );
-    // Fetch brand data
-    await _sliverBloc.fetchBrand();
   }
 
   void _scrollControllerObserver() {
+    /// Handle the position of category widget
     double y = AppDevice.detectWidgetPosition(globalKey: categoryWidgetKey).dy;
-    if (y <= 10.h) {
-      if (!_sliverBloc.state.isCategoryWidgetOnTop) {
-        _sliverBloc.onCategoryWidgetChanged(isOnTop: true);
-      }
-    } else {
-      if (_sliverBloc.state.isCategoryWidgetOnTop) {
-        _sliverBloc.onCategoryWidgetChanged(isOnTop: false);
-      }
+    _sliverBloc.onCategoryChanged(isOnTop: y <= 10.h);
+    /// Handle the position of section widget
+    final sectionIndex = _sliverBloc.onSectionChanged(isDeviceHasNotch());
+    if (sectionIndex != -1) {
+      _tabController?.animateTo(sectionIndex);
     }
+  }
+
+  @override
+  void dispose() {
+    _tabController?.dispose();
+    _sliverBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -71,7 +77,12 @@ class SliverPageState extends State<SliverPage>
                   SliverPersistentHeader(
                     pinned: false,
                     delegate: HeaderImageWidget(
-                      state: state
+                      state: state,
+                      onBackPressed: () {
+                        pop();
+                      },
+                      onSearchPressed: () { },
+                      onSharePressed: () { }
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -91,9 +102,6 @@ class SliverPageState extends State<SliverPage>
                   ),
                   // Category Tabs
                   BlocBuilder<SliverBloc, SliverState>(
-                    buildWhen: (previous, current)
-                    => ((previous.isCategoryWidgetOnTop != current.isCategoryWidgetOnTop)
-                        || (previous.categories != current.categories)),
                     builder: (context, state) {
                       return SliverPersistentHeader(
                           pinned: true,
@@ -101,13 +109,32 @@ class SliverPageState extends State<SliverPage>
                             state: state,
                             categoryWidgetKey: categoryWidgetKey,
                             isWidgetOnTop: state.isCategoryWidgetOnTop,
-                            isHasNotch: AppDevice.isHasNotch(context: this.context)
+                            isDeviceHasNotch: isDeviceHasNotch(),
+                            tabController: _tabController,
+                            onCategoryPressed: (int index) async {
+                              /// Select category
+                              _sliverBloc.onCategorySelected(
+                                  dishCategory: state.categories![index]
+                              );
+                              /// Scroll to specific section widget
+                              Scrollable.ensureVisible(
+                                  state.categoryGlobalKeys![index].currentContext!,
+                                  duration: const Duration(microseconds: 100)
+                              );
+                              /// Move category widget on top
+                              Future.delayed(const Duration(milliseconds: 150), () {
+                                _sliverBloc.moveCategoryOnTop();
+                              });
+                            }
                           )
                       );
                     },
                   ),
-                  const SliverToBoxAdapter(
-                      child: SectionWidget()
+                  SliverToBoxAdapter(
+                      child: SectionWidget(
+                          categories: state.categories ?? [],
+                          globalKeys: state.categoryGlobalKeys ?? [],
+                      )
                   ),
                 ],
               );
@@ -128,9 +155,17 @@ class SliverPageState extends State<SliverPage>
 }
 
 class HeaderImageWidget extends SliverPersistentHeaderDelegate {
-  HeaderImageWidget({required this.state});
+  HeaderImageWidget({
+    required this.state,
+    required this.onBackPressed,
+    required this.onSharePressed,
+    required this.onSearchPressed
+  });
 
   final SliverState state;
+  final VoidCallback onBackPressed;
+  final VoidCallback onSharePressed;
+  final VoidCallback onSearchPressed;
 
   @override
   Widget build(
@@ -138,7 +173,39 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
     return SizedBox(
       width: double.infinity,
       height: 280.h,
-      child: ImageBuilder(state.brand?.image, fit: BoxFit.cover),
+      child: Stack(
+          children: <Widget>[
+            Positioned(
+                left: 0, top: 0, right: 0, bottom: 0,
+                child: ImageBuilder(state.brand?.image, fit: BoxFit.cover)
+            ),
+            Positioned(
+                left: 16, top: 0, right: 16,
+                child: SafeArea(
+                  bottom: false,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: onBackPressed,
+                        child: AppIcon.iconBack.widget(),
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: onBackPressed,
+                        child: AppIcon.iconShare.widget(),
+                      ),
+                      SizedBox(width: 16.w),
+                      InkWell(
+                        onTap: onBackPressed,
+                        child: AppIcon.iconSearch.widget(),
+                      ),
+                    ],
+                  ),
+                ),
+            ),
+          ]
+      ),
     );
   }
 
@@ -215,7 +282,9 @@ class HeaderDescriptionWidget extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            AppText.body(state.brand?.duration ?? '', color: AppColor.black),
+                            AppText.body(
+                                state.brand?.duration ?? '',
+                                color: AppColor.black),
                             SizedBox(height: 4.h),
                             AppText.small('Minutes'),
                           ],
@@ -290,18 +359,24 @@ class FeaturedItemsWidget extends StatelessWidget {
   }
 }
 
+typedef OnCategoryPressed = Function(int index);
+
 class CategoryWidget extends  SliverPersistentHeaderDelegate {
   const CategoryWidget({
     required this.state,
     required this.categoryWidgetKey,
     required this.isWidgetOnTop,
-    required this.isHasNotch
+    required this.isDeviceHasNotch,
+    required this.tabController,
+    required this.onCategoryPressed
   });
 
   final SliverState state;
   final GlobalKey categoryWidgetKey;
   final bool isWidgetOnTop;
-  final bool isHasNotch;
+  final bool isDeviceHasNotch;
+  final TabController? tabController;
+  final OnCategoryPressed onCategoryPressed;
 
   @override
   Widget build(
@@ -310,25 +385,26 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
       color: AppColor.white.withOpacity(.95),
       elevation: isWidgetOnTop ? 2 : 0,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
+        duration: const Duration(milliseconds: 100),
         key: categoryWidgetKey,
         padding: EdgeInsets.only(
-            top: isHasNotch
+            top: isDeviceHasNotch
                 ? (isWidgetOnTop ? 30.h : 0.h)
                 : 15.h),
         alignment: Alignment.centerLeft,
         child: DefaultTabController(
           length: state.categories!.length,
           child: TabBar(
-            onTap: (int index) {
-              context.read<SliverBloc>().onCategorySelected(dishCategory: state.categories![index]);
-            },
+            controller: tabController,
+            onTap: onCategoryPressed,
             indicatorColor: AppColor.transparent,
             isScrollable: true,
             tabs: state.categories!.map((category) =>
                 AppText.h3(
                     category.name ?? '',
-                    color: category.isSelected ? AppColor.active : AppColor.black.withOpacity(.7)
+                    color: category.isSelected
+                        ? AppColor.active
+                        : AppColor.black.withOpacity(.7)
                 )
             ).toList()
           ),
@@ -338,7 +414,7 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
   }
 
   double get extentHeight {
-    return isHasNotch ? 90.h : 80.h;
+    return state.extentHeight(isDeviceHasNotch: isDeviceHasNotch).h;
   }
 
   @override
@@ -354,7 +430,14 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
 }
 
 class SectionWidget extends StatelessWidget {
-  const SectionWidget({Key? key}) : super(key: key);
+  const SectionWidget({
+    Key? key,
+    required this.categories,
+    required this.globalKeys
+  }) : super(key: key);
+
+  final List<DishCategory> categories;
+  final List<GlobalKey> globalKeys;
 
   @override
   Widget build(BuildContext context) {
@@ -363,14 +446,17 @@ class SectionWidget extends StatelessWidget {
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       itemBuilder: (context, index) {
-        return const SliverSectionWidget();
+        return SliverSectionWidget(
+          dishCategory: categories[index],
+          globalKey: globalKeys[index]
+        );
       },
       separatorBuilder: (_, __) {
         return SizedBox(
           height: 16.h,
         );
       },
-      itemCount: 3);
+      itemCount: categories.length);
   }
 }
 

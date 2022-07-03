@@ -10,4 +10,8 @@ extension AppRouter<T extends StatefulWidget> on State<T> {
   void transitionToSliverPage() {
     NavigationController.push(Routes.sliver.routeName);
   }
+
+  void pop() {
+    Navigator.pop(context);
+  }
 }

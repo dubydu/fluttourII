@@ -20,6 +20,7 @@ class AppPrimaryButton extends StatelessWidget {
       child: OutlinedButton(
           style: OutlinedButton.styleFrom(
             side: BorderSide(width: 1.sp, color: AppColor.active),
+            padding: EdgeInsets.only(bottom: 1.5.h)
           ),
           onPressed: onPressed,
           child: AppText.primaryButtonText(title, color: AppColor.active)
