@@ -130,11 +130,18 @@ class SliverPageState extends State<SliverPage>
                       );
                     },
                   ),
+                  // Dishes list
                   SliverToBoxAdapter(
                       child: SectionWidget(
                           categories: state.categories ?? [],
                           globalKeys: state.categoryGlobalKeys ?? [],
                       )
+                  ),
+                  // Spacing
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: isDeviceHasNotch() ? 32.h : 16.h,
+                    ),
                   ),
                 ],
               );
@@ -172,7 +179,7 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox(
       width: double.infinity,
-      height: 280.h,
+      height: 220.h,
       child: Stack(
           children: <Widget>[
             Positioned(
@@ -192,12 +199,10 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
                       ),
                       const Spacer(),
                       InkWell(
-                        onTap: onBackPressed,
                         child: AppIcon.iconShare.widget(),
                       ),
                       SizedBox(width: 16.w),
                       InkWell(
-                        onTap: onBackPressed,
                         child: AppIcon.iconSearch.widget(),
                       ),
                     ],
@@ -210,10 +215,10 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 280.h;
+  double get maxExtent => 220.h;
 
   @override
-  double get minExtent => 280.h;
+  double get minExtent => 220.h;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
