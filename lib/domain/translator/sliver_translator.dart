@@ -70,4 +70,10 @@ class SliverTranslator {
     }).toList();
     return dishCategories;
   }
+
+  static List<Dish> toRecommendDishes({required List<DishResponse> dishes}) {
+    return dishes.map((dish) {
+      return SliverTranslator.toDishModel(response: dish);
+    }).toList();
+  }
 }

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,10 +14,22 @@ class SliverBloc extends Cubit<SliverState> {
   final SliverUseCaseType useCase;
 
   Future<void> fetchBrand() async {
-    final response = await useCase.getBrand(id: 1);
-    response.fold((error) {
+    final response = await Future.wait([
+      useCase.getBrand(id: 1),
+      useCase.getRecommendDishes(id: 1),
+    ]);
+    // Handle recommend dishes response
+    response[1].fold((error) {
       log('=============== $error');
     }, (response) {
+      response as List<Dish>;
+      emit(state.copyWith(recommendDishes: response));
+    });
+    // Handle brand response
+    response[0].fold((error) {
+      log('=============== $error');
+    }, (response) {
+      response as Tuple2<Brand, List<DishCategory>>;
       // Emit brand and dish categories
       emit(
           state.copyWith(
@@ -90,25 +103,29 @@ class SliverState extends Equatable {
     required this.brand,
     required this.categories,
     required this.isCategoryWidgetOnTop,
-    required this.categoryGlobalKeys
+    required this.categoryGlobalKeys,
+    required this.recommendDishes
   });
 
   final Brand? brand;
   final List<DishCategory>? categories;
+  final List<Dish>? recommendDishes;
   final List<GlobalKey>? categoryGlobalKeys;
   final bool isCategoryWidgetOnTop;
 
   SliverState copyWith({
     Brand? brand,
     List<DishCategory>? categories,
-    final List<GlobalKey>? categoryGlobalKeys,
+    List<GlobalKey>? categoryGlobalKeys,
     bool? isCategoryWidgetOnTop,
+    List<Dish>? recommendDishes
   }) {
     return SliverState(
       brand: brand ?? this.brand,
       categories: categories ?? this.categories,
       categoryGlobalKeys: categoryGlobalKeys ?? this.categoryGlobalKeys,
       isCategoryWidgetOnTop: isCategoryWidgetOnTop ?? this.isCategoryWidgetOnTop,
+      recommendDishes: recommendDishes ?? this.recommendDishes
     );
   }
 
@@ -127,7 +144,8 @@ class SliverState extends Equatable {
     brand,
     categories,
     categoryGlobalKeys,
-    isCategoryWidgetOnTop
+    isCategoryWidgetOnTop,
+    recommendDishes
   ];
 }
 
@@ -136,6 +154,7 @@ class SliverInitialState extends SliverState {
       : super(brand: null,
       categories: null,
       categoryGlobalKeys: null,
-      isCategoryWidgetOnTop: false
+      isCategoryWidgetOnTop: false,
+      recommendDishes: null
   );
 }

@@ -17,7 +17,12 @@ class SliverSectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       key: globalKey,
-      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 9, bottom: 9.h),
+      padding: EdgeInsets.only(
+          left: 16.w,
+          right: 16.w,
+          top: 9,
+          bottom: 9.h
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -37,15 +42,27 @@ class SliverSectionWidget extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
-                            color: AppColor.lightGray,
-                            borderRadius: BorderRadius.circular(8.sp)
+                            color: AppColor.white,
+                            borderRadius: BorderRadius.circular(8.sp),
+                            border: Border.all(
+                                color: AppColor.lightGray,
+                                width: .6
+                            )
                         ),
+                        alignment: Alignment.center,
                         width: 110.h,
-                        child: ImageBuilder(dishCategory.dishes![index].image),
+                        child: ImageBuilder(
+                            dishCategory.dishes![index].image,
+                            fit: BoxFit.fitWidth
+                        )
                       ),
                       Flexible(
                         child: Container(
-                          margin: EdgeInsets.only(left: 18.w, top: 2.h, bottom: 4.h),
+                          margin: EdgeInsets.only(
+                              left: 18.w,
+                              top: 2.h,
+                              bottom: 4.h
+                          ),
                           alignment: Alignment.topLeft,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,16 +71,27 @@ class SliverSectionWidget extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  AppText.itemTitleLarge(dishCategory.dishes![index].name!, maxLines: 1),
+                                  AppText.itemTitleLarge(
+                                      dishCategory.dishes![index].name!,
+                                      maxLines: 1
+                                  ),
                                   SizedBox(height: 4.h),
-                                  AppText.body(dishCategory.dishes![index].description!, maxLines: 2),
+                                  AppText.body(
+                                      dishCategory.dishes![index].description!,
+                                      maxLines: 2
+                                  ),
                                 ],
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  AppText.regular(dishCategory.dishes![index].category!, color: AppColor.black),
-                                  AppText.regular(dishCategory.dishes![index].price!, color: AppColor.active, fontWeight: FontWeightType.semiBold)
+                                  AppText.regular(
+                                      dishCategory.dishes![index].category!,
+                                      color: AppColor.black
+                                  ),
+                                  AppText.currency(
+                                      '${dishCategory.dishes![index].price!}¥'
+                                  )
                                 ],
                               )
                             ],

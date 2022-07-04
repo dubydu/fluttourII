@@ -4,5 +4,12 @@ import 'package:fluttour/domain/model/brand.dart';
 import 'package:fluttour/domain/model/dish.dart';
 
 abstract class SliverUseCaseType {
-  Future<Either<Failure, Tuple2<Brand, List<DishCategory>>>> getBrand({required int id});
+  // Get brand
+  Future<Either<Failure, Tuple2<Brand, List<DishCategory>>>> getBrand({
+    required int id
+  });
+  // Get recommend dishes
+  Future<Either<Failure, List<Dish>>> getRecommendDishes({
+    required int id
+  });
 }

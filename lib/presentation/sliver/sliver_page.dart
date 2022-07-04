@@ -97,8 +97,10 @@ class SliverPageState extends State<SliverPage>
                       )
                   ),
                   // Featured Items
-                  const SliverToBoxAdapter(
-                      child: FeaturedItemsWidget()
+                  SliverToBoxAdapter(
+                      child: FeaturedItemsWidget(
+                        dishes: state.recommendDishes ?? [],
+                      )
                   ),
                   // Category Tabs
                   BlocBuilder<SliverBloc, SliverState>(
@@ -318,7 +320,9 @@ class HeaderDescriptionWidget extends StatelessWidget {
 }
 
 class FeaturedItemsWidget extends StatelessWidget {
-  const FeaturedItemsWidget({Key? key}) : super(key: key);
+  const FeaturedItemsWidget({Key? key, required this.dishes}) : super(key: key);
+
+  final List<Dish> dishes;
 
   @override
   Widget build(BuildContext context) {
@@ -341,23 +345,35 @@ class FeaturedItemsWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
+                        alignment: Alignment.center,
                         height: 140.h,
                         decoration: BoxDecoration(
-                          color: AppColor.lightGray,
-                          borderRadius: BorderRadius.circular(8.sp)
+                          color: AppColor.white,
+                          borderRadius: BorderRadius.circular(8.sp),
+                          border: Border.all(
+                            color: AppColor.lightGray,
+                            width: .6
+                          )
+                        ),
+                        child: ImageBuilder(
+                            dishes[index].image,
+                            fit: BoxFit.fitWidth
                         ),
                       ),
                       SizedBox(height: 8.h),
-                      AppText.itemTitleSmall('Cookie Sandwich', maxLines: 1),
+                      AppText.itemTitleSmall(
+                          dishes[index].name ?? '',
+                          maxLines: 1
+                      ),
                       SizedBox(height: 4.h),
-                      AppText.regular('Chinese')
+                      AppText.currency('${dishes[index].price!}¥')
                     ],
                   ),
                 );
               },
               separatorBuilder: (_, __) {
                 return SizedBox(width: 14.w);
-          }, itemCount: 4),
+          }, itemCount: dishes.length),
         )
       ],
     );
@@ -400,9 +416,11 @@ class CategoryWidget extends  SliverPersistentHeaderDelegate {
         child: DefaultTabController(
           length: state.categories!.length,
           child: TabBar(
+            splashBorderRadius: BorderRadius.circular(16.h),
             controller: tabController,
             onTap: onCategoryPressed,
             indicatorColor: AppColor.transparent,
+            indicatorWeight: .1,
             isScrollable: true,
             tabs: state.categories!.map((category) =>
                 AppText.h3(

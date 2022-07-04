@@ -215,6 +215,32 @@ class AppText extends StatelessWidget {
     );
   }
 
+  factory AppText.currency(String text, {
+    Color? color = AppColor.active,
+    FontWeightType? fontWeight = FontWeightType.semiBold,
+    bool scalable = true,
+    String? configKey,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? fontSize = 16.0,
+    FontFamilyType? fontFamily = FontFamilyType.exo
+  }) {
+    return AppText._(
+      text,
+      textStyle: TextStyle(
+          fontWeight: fontWeight?.type(),
+          color: color,
+          fontSize: fontSize?.sp,
+          fontFamily: fontFamily?.name()
+      ),
+      scalable: scalable,
+      configKey: configKey,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? TextOverflow.ellipsis : null,
+    );
+  }
+
   factory AppText.small(String text, {
     Color? color = AppColor.textLightBlack,
     FontWeightType? fontWeight = FontWeightType.regular,

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fluttour/data/api/api_client/error/error.dart';
 import 'package:fluttour/data/api/request/brand_request.dart';
+import 'package:fluttour/data/api/request/recommend_dishes_request.dart';
 import 'package:fluttour/data/repository/sliver/sliver_repository_type.dart';
 import 'package:fluttour/domain/model/brand.dart';
 import 'package:fluttour/domain/model/dish.dart';
@@ -21,5 +22,14 @@ class SliverUseCase extends SliverUseCaseType {
       return Tuple2(brand, dishCategories);
       }
     );
+  }
+
+  @override
+  Future<Either<Failure, List<Dish>>> getRecommendDishes({required int id}) async {
+    final result = await repository
+        .getRecommendDishes(request: RecommendDishesRequest(id: id));
+    return result.map((response) {
+      return SliverTranslator.toRecommendDishes(dishes: response);
+    });
   }
 }

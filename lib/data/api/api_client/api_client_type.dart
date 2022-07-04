@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fluttour/data/api/response/brand_response.dart';
+import 'package:fluttour/data/api/response/dish_response.dart';
 import 'package:fluttour/data/api/response/fluttour_response.dart';
 import 'package:retrofit/retrofit.dart' as retrofit;
 
@@ -14,6 +15,11 @@ abstract class APIClientType {
 
   @retrofit.GET('/brand/{id}')
   Future<BrandResponse> getBrand({
+    @retrofit.Path('id') required int id
+  });
+
+  @retrofit.GET('/recommend-dishes/{id}')
+  Future<List<DishResponse>> getRecommendDishes({
     @retrofit.Path('id') required int id
   });
 }
