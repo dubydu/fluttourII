@@ -51,8 +51,7 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   │   ├── api_client_type.dart
 │       │   │   │   └── api_client_type.g.dart 
 │       │   │   ├── request
-│       │   │   │   ├── dummy_request.dart
-│       │   │   │   └── dummy_request.g.dart
+│       │   │   │   └── dummy_request.dart
 │       │   │   └── response
 │       │   │       ├── dummy_response.dart
 │       │   │       └── dummy_response.g.dart
@@ -138,3 +137,6 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 
 ### [Pitfalls](#pitfalls)
 - Make sure `flutter pub get` before you run the app.
+
+### [Practice](#practice)
+- [`Flutter x Magic Sliver Widgets`](https://github.com/dubydu/magic-sliver)
