@@ -1,5 +1,5 @@
-class RecommendDishesRequest {
-  RecommendDishesRequest({required this.id});
+import 'package:fluttour/data/api/request/base_request.dart';
 
-  final int id;
+class RecommendDishesRequest extends BaseRequest {
+  RecommendDishesRequest({required super.id});
 }

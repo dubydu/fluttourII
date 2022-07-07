@@ -66,99 +66,105 @@ class SliverPageState extends State<SliverPage>
     return BaseMaterialPage(
       child: Scaffold(
         backgroundColor: AppColor.white,
-        body: BlocBuilder<SliverBloc, SliverState>(
-          buildWhen: (current, previous) => (current.brand != previous.brand),
-          builder: (context, state) {
-            if (state.brand != null) {
-              return CustomScrollView(
-                controller: _scrollController,
-                slivers: <Widget>[
-                  // Header
-                  SliverPersistentHeader(
-                    pinned: false,
-                    delegate: HeaderImageWidget(
-                      state: state,
-                      onBackPressed: () {
-                        pop();
-                      },
-                      onSearchPressed: () { },
-                      onSharePressed: () { }
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 0.h,
-                    ),
-                  ),
-                  // Description
-                  SliverToBoxAdapter(
-                      child: HeaderDescriptionWidget(
-                        state: state,
-                      )
-                  ),
-                  // Featured Items
-                  SliverToBoxAdapter(
-                      child: FeaturedItemsWidget(
-                        dishes: state.recommendDishes ?? [],
-                      )
-                  ),
-                  // Category Tabs
-                  BlocBuilder<SliverBloc, SliverState>(
-                    builder: (context, state) {
-                      return SliverPersistentHeader(
-                          pinned: true,
-                          delegate: CategoryWidget(
-                            state: state,
-                            categoryWidgetKey: categoryWidgetKey,
-                            isWidgetOnTop: state.isCategoryWidgetOnTop,
-                            isDeviceHasNotch: isDeviceHasNotch(),
-                            tabController: _tabController,
-                            onCategoryPressed: (int index) async {
-                              /// Select category
-                              _sliverBloc.onCategorySelected(
-                                  dishCategory: state.categories![index]
-                              );
-                              /// Scroll to specific section widget
-                              Scrollable.ensureVisible(
-                                  state.categoryGlobalKeys![index].currentContext!,
-                                  duration: const Duration(microseconds: 100)
-                              );
-                              /// Move category widget on top
-                              Future.delayed(const Duration(milliseconds: 150), () {
-                                _sliverBloc.moveCategoryOnTop();
-                              });
-                            }
-                          )
-                      );
-                    },
-                  ),
-                  // Dishes list
-                  SliverToBoxAdapter(
-                      child: SectionWidget(
-                          categories: state.categories ?? [],
-                          globalKeys: state.categoryGlobalKeys ?? [],
-                      )
-                  ),
-                  // Spacing
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: isDeviceHasNotch() ? 32.h : 16.h,
-                    ),
-                  ),
-                ],
-              );
-            } else {
-              return Center(
-                child: SizedBox(
-                  width: 24.sp,
-                  height: 24.sp,
-                  child: const CupertinoActivityIndicator(),
-                ),
-              );
-            }
-          },
-        )
+        body: isDeviceHasNotch()
+            ? _buildBodyWidget()
+            : SafeArea(child: _buildBodyWidget())
       ),
+    );
+  }
+
+  Widget _buildBodyWidget() {
+    return BlocBuilder<SliverBloc, SliverState>(
+      buildWhen: (current, previous) => (current.brand != previous.brand),
+      builder: (context, state) {
+        if (state.brand != null) {
+          return CustomScrollView(
+            controller: _scrollController,
+            slivers: <Widget>[
+              // Header
+              SliverPersistentHeader(
+                pinned: false,
+                delegate: HeaderImageWidget(
+                    state: state,
+                    onBackPressed: () {
+                      pop();
+                    },
+                    onSearchPressed: () { },
+                    onSharePressed: () { }
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 0.h,
+                ),
+              ),
+              // Description
+              SliverToBoxAdapter(
+                  child: HeaderDescriptionWidget(
+                    state: state,
+                  )
+              ),
+              // Featured Items
+              SliverToBoxAdapter(
+                  child: FeaturedItemsWidget(
+                    dishes: state.recommendDishes ?? [],
+                  )
+              ),
+              // Category Tabs
+              BlocBuilder<SliverBloc, SliverState>(
+                builder: (context, state) {
+                  return SliverPersistentHeader(
+                      pinned: true,
+                      delegate: CategoryWidget(
+                          state: state,
+                          categoryWidgetKey: categoryWidgetKey,
+                          isWidgetOnTop: state.isCategoryWidgetOnTop,
+                          isDeviceHasNotch: isDeviceHasNotch(),
+                          tabController: _tabController,
+                          onCategoryPressed: (int index) async {
+                            /// Select category
+                            _sliverBloc.onCategorySelected(
+                                dishCategory: state.categories![index]
+                            );
+                            /// Scroll to specific section widget
+                            Scrollable.ensureVisible(
+                                state.categoryGlobalKeys![index].currentContext!,
+                                duration: const Duration(microseconds: 100)
+                            );
+                            /// Move category widget on top
+                            Future.delayed(const Duration(milliseconds: 150), () {
+                              _sliverBloc.moveCategoryOnTop();
+                            });
+                          }
+                      )
+                  );
+                },
+              ),
+              // Dishes list
+              SliverToBoxAdapter(
+                  child: SectionWidget(
+                    categories: state.categories ?? [],
+                    globalKeys: state.categoryGlobalKeys ?? [],
+                  )
+              ),
+              // Spacing
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: isDeviceHasNotch() ? 32.h : 16.h,
+                ),
+              ),
+            ],
+          );
+        } else {
+          return Center(
+            child: SizedBox(
+              width: 24.sp,
+              height: 24.sp,
+              child: const CupertinoActivityIndicator(),
+            ),
+          );
+        }
+      },
     );
   }
 }

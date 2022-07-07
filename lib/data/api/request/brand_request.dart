@@ -1,5 +1,5 @@
-class BrandRequest {
-  BrandRequest({required this.id});
+import 'package:fluttour/data/api/request/base_request.dart';
 
-  final int id;
+class BrandRequest extends BaseRequest {
+  BrandRequest({required super.id});
 }

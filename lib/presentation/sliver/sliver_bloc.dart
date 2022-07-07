@@ -83,7 +83,7 @@ class SliverBloc extends Cubit<SliverState> {
     final sectionIndex = sectionPositions
         .indexWhere(
             (offset) => (((offset.h - sectionWidgetHeight) < 0)
-                && ((offset.h - sectionWidgetHeight) > -20.h))
+                && ((offset.h - sectionWidgetHeight) > -sectionWidgetHeight))
     );
     if (sectionIndex != -1) {
       onCategorySelected(
