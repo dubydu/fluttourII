@@ -14,4 +14,7 @@ class AppConfig with AppConfigType {
 
   @override
   String get baseDomain => env?.kaguyaBaseDomain ?? '';
+
+  @override
+  String get graphqlEndPoint => env?.graphqlEndPoint ?? '';
 }

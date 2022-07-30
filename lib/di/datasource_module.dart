@@ -7,7 +7,10 @@ import 'package:fluttour/di/client_module.dart';
 mixin DatasourceModule on ClientModule {
   /// HomeDataSource
   HomeDataSourceType get homeDataSource {
-    return HomeDataSource(apiClient: apiClient);
+    return HomeDataSource(
+        apiClient: apiClient,
+        graphqlClient: graphqlClient
+    );
   }
   /// SliverDataSource
   SliverDataSourceType get sliverDataSource {
