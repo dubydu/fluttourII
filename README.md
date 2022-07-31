@@ -4,8 +4,8 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 
 ### [Getting Started](#getting-started)
 
-* Flutter (Channel stable, 3.0.2)
-* Dart 2.17.3
+* Flutter (Channel stable, 3.0.5)
+* Dart 2.17.6
 * Cocoapods 1.11.3
 
 ### [Article](#article)
@@ -15,6 +15,7 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 * [`flutter_bloc`](https://pub.dev/packages/flutter_bloc): State management package.
 * [`dio`](https://pub.dev/packages/dio): A powerful Http client for Dart.
 * [`mockito`](https://pub.dev/packages/mockito): A mock framework with APIs for Fakes, Mocks, behavior verification, and stubbing.
+* [`graphql`](https://pub.dev/packages/graphql): A stand-alone GraphQL client for Dart
 
 ### [Usage](#usage)
 
