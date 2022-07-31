@@ -15,6 +15,10 @@ class CodeFailure extends Failure {
   const CodeFailure(this.code, String message) : super(message);
 }
 
+class NoData extends Failure {
+  const NoData() : super('No data!');
+}
+
 class NoConnection extends Failure {
   const NoConnection() : super('No connection!');
 }

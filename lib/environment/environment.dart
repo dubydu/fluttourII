@@ -13,8 +13,10 @@ class Environment {
   }
 
   Environment({
-    required this.kaguyaBaseDomain
+    required this.kaguyaBaseDomain,
+    required this.graphqlEndPoint
   });
 
   final String kaguyaBaseDomain;
+  final String graphqlEndPoint;
 }

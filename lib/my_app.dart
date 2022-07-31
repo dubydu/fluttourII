@@ -18,7 +18,6 @@ Future<void> myMain() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
-
   runApp(
       EasyLocalization(
         supportedLocales: const [AppLocales.en, AppLocales.zh],

@@ -17,6 +17,7 @@ dependencies:
   dartz: ^0.10.1
   retrofit: ^3.0.1+1
   connectivity: ^3.0.6
+  graphql: ^5.1.1
   # State management
   flutter_bloc: ^8.0.1
   # User interface

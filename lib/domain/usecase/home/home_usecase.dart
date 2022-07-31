@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fluttour/data/api/api_client/error/error.dart';
+import 'package:fluttour/data/api/error.dart';
 import 'package:fluttour/data/repository/home/home_repository_type.dart';
 import 'package:fluttour/domain/model/fluttour.dart';
 import 'package:fluttour/domain/translator/home_translator.dart';
