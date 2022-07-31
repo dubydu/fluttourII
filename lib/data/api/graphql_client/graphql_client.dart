@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:fluttour/data/api/api_client/graphql_client_type.dart';
+import 'package:fluttour/data/api/graphql_client/graphql_client_type.dart';
 import 'package:graphql/client.dart';
 
 class GraphqlClient implements GraphqlClientType {
@@ -29,10 +29,11 @@ class GraphqlClient implements GraphqlClientType {
     final policies = Policies(
       fetch: FetchPolicy.networkOnly,
     );
+    /// We're using HiveStore for persistence,
+    /// so we need to initialize Hive.
+    // final store = await HiveStore.open(path: 'my/cache/path');
     return GraphQLClient(
-      cache: GraphQLCache(
-        store: HiveStore(),
-      ),
+      cache: GraphQLCache(),
       link: link,
       defaultPolicies: DefaultPolicies(
         watchQuery: policies,

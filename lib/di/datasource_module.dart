@@ -8,7 +8,6 @@ mixin DatasourceModule on ClientModule {
   /// HomeDataSource
   HomeDataSourceType get homeDataSource {
     return HomeDataSource(
-        apiClient: apiClient,
         graphqlClient: graphqlClient
     );
   }
