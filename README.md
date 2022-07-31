@@ -54,7 +54,7 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   │   └── graphql_client_type.dart
 │       │   │   ├── request
 │       │   │   │   └── dummy_request.dart
-│       │   │   └── response
+│       │   │   ├── response
 │       │   │   │   ├── dummy_response.dart
 │       │   │   │   └── dummy_response.g.dart
 │       │   │   └── error.dart
