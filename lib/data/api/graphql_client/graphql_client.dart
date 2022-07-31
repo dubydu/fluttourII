@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:fluttour/data/api/error/error.dart';
 import 'package:fluttour/data/api/graphql_client/graphql_client_type.dart';
 import 'package:graphql/client.dart';
 
@@ -44,7 +45,7 @@ class GraphqlClient implements GraphqlClientType {
   }
 
   @override
-  void handleException({required QueryResult<Object?> queryResult}) async {
+  Future handleException({required QueryResult<Object?> queryResult}) async {
     if (queryResult.exception?.linkException is HttpLinkServerException) {
       HttpLinkServerException httpLink = queryResult
           .exception
@@ -53,17 +54,16 @@ class GraphqlClient implements GraphqlClientType {
           .parsedResponse
           ?.errors?.isNotEmpty == true
       ) {
+        final String message = """"${
+            httpLink.parsedResponse
+                ?.errors
+                ?.first.message}
+        """;
         if (kDebugMode) {
-          print(""""
-          GraphQL error message log: ${
-              httpLink.parsedResponse
-                  ?.errors
-                  ?.first.message
-          }
-          """);
+          print('GraphQL Error: $message');
         }
+        throw Failure(message);
       }
-      return;
     }
     if (queryResult.exception
         ?.linkException is NetworkException
@@ -71,10 +71,13 @@ class GraphqlClient implements GraphqlClientType {
       NetworkException networkException = queryResult
           .exception
           ?.linkException as NetworkException;
+      final String message = """"${
+          networkException.message}
+        """;
       if (kDebugMode) {
-        print("GraphQL error message log: ${networkException.message}");
+        print('GraphQL Error: $message');
       }
-      return;
+      throw Failure(message);
     }
   }
 

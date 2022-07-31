@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fluttour/data/api/api_client/error/error.dart';
+import 'package:fluttour/data/api/error/error.dart';
 import 'package:fluttour/data/api/response/fluttour_response.dart';
 import 'package:fluttour/data/repository/home/home_repository.dart';
 import 'package:fluttour/domain/model/fluttour.dart';

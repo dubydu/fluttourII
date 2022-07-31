@@ -1,4 +1,4 @@
-import 'package:fluttour/data/api/api_client/api_client_type.dart';
+import 'package:fluttour/data/api/error/error.dart';
 import 'package:fluttour/data/api/graphql_client/graphql_client_type.dart';
 import 'package:fluttour/data/api/response/fluttour_response.dart';
 import 'home_datasource_type.dart';
@@ -24,8 +24,7 @@ class HomeDataSource implements HomeDataSourceType {
     ''';
     final result = await graphqlClient.query(queries: query);
     if (result.hasException) {
-      graphqlClient.handleException(queryResult: result);
-      return null;
+      throw await graphqlClient.handleException(queryResult: result);
     }
     final Map<String, dynamic>? data = result.data;
     final response = (data?['fluttours'] as List<dynamic>)

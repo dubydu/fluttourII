@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fluttour/data/api/api_client/error/error.dart';
+import 'package:fluttour/data/api/error/error.dart';
 import 'package:fluttour/data/api/response/fluttour_response.dart';
 import 'package:fluttour/data/datasource/home/home_datasource_type.dart';
 import 'package:fluttour/util/app_mixin.dart';
