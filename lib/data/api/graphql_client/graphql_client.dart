@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:fluttour/data/api/error/error.dart';
+import 'package:fluttour/data/api/error.dart';
 import 'package:fluttour/data/api/graphql_client/graphql_client_type.dart';
 import 'package:graphql/client.dart';
 

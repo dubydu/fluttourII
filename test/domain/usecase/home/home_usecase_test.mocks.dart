@@ -7,7 +7,7 @@ import 'dart:async' as _i6;
 
 import 'package:connectivity/connectivity.dart' as _i3;
 import 'package:dartz/dartz.dart' as _i4;
-import 'package:fluttour/data/api/error/error.dart' as _i7;
+import 'package:fluttour/data/api/error.dart' as _i7;
 import 'package:fluttour/data/api/response/fluttour_response.dart' as _i8;
 import 'package:fluttour/data/datasource/home/home_datasource_type.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;

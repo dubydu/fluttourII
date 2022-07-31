@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fluttour/data/api/error/error.dart';
+import 'package:fluttour/data/api/error.dart';
 import 'package:fluttour/domain/model/fluttour.dart';
 
 abstract class HomeUseCaseType {

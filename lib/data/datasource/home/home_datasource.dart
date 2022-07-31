@@ -1,4 +1,4 @@
-import 'package:fluttour/data/api/error/error.dart';
+import 'package:fluttour/data/api/error.dart';
 import 'package:fluttour/data/api/graphql_client/graphql_client_type.dart';
 import 'package:fluttour/data/api/response/fluttour_response.dart';
 import 'home_datasource_type.dart';

@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fluttour/data/api/error/error.dart';
+import 'package:fluttour/data/api/error.dart';
 import 'package:fluttour/data/api/request/brand_request.dart';
 import 'package:fluttour/data/api/request/recommend_dishes_request.dart';
 import 'package:fluttour/data/api/response/brand_response.dart';
