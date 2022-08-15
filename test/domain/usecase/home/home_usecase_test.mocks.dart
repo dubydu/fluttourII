@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
-import 'package:connectivity/connectivity.dart' as _i3;
+import 'package:connectivity_plus/connectivity_plus.dart' as _i3;
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:fluttour/data/api/error.dart' as _i7;
 import 'package:fluttour/data/api/response/fluttour_response.dart' as _i8;
