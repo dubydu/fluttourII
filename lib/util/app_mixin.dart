@@ -1,6 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:connectivity/connectivity.dart';
 
 mixin ResponsiveMixin {
   void initResponsive(BuildContext context) {
