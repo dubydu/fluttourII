@@ -18,13 +18,13 @@ class SliverPage extends StatefulWidget {
 class SliverPageState extends State<SliverPage>
     with AfterLayoutMixin, ResponsiveMixin, SingleTickerProviderStateMixin {
 
-  // Sliver bloc
+  /// Sliver bloc
   late SliverBloc _sliverBloc;
-  // Scroll controller
+  /// Scroll controller
   late final ScrollController _scrollController = ScrollController();
-  // Global key
+  /// Global key
   final GlobalKey categoryWidgetKey = GlobalKey();
-  // Tab controller
+  /// Tab controller
   TabController? _tabController;
 
   @override
@@ -90,7 +90,8 @@ class SliverPageState extends State<SliverPage>
                       pop();
                     },
                     onSearchPressed: () { },
-                    onSharePressed: () { }
+                    onSharePressed: () { },
+                    isDeviceHasNotch: isDeviceHasNotch()
                 ),
               ),
               SliverToBoxAdapter(
@@ -169,18 +170,23 @@ class SliverPageState extends State<SliverPage>
   }
 }
 
+/// The header image widget
+///
+///
 class HeaderImageWidget extends SliverPersistentHeaderDelegate {
   HeaderImageWidget({
     required this.state,
     required this.onBackPressed,
     required this.onSharePressed,
-    required this.onSearchPressed
+    required this.onSearchPressed,
+    required this.isDeviceHasNotch
   });
 
   final SliverState state;
   final VoidCallback onBackPressed;
   final VoidCallback onSharePressed;
   final VoidCallback onSearchPressed;
+  final bool isDeviceHasNotch;
 
   @override
   Widget build(
@@ -195,7 +201,7 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
                 child: ImageBuilder(state.brand?.image, fit: BoxFit.cover)
             ),
             Positioned(
-                left: 16, top: 0, right: 16,
+                left: 16, top: isDeviceHasNotch ? 0 : 16, right: 16,
                 child: SafeArea(
                   bottom: false,
                   child: Row(
@@ -234,6 +240,9 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
   }
 }
 
+/// The header description widget
+///
+///
 class HeaderDescriptionWidget extends StatelessWidget {
   const HeaderDescriptionWidget({Key? key, required this.state}) : super(key: key);
 
@@ -325,6 +334,9 @@ class HeaderDescriptionWidget extends StatelessWidget {
   }
 }
 
+/// The featured items widget
+///
+///
 class FeaturedItemsWidget extends StatelessWidget {
   const FeaturedItemsWidget({Key? key, required this.dishes}) : super(key: key);
 
@@ -386,9 +398,13 @@ class FeaturedItemsWidget extends StatelessWidget {
   }
 }
 
+/// Returns a product index if any items were pressed
 typedef OnCategoryPressed = Function(int index);
 
-class CategoryWidget extends  SliverPersistentHeaderDelegate {
+/// The product category widget
+///
+///
+class CategoryWidget extends SliverPersistentHeaderDelegate {
   const CategoryWidget({
     required this.state,
     required this.categoryWidgetKey,
@@ -488,4 +504,3 @@ class SectionWidget extends StatelessWidget {
       itemCount: categories.length);
   }
 }
-

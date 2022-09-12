@@ -34,6 +34,7 @@ class SliverSectionWidget extends StatelessWidget {
             physics: const ClampingScrollPhysics(),
             itemBuilder: (context, index) {
               return InkWell(
+                borderRadius: BorderRadius.circular(8.sp),
                 onTap: () {},
                 child: SizedBox(
                   height: 110.h,
