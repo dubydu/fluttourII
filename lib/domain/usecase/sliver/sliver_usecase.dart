@@ -1,12 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:fluttour/data/api/error.dart';
-import 'package:fluttour/data/api/request/brand_request.dart';
-import 'package:fluttour/data/api/request/recommend_dishes_request.dart';
-import 'package:fluttour/data/repository/sliver/sliver_repository_type.dart';
 import 'package:fluttour/domain/model/brand.dart';
 import 'package:fluttour/domain/model/dish.dart';
+import 'package:fluttour/domain/model/failure.dart';
 import 'package:fluttour/domain/translator/sliver_translator.dart';
 import 'package:fluttour/domain/usecase/sliver/sliver_usecase_type.dart';
+import 'package:fluttour/repository/sliver/sliver_repository_type.dart';
 
 class SliverUseCase extends SliverUseCaseType {
   SliverUseCase({required this.repository});
@@ -14,22 +12,29 @@ class SliverUseCase extends SliverUseCaseType {
   SliverRepositoryType repository;
 
   @override
-  Future<Either<Failure, Tuple2<Brand, List<DishCategory>>>> getBrand({required int id}) async {
-    final result = await repository.getBrand(request: BrandRequest(id: id));
-    return result.map((response) {
+  Future<Either<Failure, Tuple2<Brand, List<DishCategory>>>> getBrand({
+    required int id
+  }) async {
+    final result = await repository.getBrand(id: id);
+    return result.fold((errorResponse) {
+      return Left(Failure(message: errorResponse.message));
+    }, (response) {
       final brand = SliverTranslator.toBrandModel(response: response);
       final dishCategories = SliverTranslator.toDishCategories(brand: brand);
-      return Tuple2(brand, dishCategories);
-      }
-    );
+      return Right(Tuple2(brand, dishCategories));
+    });
   }
 
   @override
-  Future<Either<Failure, List<Dish>>> getRecommendDishes({required int id}) async {
+  Future<Either<Failure, List<Dish>>> getRecommendDishes({
+    required int id
+  }) async {
     final result = await repository
-        .getRecommendDishes(request: RecommendDishesRequest(id: id));
-    return result.map((response) {
-      return SliverTranslator.toRecommendDishes(dishes: response);
+        .getRecommendDishes(id: id);
+    return result.fold((errorResponse) {
+      return Left(Failure(message: errorResponse.message));
+    }, (response) {
+      return Right(SliverTranslator.toRecommendDishes(dishes: response));
     });
   }
 }

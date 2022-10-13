@@ -1,8 +1,8 @@
-import 'package:fluttour/data/repository/home/home_repository.dart';
-import 'package:fluttour/data/repository/home/home_repository_type.dart';
-import 'package:fluttour/data/repository/sliver/sliver_repository.dart';
-import 'package:fluttour/data/repository/sliver/sliver_repository_type.dart';
 import 'package:fluttour/di/datasource_module.dart';
+import 'package:fluttour/repository/home/home_repository.dart';
+import 'package:fluttour/repository/home/home_repository_type.dart';
+import 'package:fluttour/repository/sliver/sliver_repository.dart';
+import 'package:fluttour/repository/sliver/sliver_repository_type.dart';
 
 mixin RepositoryModule on DatasourceModule {
   /// HomeRepository

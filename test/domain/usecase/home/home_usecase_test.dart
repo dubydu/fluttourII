@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fluttour/data/api/error.dart';
 import 'package:fluttour/data/api/response/fluttour_response.dart';
-import 'package:fluttour/data/repository/home/home_repository.dart';
+import 'package:fluttour/data/error_response.dart';
+import 'package:fluttour/domain/model/failure.dart';
 import 'package:fluttour/domain/model/fluttour.dart';
 import 'package:fluttour/domain/translator/home_translator.dart';
 import 'package:fluttour/domain/usecase/home/home_usecase.dart';
 import 'package:fluttour/domain/usecase/home/home_usecase_type.dart';
+import 'package:fluttour/repository/home/home_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import '../../../mock/home_responses_mock.dart';
@@ -38,7 +39,7 @@ void main() {
       when(
           mockHomeRepository
               .getFluttourDoctor())
-          .thenAnswer((_) async => left(const NoAuthenticationFailure())
+          .thenAnswer((_) async => left(const UnknownErrorResponse())
       );
       final HomeUseCaseType homeUseCase = HomeUseCase(repository: mockHomeRepository);
       final Either<Failure, Fluttour> response = await homeUseCase.getFluttourDoctor();

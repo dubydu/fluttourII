@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:fluttour/data/api/error.dart';
+import 'package:fluttour/data/error_response.dart';
 import 'package:fluttour/data/api/graphql_client/graphql_client_type.dart';
 import 'package:graphql/client.dart';
 
@@ -62,7 +62,7 @@ class GraphqlClient implements GraphqlClientType {
         if (kDebugMode) {
           print('GraphQL Error: $message');
         }
-        throw Failure(message);
+        throw ErrorResponse(message);
       }
     }
     if (queryResult.exception
@@ -77,7 +77,7 @@ class GraphqlClient implements GraphqlClientType {
       if (kDebugMode) {
         print('GraphQL Error: $message');
       }
-      throw Failure(message);
+      throw ErrorResponse(message);
     }
   }
 

@@ -5,12 +5,13 @@ import 'package:fluttour/domain/model/brand.dart';
 import 'package:fluttour/domain/model/dish.dart';
 
 class SliverTranslator {
-  /// To Request
+  /// To Brand Request
+  ///
   static BrandRequest toBrandRequest({required int id}) {
     return BrandRequest(id: id);
   }
-
-  /// To Models
+  /// To Brand model
+  ///
   static Brand toBrandModel({required BrandResponse response}) {
     return Brand(
         id: response.id,
@@ -25,7 +26,8 @@ class SliverTranslator {
                 (dish) => SliverTranslator.toDishModel(response: dish)).toList()
     );
   }
-
+  /// To Dish model
+  ///
   static Dish toDishModel({required DishResponse response}) {
     return Dish(id: response.id,
         kitchenBrandId: response.kitchenBrandId,
@@ -38,7 +40,8 @@ class SliverTranslator {
         available: response.available
     );
   }
-
+  /// To Dish Category
+  ///
   static List<DishCategory> toDishCategories({required Brand brand}) {
     // Init dish categories
     List<DishCategory> dishCategories = [];
@@ -70,7 +73,8 @@ class SliverTranslator {
     }).toList();
     return dishCategories;
   }
-
+  /// To recommend dishes
+  ///
   static List<Dish> toRecommendDishes({required List<DishResponse> dishes}) {
     return dishes.map((dish) {
       return SliverTranslator.toDishModel(response: dish);

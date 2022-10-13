@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:fluttour/data/api/error.dart';
+import 'package:fluttour/data/datasource/sliver/sliver_datasource_type.dart';
+import 'package:fluttour/data/error_response.dart';
 import 'package:fluttour/data/api/request/brand_request.dart';
 import 'package:fluttour/data/api/request/recommend_dishes_request.dart';
 import 'package:fluttour/data/api/response/brand_response.dart';
 import 'package:fluttour/data/api/response/dish_response.dart';
-import 'package:fluttour/data/datasource/sliver/sliver_datasource_type.dart';
-import 'package:fluttour/data/repository/sliver/sliver_repository_type.dart';
 import 'package:fluttour/util/app_mixin.dart';
+
+import 'sliver_repository_type.dart';
 
 class SliverRepository with ConnectivityMixin implements SliverRepositoryType {
   SliverRepository({required this.dataSource});
@@ -14,28 +15,31 @@ class SliverRepository with ConnectivityMixin implements SliverRepositoryType {
   final SliverDataSourceType dataSource;
 
   @override
-  Future<Either<Failure, BrandResponse>> getBrand({required BrandRequest request}) async {
+  Future<Either<ErrorResponse, BrandResponse>> getBrand({required int id}) async {
     if (await isInConnection()) {
       try {
-        final response = await dataSource.getBrand(request: request);
+        final response = await dataSource.getBrand(request: BrandRequest(id: id));
         return Right(response);
       } catch (e) {
-        return Left(Failure(e.toString()));
+        return Left(ErrorResponse(e.toString()));
       }
     }
-    return const Left(NoConnection());
+    return const Left(NoConnectionErrorResponse());
   }
 
   @override
-  Future<Either<Failure, List<DishResponse>>> getRecommendDishes({required RecommendDishesRequest request}) async {
+  Future<Either<ErrorResponse, List<DishResponse>>> getRecommendDishes({
+    required int id
+  }) async {
     if (await isInConnection()) {
       try {
-          final response = await dataSource.getRecommendDishes(request: request);
+          final response = await dataSource
+              .getRecommendDishes(request: RecommendDishesRequest(id: id));
           return Right(response);
         } catch (e) {
-          return Left(Failure(e.toString()));
+          return Left(ErrorResponse(e.toString()));
         }
     }
-    return const Left(NoConnection());
+    return const Left(NoConnectionErrorResponse());
   }
 }
