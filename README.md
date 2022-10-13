@@ -54,18 +54,14 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   │   └── graphql_client_type.dart
 │       │   │   ├── request
 │       │   │   │   └── dummy_request.dart
-│       │   │   ├── response
-│       │   │   │   ├── dummy_response.dart
-│       │   │   │   └── dummy_response.g.dart
-│       │   │   └── error.dart
+│       │   │   └── response
+│       │   │       ├── dummy_response.dart
+│       │   │       └── dummy_response.g.dart
 │       │   ├── datasource
 │       │   │   └── dummy
 │       │   │       ├── dummy_datasource.dart
 │       │   │       └── dummy_datasource_type.dart
-│       │   └── repository
-│       │   │   └── dummy
-│       │   │       ├── dummy_repository.dart
-│       │   │       └── dummy_repository_type.dart
+│       │   └── error_response.dart
 │       ├── di
 │       │   ├── client_module.dart
 │       │   ├── config_module.dart
@@ -75,6 +71,7 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       ├── domain
 │       │   ├── model
 │       │   │   ├── empty.dart
+│       │   │   ├── failure.dart
 │       │   │   └── dummy.dart
 │       │   ├── translator
 │       │   │   └── dummy_translator.dart
@@ -89,9 +86,13 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   └── production_env.dart
 │       │   └── environment.dart
 │       ├── presentation
-│       │   ├── dummy
-│       │   │   ├── dummy_page.dart
-│       │   │   └── dummy_bloc.dart
+│       │   └── dummy
+│       │       ├── dummy_page.dart
+│       │       └── dummy_bloc.dart
+│       ├── repository
+│       │   └── dummy
+│       │       ├── dummy_repository.dart
+│       │       └── dummy_repository_type.dart
 │       ├── router
 │       │   ├── gen_route.dart
 │       │   ├── named_route.dart
@@ -116,7 +117,7 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       └── my_app.dart
 └── test
     ├── domain
-    │   └── usecase
+    │   ├── usecase
     │   │   └── dummy
     │   │       ├── dummy_usecase_test.dart
     │   │       └── dummy_usecase_test.mocks.dart
