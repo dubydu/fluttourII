@@ -20,8 +20,8 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 ### [Usage](#usage)
 
 #### Run App with a specific environment.
-* Development: `flutter run -t lib/main_dev.dart`
-* Production: `flutter run -t lib/main_prod.dart`
+* Development: `flutter run --flavor dev -t lib/main_dev.dart`
+* Production: `flutter run --flavor prod -t lib/main_prod.dart`
 
 
 ### [Project Structure](#project-structure)
