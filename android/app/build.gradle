@@ -70,10 +70,10 @@ android {
 
     buildTypes {
         getByName("debug") {
-
+            signingConfig signingConfigs.debug
         }
         getByName("release") {
-
+            signingConfig signingConfigs.debug
         }
     }
 }
