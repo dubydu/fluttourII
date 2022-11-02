@@ -23,7 +23,6 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 * Development: `flutter run --flavor dev -t lib/main_dev.dart`
 * Production: `flutter run --flavor prod -t lib/main_prod.dart`
 
-
 ### [Project Structure](#project-structure)
 ```
 .
@@ -141,6 +140,15 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 
 ### [Pitfalls](#pitfalls)
 - Make sure `flutter pub get` before you run the app.
+
+### [Archive](#archive)
+#### iOS
+* Development: `flutter build ipa --flavor dev -t lib/main_dev.dart --export-method [...]`
+* Production: `flutter build ipa --flavor prod -t lib/main_prod.dart --export-method [...]`
+* [`--export-method`](https://docs.flutter.dev/deployment/ios#create-an-app-bundle)
+#### Android
+* Development: `flutter build apk --flavor dev -t lib/main_dev.dart`
+* Production: `flutter build apk --flavor prod -t lib/main_prod.dart`
 
 ### [Practice](#practice)
 - [`Flutter x Magic Sliver Widgets`](https://github.com/dubydu/magic-sliver)
