@@ -16,7 +16,7 @@ dependencies:
   pretty_dio_logger: ^1.1.1
   dartz: ^0.10.1
   retrofit: ^3.0.1+1
-  connectivity_plus: ^2.3.6+1
+  connectivity_plus: ^3.0.2
   graphql: ^5.1.1
   # State management
   flutter_bloc: ^8.1.1
