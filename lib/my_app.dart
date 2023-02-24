@@ -60,7 +60,7 @@ class MyAppState extends State<MyApp>
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           navigatorObservers: [global.navigationObserver],
-          theme: global.them,
+          theme: global.theme,
           onGenerateRoute: generateRoute,
           navigatorKey: NavigationController.globalNavigatorKey,
         )

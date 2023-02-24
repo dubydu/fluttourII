@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 RouteObserver<ModalRoute<void>> navigationObserver = RouteObserver<ModalRoute<void>>();
 
-ThemeData them = ThemeData(
+ThemeData theme = ThemeData(
     fontFamily: "Exo2",
     pageTransitionsTheme: _buildPageTransitionsTheme()
 );
