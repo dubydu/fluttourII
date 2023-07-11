@@ -4,9 +4,9 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 
 ### [Getting Started](#getting-started)
 
-* Flutter (Channel stable, 3.7.5)
-* Dart 2.19.2
-* Cocoapods 1.11.3
+* Flutter (Channel stable, 3.10.5)
+* Dart 3.0.5
+* Cocoapods 1.12.1
 
 ### [Article](#article)
 * [`Flutter x Clean Architecture`](https://dubydu.medium.com/b53ce9e19d5a)
@@ -143,12 +143,12 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 
 ### [Archive](#archive)
 #### iOS
-* Development: `flutter build ipa --flavor dev -t lib/main_dev.dart --export-method [...]`
+* Development: `flutter build ipa --flavor dev lib/main_dev.dart --export-method [...]`
 * Production: `flutter build ipa --flavor prod -t lib/main_prod.dart --export-method [...]`
 * [`--export-method`](https://docs.flutter.dev/deployment/ios#create-an-app-bundle)
 #### Android
-* Development: `flutter build apk --flavor dev -t lib/main_dev.dart`
-* Production: `flutter build apk --flavor prod -t lib/main_prod.dart`
+* Development: `flutter build apk --flavor dev lib/main_dev.dart`
+* Production: `flutter build apk --flavor prod lib/main_prod.dart`
 
 ### [Troubleshooting](#troubleshooting)
 - The connectivity always throw `none` result on iOS Simulator: [`> see this issue`](https://github.com/fluttercommunity/plus_plugins/issues/852)

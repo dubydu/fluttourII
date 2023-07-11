@@ -16,11 +16,11 @@ class QueryInterceptor extends InterceptorsWrapper {
   final String authToken;
 
   QueryInterceptor({
-        this.expectResponseJson = false,
-        required this.identityBaseDomain,
-        this.ignoreConnection = false,
-        this.ignoreToken = false,
-        required this.authToken
+    this.expectResponseJson = false,
+    required this.identityBaseDomain,
+    this.ignoreConnection = false,
+    this.ignoreToken = false,
+    required this.authToken,
   });
 
   @override
@@ -41,20 +41,22 @@ class QueryInterceptor extends InterceptorsWrapper {
   @override
   Future onResponse(
       Response response, ResponseInterceptorHandler handler) async {
-    final isInValidAuthenticationResponse = await _isInValidAuthenticationResponse(response);
+    final isInValidAuthenticationResponse =
+        await _isInValidAuthenticationResponse(response);
     if (isInValidAuthenticationResponse) {
-      throw DioError(
+      throw DioException(
         requestOptions: response.requestOptions,
         response: response,
-        type: DioErrorType.badResponse,
-        error: 'Invalid token or current token is expired. Please try logging in again!',
+        type: DioExceptionType.badResponse,
+        error:
+            'Invalid token or current token is expired. Please try logging in again!',
       );
     }
     if (!isResponseOkButNoContent(response) && expectResponseJson) {
-      throw DioError(
+      throw DioException(
         requestOptions: response.requestOptions,
         response: response,
-        type: DioErrorType.badResponse,
+        type: DioExceptionType.badResponse,
         error: 'Response format is not a json response',
       );
     }
@@ -66,15 +68,18 @@ class QueryInterceptor extends InterceptorsWrapper {
     return response?.statusCode == 401;
   }
 
-  bool isResponseOkButNoContent(Response response) => response.statusCode == 204;
+  bool isResponseOkButNoContent(Response response) =>
+      response.statusCode == 204;
 
   bool? isResponseHeaderTypeJson(Map<String, List<String>> headerMap) {
     return headerMap[_contentType]
-        ?.firstWhere((element) => element.contains(_applicationJson), orElse: () => '')
+        ?.firstWhere((element) => element.contains(_applicationJson),
+            orElse: () => '')
         .contains(_applicationJson);
   }
 
-  Future _validateConnection(RequestOptions options, RequestInterceptorHandler handler) async {
+  Future _validateConnection(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     if (NavigationController.globalNavigatorKey.currentContext == null) {
       return;
     }
@@ -84,7 +89,7 @@ class QueryInterceptor extends InterceptorsWrapper {
         builder: (context) {
           return Container();
         }).then((_) {
-          return onRequest(options, handler);
+      return onRequest(options, handler);
     });
   }
 }

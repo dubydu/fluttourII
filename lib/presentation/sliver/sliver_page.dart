@@ -17,15 +17,17 @@ class SliverPage extends StatefulWidget {
 
 class SliverPageState extends State<SliverPage>
     with AfterLayoutMixin, ResponsiveMixin, SingleTickerProviderStateMixin {
-
   /// Sliver bloc
   late SliverBloc _sliverBloc;
+
   /// Scroll controller
   late final ScrollController _scrollController = ScrollController();
+
   /// Global key
   final GlobalKey categoryWidgetKey = GlobalKey();
+
   /// Tab controller
-  TabController? _tabController;
+  late TabController _tabController;
 
   @override
   Future<void> afterFirstLayout(BuildContext context) async {
@@ -34,28 +36,29 @@ class SliverPageState extends State<SliverPage>
     // Add scroll listener
     _scrollController.addListener(_scrollControllerObserver);
     // Fetch brand data
-    await _sliverBloc.fetchBrand();
-    // Init tab controller
-    _tabController = TabController(
-        length: _sliverBloc.state.categories?.length ?? 0,
-        vsync: this
-    );
+    Future.delayed(const Duration(milliseconds: 300), () async {
+      await _sliverBloc.fetchBrand();
+      // Init tab controller
+      _tabController = TabController(
+          length: _sliverBloc.state.categories?.length ?? 0, vsync: this);
+    });
   }
 
   void _scrollControllerObserver() {
     /// Handle the position of category widget
     double y = AppDevice.detectWidgetPosition(globalKey: categoryWidgetKey).dy;
     _sliverBloc.onCategoryChanged(isOnTop: y <= 10.h);
+
     /// Handle the position of section widget
     final sectionIndex = _sliverBloc.onSectionChanged(isDeviceHasNotch());
     if (sectionIndex != -1) {
-      _tabController?.animateTo(sectionIndex);
+      _tabController.animateTo(sectionIndex);
     }
   }
 
   @override
   void dispose() {
-    _tabController?.dispose();
+    _tabController.dispose();
     _sliverBloc.dispose();
     super.dispose();
   }
@@ -65,11 +68,10 @@ class SliverPageState extends State<SliverPage>
     initResponsive(context);
     return BaseMaterialPage(
       child: Scaffold(
-        backgroundColor: AppColor.white,
-        body: isDeviceHasNotch()
-            ? _buildBodyWidget()
-            : SafeArea(child: _buildBodyWidget())
-      ),
+          backgroundColor: AppColor.white,
+          body: isDeviceHasNotch()
+              ? _buildBodyWidget()
+              : SafeArea(child: _buildBodyWidget())),
     );
   }
 
@@ -89,10 +91,9 @@ class SliverPageState extends State<SliverPage>
                     onBackPressed: () {
                       pop();
                     },
-                    onSearchPressed: () { },
-                    onSharePressed: () { },
-                    isDeviceHasNotch: isDeviceHasNotch()
-                ),
+                    onSearchPressed: () {},
+                    onSharePressed: () {},
+                    isDeviceHasNotch: isDeviceHasNotch()),
               ),
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -102,15 +103,13 @@ class SliverPageState extends State<SliverPage>
               // Description
               SliverToBoxAdapter(
                   child: HeaderDescriptionWidget(
-                    state: state,
-                  )
-              ),
+                state: state,
+              )),
               // Featured Items
               SliverToBoxAdapter(
                   child: FeaturedItemsWidget(
-                    dishes: state.recommendDishes ?? [],
-                  )
-              ),
+                dishes: state.recommendDishes ?? [],
+              )),
               // Category Tabs
               BlocBuilder<SliverBloc, SliverState>(
                 builder: (context, state) {
@@ -125,29 +124,28 @@ class SliverPageState extends State<SliverPage>
                           onCategoryPressed: (int index) async {
                             /// Select category
                             _sliverBloc.onCategorySelected(
-                                dishCategory: state.categories![index]
-                            );
+                                dishCategory: state.categories![index]);
+
                             /// Scroll to specific section widget
                             Scrollable.ensureVisible(
-                                state.categoryGlobalKeys![index].currentContext!,
-                                duration: const Duration(microseconds: 100)
-                            );
+                                state
+                                    .categoryGlobalKeys![index].currentContext!,
+                                duration: const Duration(microseconds: 100));
+
                             /// Move category widget on top
-                            Future.delayed(const Duration(milliseconds: 150), () {
+                            Future.delayed(const Duration(milliseconds: 150),
+                                () {
                               _sliverBloc.moveCategoryOnTop();
                             });
-                          }
-                      )
-                  );
+                          }));
                 },
               ),
               // Dishes list
               SliverToBoxAdapter(
                   child: SectionWidget(
-                    categories: state.categories ?? [],
-                    globalKeys: state.categoryGlobalKeys ?? [],
-                  )
-              ),
+                categories: state.categories ?? [],
+                globalKeys: state.categoryGlobalKeys ?? [],
+              )),
               // Spacing
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -174,13 +172,12 @@ class SliverPageState extends State<SliverPage>
 ///
 ///
 class HeaderImageWidget extends SliverPersistentHeaderDelegate {
-  HeaderImageWidget({
-    required this.state,
-    required this.onBackPressed,
-    required this.onSharePressed,
-    required this.onSearchPressed,
-    required this.isDeviceHasNotch
-  });
+  HeaderImageWidget(
+      {required this.state,
+      required this.onBackPressed,
+      required this.onSharePressed,
+      required this.onSearchPressed,
+      required this.isDeviceHasNotch});
 
   final SliverState state;
   final VoidCallback onBackPressed;
@@ -194,37 +191,39 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
     return SizedBox(
       width: double.infinity,
       height: 220.h,
-      child: Stack(
-          children: <Widget>[
-            Positioned(
-                left: 0, top: 0, right: 0, bottom: 0,
-                child: ImageBuilder(state.brand?.image, fit: BoxFit.cover)
-            ),
-            Positioned(
-                left: 16, top: isDeviceHasNotch ? 0 : 16, right: 16,
-                child: SafeArea(
-                  bottom: false,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: onBackPressed,
-                        child: AppIcon.iconBack.widget(),
-                      ),
-                      const Spacer(),
-                      InkWell(
-                        child: AppIcon.iconShare.widget(),
-                      ),
-                      SizedBox(width: 16.w),
-                      InkWell(
-                        child: AppIcon.iconSearch.widget(),
-                      ),
-                    ],
-                  ),
+      child: Stack(children: <Widget>[
+        Positioned(
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            child: ImageBuilder(state.brand?.image, fit: BoxFit.cover)),
+        Positioned(
+          left: 16,
+          top: isDeviceHasNotch ? 0 : 16,
+          right: 16,
+          child: SafeArea(
+            bottom: false,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                InkWell(
+                  onTap: onBackPressed,
+                  child: AppIcon.iconBack.widget(),
                 ),
+                const Spacer(),
+                InkWell(
+                  child: AppIcon.iconShare.widget(),
+                ),
+                SizedBox(width: 16.w),
+                InkWell(
+                  child: AppIcon.iconSearch.widget(),
+                ),
+              ],
             ),
-          ]
-      ),
+          ),
+        ),
+      ]),
     );
   }
 
@@ -244,7 +243,8 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
 ///
 ///
 class HeaderDescriptionWidget extends StatelessWidget {
-  const HeaderDescriptionWidget({Key? key, required this.state}) : super(key: key);
+  const HeaderDescriptionWidget({Key? key, required this.state})
+      : super(key: key);
 
   final SliverState state;
 
@@ -273,61 +273,60 @@ class HeaderDescriptionWidget extends StatelessWidget {
             ),
           ),
           Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(top: 14.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        AppIcon.iconDeliveryPrice.widget(),
-                        SizedBox(width: 8.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            AppText.body('Free', color: AppColor.black),
-                            SizedBox(height: 4.h),
-                            AppText.small('Delivery'),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 20.w),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        AppIcon.iconDeliveryTime.widget(),
-                        SizedBox(width: 8.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            AppText.body(
-                                state.brand?.duration ?? '',
-                                color: AppColor.black),
-                            SizedBox(height: 4.h),
-                            AppText.small('Minutes'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                    height: 38.h,
-                    width: 113.w,
-                    child: AppPrimaryButton(
-                      title: 'TAKE AWAY', onPressed: () {  },
-                    ),
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(top: 14.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          AppIcon.iconDeliveryPrice.widget(),
+                          SizedBox(width: 8.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              AppText.body('Free', color: AppColor.black),
+                              SizedBox(height: 4.h),
+                              AppText.small('Delivery'),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 20.w),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          AppIcon.iconDeliveryTime.widget(),
+                          SizedBox(width: 8.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              AppText.body(state.brand?.duration ?? '',
+                                  color: AppColor.black),
+                              SizedBox(height: 4.h),
+                              AppText.small('Minutes'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                )
-              ],
-            )
-          ),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: SizedBox(
+                      height: 38.h,
+                      width: 113.w,
+                      child: AppPrimaryButton(
+                        title: 'TAKE AWAY',
+                        onPressed: () {},
+                      ),
+                    ),
+                  )
+                ],
+              )),
         ],
       ),
     );
@@ -366,23 +365,16 @@ class FeaturedItemsWidget extends StatelessWidget {
                         alignment: Alignment.center,
                         height: 140.h,
                         decoration: BoxDecoration(
-                          color: AppColor.white,
-                          borderRadius: BorderRadius.circular(8.sp),
-                          border: Border.all(
-                            color: AppColor.lightGray,
-                            width: .6
-                          )
-                        ),
-                        child: ImageBuilder(
-                            dishes[index].image,
-                            fit: BoxFit.fitWidth
-                        ),
+                            color: AppColor.white,
+                            borderRadius: BorderRadius.circular(8.sp),
+                            border: Border.all(
+                                color: AppColor.lightGray, width: .6)),
+                        child: ImageBuilder(dishes[index].image,
+                            fit: BoxFit.fitWidth),
                       ),
                       SizedBox(height: 8.h),
-                      AppText.itemTitleSmall(
-                          dishes[index].name ?? '',
-                          maxLines: 1
-                      ),
+                      AppText.itemTitleSmall(dishes[index].name ?? '',
+                          maxLines: 1),
                       SizedBox(height: 4.h),
                       AppText.currency('${dishes[index].price!}¥')
                     ],
@@ -391,7 +383,8 @@ class FeaturedItemsWidget extends StatelessWidget {
               },
               separatorBuilder: (_, __) {
                 return SizedBox(width: 14.w);
-          }, itemCount: dishes.length),
+              },
+              itemCount: dishes.length),
         )
       ],
     );
@@ -405,14 +398,13 @@ typedef OnCategoryPressed = Function(int index);
 ///
 ///
 class CategoryWidget extends SliverPersistentHeaderDelegate {
-  const CategoryWidget({
-    required this.state,
-    required this.categoryWidgetKey,
-    required this.isWidgetOnTop,
-    required this.isDeviceHasNotch,
-    required this.tabController,
-    required this.onCategoryPressed
-  });
+  const CategoryWidget(
+      {required this.state,
+      required this.categoryWidgetKey,
+      required this.isWidgetOnTop,
+      required this.isDeviceHasNotch,
+      required this.tabController,
+      required this.onCategoryPressed});
 
   final SliverState state;
   final GlobalKey categoryWidgetKey;
@@ -431,28 +423,23 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
         duration: const Duration(milliseconds: 100),
         key: categoryWidgetKey,
         padding: EdgeInsets.only(
-            top: isDeviceHasNotch
-                ? (isWidgetOnTop ? 30.h : 0.h)
-                : 15.h),
+            top: isDeviceHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 15.h),
         alignment: Alignment.centerLeft,
         child: DefaultTabController(
           length: state.categories!.length,
           child: TabBar(
-            splashBorderRadius: BorderRadius.circular(16.h),
-            controller: tabController,
-            onTap: onCategoryPressed,
-            indicatorColor: AppColor.transparent,
-            indicatorWeight: .1,
-            isScrollable: true,
-            tabs: state.categories!.map((category) =>
-                AppText.h3(
-                    category.name ?? '',
-                    color: category.isSelected
-                        ? AppColor.active
-                        : AppColor.black.withOpacity(.7)
-                )
-            ).toList()
-          ),
+              splashBorderRadius: BorderRadius.circular(16.h),
+              controller: tabController,
+              onTap: onCategoryPressed,
+              indicatorColor: AppColor.transparent,
+              indicatorWeight: .1,
+              isScrollable: true,
+              tabs: state.categories!
+                  .map((category) => AppText.h3(category.name ?? '',
+                      color: category.isSelected
+                          ? AppColor.active
+                          : AppColor.black.withOpacity(.7)))
+                  .toList()),
         ),
       ),
     );
@@ -475,11 +462,9 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
 }
 
 class SectionWidget extends StatelessWidget {
-  const SectionWidget({
-    Key? key,
-    required this.categories,
-    required this.globalKeys
-  }) : super(key: key);
+  const SectionWidget(
+      {Key? key, required this.categories, required this.globalKeys})
+      : super(key: key);
 
   final List<DishCategory> categories;
   final List<GlobalKey> globalKeys;
@@ -487,20 +472,18 @@ class SectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(top: 10.h),
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemBuilder: (context, index) {
-        return SliverSectionWidget(
-          dishCategory: categories[index],
-          globalKey: globalKeys[index]
-        );
-      },
-      separatorBuilder: (_, __) {
-        return SizedBox(
-          height: 16.h,
-        );
-      },
-      itemCount: categories.length);
+        padding: EdgeInsets.only(top: 10.h),
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return SliverSectionWidget(
+              dishCategory: categories[index], globalKey: globalKeys[index]);
+        },
+        separatorBuilder: (_, __) {
+          return SizedBox(
+            height: 16.h,
+          );
+        },
+        itemCount: categories.length);
   }
 }
