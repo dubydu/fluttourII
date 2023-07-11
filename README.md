@@ -144,11 +144,11 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 ### [Archive](#archive)
 #### iOS
 * Development: `flutter build ipa --flavor dev lib/main_dev.dart --export-method [...]`
-* Production: `flutter build ipa --flavor prod -t lib/main_prod.dart --export-method [...]`
+* Production: `flutter build ipa --flavor prod lib/main_prod.dart --export-method [...]`
 * [`--export-method`](https://docs.flutter.dev/deployment/ios#create-an-app-bundle)
 #### Android
-* Development: `flutter build apk --flavor dev lib/main_dev.dart`
-* Production: `flutter build apk --flavor prod lib/main_prod.dart`
+* Development: `flutter build [appbundle/apk] --flavor dev lib/main_dev.dart`
+* Production: `flutter build [appbundle/apk] --flavor prod lib/main_prod.dart`
 
 ### [Troubleshooting](#troubleshooting)
 - The connectivity always throw `none` result on iOS Simulator: [`> see this issue`](https://github.com/fluttercommunity/plus_plugins/issues/852)
