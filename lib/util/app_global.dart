@@ -1,11 +1,12 @@
-library order_app.globals;
 import 'package:flutter/material.dart';
 
-RouteObserver<ModalRoute<void>> navigationObserver = RouteObserver<ModalRoute<void>>();
+RouteObserver<ModalRoute<void>> navigationObserver =
+    RouteObserver<ModalRoute<void>>();
 
 ThemeData theme = ThemeData(
-    fontFamily: "Exo2",
-    pageTransitionsTheme: _buildPageTransitionsTheme()
+  fontFamily: "Exo2",
+  pageTransitionsTheme: _buildPageTransitionsTheme(),
+  useMaterial3: true,
 );
 
 /// Custom page transitions theme

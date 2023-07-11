@@ -12,10 +12,10 @@ mixin AfterLayoutMixin<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding
-        .instance
-        .addPostFrameCallback((_) => afterFirstLayout(context));
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) async => afterFirstLayout(context));
   }
+
   Future<void> afterFirstLayout(BuildContext context);
 }
 

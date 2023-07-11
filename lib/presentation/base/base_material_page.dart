@@ -19,17 +19,17 @@ class BaseMaterialPage extends StatelessWidget {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          _dismiss(unfocus: context);
+          _dismiss(unFocus: context);
         },
         child: child,
       ),
     );
   }
 
-  void _dismiss({BuildContext? unfocus}) {
+  void _dismiss({BuildContext? unFocus}) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    if (unfocus != null) {
-      FocusScope.of(unfocus).unfocus();
+    if (unFocus != null) {
+      FocusScope.of(unFocus).unfocus();
     }
   }
 }

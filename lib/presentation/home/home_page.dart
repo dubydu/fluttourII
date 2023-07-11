@@ -14,7 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with ResponsiveMixin, AfterLayoutMixin, RouteAware {
-
   late HomeBloc _homeBloc;
 
   @override
@@ -33,7 +32,10 @@ class _HomePageState extends State<HomePage>
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Subscribe routeAware
-    global.navigationObserver.subscribe(this, ModalRoute.of(context)!);
+    final ModalRoute<dynamic>? modalRoute = ModalRoute.of(context);
+    if (modalRoute != null) {
+      global.navigationObserver.subscribe(this, modalRoute);
+    }
   }
 
   @override
@@ -53,46 +55,44 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     initResponsive(context);
-    return BaseMaterialPage(
-      child: SafeArea(
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state.fluttour != null) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  AppText.h6(
-                    LocaleTexts.appName.tr(),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 8.h),
-                  AppText.body(
-                    state.fluttour?.flutterVersion ?? '',
-                    color: AppColor.black,
-                    textAlign: TextAlign.center,
-                    fontSize: 12,
-                  ),
-                  SizedBox(height: 32.h),
-                  /*
-                  AppPrimaryButton(
-                    title: LocaleTexts.next.tr(),
-                    onPressed: () {
-                      transitionToSliverPage();
-                    },
-                  )
-                  */
-                ],
-              );
-            } else {
-              return SizedBox(
-                width: 24.sp,
-                height: 24.sp,
-                child: const CupertinoActivityIndicator(),
-              );
-            }
-          },
-        ),
-      )
-    );
+    return BaseMaterialPage(child: SafeArea(
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          if (state.fluttour != null) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                AppText.h6(
+                  LocaleTexts.appName.tr(),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 8.h),
+                AppText.body(
+                  state.fluttour?.flutterVersion ?? '',
+                  color: AppColor.black,
+                  textAlign: TextAlign.center,
+                  fontSize: 12,
+                ),
+                SizedBox(height: 32.h),
+                /*
+                AppPrimaryButton(
+                  title: LocaleTexts.next.tr().toUpperCase(),
+                  onPressed: () {
+                    transitionToSliverPage();
+                  },
+                )
+                 */
+              ],
+            );
+          } else {
+            return SizedBox(
+              width: 24.sp,
+              height: 24.sp,
+              child: const CupertinoActivityIndicator(),
+            );
+          }
+        },
+      ),
+    ));
   }
 }

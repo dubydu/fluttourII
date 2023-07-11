@@ -22,7 +22,7 @@ Future<void> myMain() async {
       EasyLocalization(
         supportedLocales: const [AppLocales.en, AppLocales.zh],
         path: AppLocales.path,
-        fallbackLocale: AppLocales.zh,
+        fallbackLocale: AppLocales.en,
         child: const MyApp(),
       )
   );

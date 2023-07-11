@@ -318,7 +318,6 @@ class HeaderDescriptionWidget extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: SizedBox(
                       height: 38.h,
-                      width: 113.w,
                       child: AppPrimaryButton(
                         title: 'TAKE AWAY',
                         onPressed: () {},
