@@ -51,6 +51,9 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   ├── graphql_client
 │       │   │   │   ├── graphql_client.dart
 │       │   │   │   └── graphql_client_type.dart
+│       │   │   ├── query
+│       │   │   │   ├── graphql_query.dart
+│       │   │   │   └── sqlite_query.dart
 │       │   │   ├── request
 │       │   │   │   └── dummy_request.dart
 │       │   │   └── response
