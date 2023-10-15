@@ -16,20 +16,21 @@ class AppImageBuilder {
 
   AppImageBuilder(this.assetPath);
 
-  Widget widget(
-      {Key? key,
-      bool matchTextDirection = false,
-      AssetBundle? bundle,
-      String? package,
-      double? width,
-      double? height,
-      BoxFit? fit = BoxFit.contain,
-      Alignment alignment = Alignment.center,
-      Color? color,
-      BorderRadius? borderRadius,
-      Widget? placeholder,
-      String? errorImageUrl,
-      int? memCacheHeight}) {
+  Widget widget({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
+    BoxFit? fit = BoxFit.contain,
+    Alignment alignment = Alignment.center,
+    Color? color,
+    BorderRadius? borderRadius,
+    Widget? placeholder,
+    String? errorImageUrl,
+    int? memCacheHeight,
+  }) {
     return ImageBuilder(
       assetPath,
       key: key,
@@ -59,24 +60,25 @@ class ImageBuilder extends StatelessWidget {
   final String? errorImageUrl;
   final int? memCacheHeight;
 
-  const ImageBuilder(this.input,
-      {Key? key,
-      this.height,
-      this.width,
-      this.color,
-      this.fit,
-      this.memCacheHeight,
-      this.alignment = Alignment.center,
-      this.borderRadius,
-      this.placeholder,
-      this.errorImageUrl})
-      : super(key: key);
+  const ImageBuilder(
+    this.input, {
+    Key? key,
+    this.height,
+    this.width,
+    this.color,
+    this.fit,
+    this.memCacheHeight,
+    this.alignment = Alignment.center,
+    this.borderRadius,
+    this.placeholder,
+    this.errorImageUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (borderRadius != null) {
       return ClipRRect(
-        borderRadius: borderRadius,
+        borderRadius: borderRadius!,
         child: _image(),
       );
     }

@@ -1,4 +1,5 @@
 import 'package:fluttour/data/api/graphql_client/graphql_client_type.dart';
+import 'package:fluttour/data/api/query/graphql_query.dart';
 import 'package:fluttour/data/api/response/fluttour_response.dart';
 import 'home_datasource_type.dart';
 
@@ -9,18 +10,7 @@ class HomeDataSource implements HomeDataSourceType {
 
   @override
   Future<FluttourResponse?> getFluttourDoctor() async {
-    const String query = '''
-    query MyQuery {
-      fluttours {
-        createdAt
-        cocoapodsVersion
-        dartVersion
-        devToolsVersion
-        flutterVersion
-        frameworkRevision
-      }
-    }
-    ''';
+    final String query = GraphQLQuery.fluttour.query;
     final result = await graphqlClient.query(queries: query);
     if (result.hasException) {
       throw await graphqlClient.handleException(queryResult: result);

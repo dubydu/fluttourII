@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with ResponsiveMixin, AfterLayoutMixin, RouteAware {
+  /// HomeBloc
   late HomeBloc _homeBloc;
 
   @override

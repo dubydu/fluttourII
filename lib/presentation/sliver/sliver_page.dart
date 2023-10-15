@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,30 +116,30 @@ class SliverPageState extends State<SliverPage>
               BlocBuilder<SliverBloc, SliverState>(
                 builder: (context, state) {
                   return SliverPersistentHeader(
-                      pinned: true,
-                      delegate: CategoryWidget(
-                          state: state,
-                          categoryWidgetKey: categoryWidgetKey,
-                          isWidgetOnTop: state.isCategoryWidgetOnTop,
-                          isDeviceHasNotch: isDeviceHasNotch(),
-                          tabController: _tabController,
-                          onCategoryPressed: (int index) async {
-                            /// Select category
-                            _sliverBloc.onCategorySelected(
-                                dishCategory: state.categories![index]);
+                    pinned: true,
+                    delegate: CategoryWidget(
+                      state: state,
+                      categoryWidgetKey: categoryWidgetKey,
+                      isWidgetOnTop: state.isCategoryWidgetOnTop,
+                      isDeviceHasNotch: isDeviceHasNotch(),
+                      tabController: _tabController,
+                      onCategoryPressed: (int index) async {
+                        /// Select category
+                        _sliverBloc.onCategorySelected(
+                            dishCategory: state.categories![index]);
 
-                            /// Scroll to specific section widget
-                            Scrollable.ensureVisible(
-                                state
-                                    .categoryGlobalKeys![index].currentContext!,
-                                duration: const Duration(microseconds: 100));
+                        /// Scroll to specific section widget
+                        Scrollable.ensureVisible(
+                            state.categoryGlobalKeys![index].currentContext!,
+                            duration: const Duration(microseconds: 100));
 
-                            /// Move category widget on top
-                            Future.delayed(const Duration(milliseconds: 150),
-                                () {
-                              _sliverBloc.moveCategoryOnTop();
-                            });
-                          }));
+                        /// Move category widget on top
+                        Future.delayed(const Duration(milliseconds: 150), () {
+                          _sliverBloc.moveCategoryOnTop();
+                        });
+                      },
+                    ),
+                  );
                 },
               ),
               // Dishes list
@@ -172,12 +174,13 @@ class SliverPageState extends State<SliverPage>
 ///
 ///
 class HeaderImageWidget extends SliverPersistentHeaderDelegate {
-  HeaderImageWidget(
-      {required this.state,
-      required this.onBackPressed,
-      required this.onSharePressed,
-      required this.onSearchPressed,
-      required this.isDeviceHasNotch});
+  HeaderImageWidget({
+    required this.state,
+    required this.onBackPressed,
+    required this.onSharePressed,
+    required this.onSearchPressed,
+    required this.isDeviceHasNotch,
+  });
 
   final SliverState state;
   final VoidCallback onBackPressed;
@@ -350,19 +353,19 @@ class FeaturedItemsWidget extends StatelessWidget {
           child: AppText.h4('Featured Items'),
         ),
         SizedBox(
-          height: 198.h,
+          height: 200.h,
           child: ListView.separated(
-              padding: EdgeInsets.only(left: 16.w, right: 16.w),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (state, index) {
-                return SizedBox(
-                  width: 140.w,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
+            padding: EdgeInsets.only(left: 16.w, right: 16.w),
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (state, index) {
+              return SizedBox(
+                width: 140.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
                         alignment: Alignment.center,
-                        height: 140.h,
                         decoration: BoxDecoration(
                             color: AppColor.white,
                             borderRadius: BorderRadius.circular(8.sp),
@@ -371,19 +374,21 @@ class FeaturedItemsWidget extends StatelessWidget {
                         child: ImageBuilder(dishes[index].image,
                             fit: BoxFit.fitWidth),
                       ),
-                      SizedBox(height: 8.h),
-                      AppText.itemTitleSmall(dishes[index].name ?? '',
-                          maxLines: 1),
-                      SizedBox(height: 4.h),
-                      AppText.currency('${dishes[index].price!}¥')
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (_, __) {
-                return SizedBox(width: 14.w);
-              },
-              itemCount: dishes.length),
+                    ),
+                    SizedBox(height: 8.h),
+                    AppText.itemTitleSmall(dishes[index].name ?? '',
+                        maxLines: 1),
+                    SizedBox(height: 4.h),
+                    AppText.currency('${dishes[index].price!}¥')
+                  ],
+                ),
+              );
+            },
+            separatorBuilder: (_, __) {
+              return SizedBox(width: 14.w);
+            },
+            itemCount: dishes.length,
+          ),
         )
       ],
     );
@@ -397,13 +402,14 @@ typedef OnCategoryPressed = Function(int index);
 ///
 ///
 class CategoryWidget extends SliverPersistentHeaderDelegate {
-  const CategoryWidget(
-      {required this.state,
-      required this.categoryWidgetKey,
-      required this.isWidgetOnTop,
-      required this.isDeviceHasNotch,
-      required this.tabController,
-      required this.onCategoryPressed});
+  const CategoryWidget({
+    required this.state,
+    required this.categoryWidgetKey,
+    required this.isWidgetOnTop,
+    required this.isDeviceHasNotch,
+    required this.tabController,
+    required this.onCategoryPressed,
+  });
 
   final SliverState state;
   final GlobalKey categoryWidgetKey;
@@ -415,30 +421,36 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Material(
-      color: AppColor.white.withOpacity(.95),
-      elevation: isWidgetOnTop ? 2 : 0,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
-        key: categoryWidgetKey,
-        padding: EdgeInsets.only(
-            top: isDeviceHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 15.h),
-        alignment: Alignment.centerLeft,
-        child: DefaultTabController(
-          length: state.categories!.length,
-          child: TabBar(
-              splashBorderRadius: BorderRadius.circular(16.h),
-              controller: tabController,
-              onTap: onCategoryPressed,
-              indicatorColor: AppColor.transparent,
-              indicatorWeight: .1,
-              isScrollable: true,
-              tabs: state.categories!
-                  .map((category) => AppText.h3(category.name ?? '',
-                      color: category.isSelected
-                          ? AppColor.active
-                          : AppColor.black.withOpacity(.7)))
-                  .toList()),
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 100),
+          key: categoryWidgetKey,
+          padding: EdgeInsets.only(
+              top: isDeviceHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 15.h),
+          alignment: Alignment.centerLeft,
+          child: DefaultTabController(
+            length: state.categories!.length,
+            child: TabBar(
+                splashBorderRadius: BorderRadius.circular(16.h),
+                controller: tabController,
+                onTap: onCategoryPressed,
+                indicatorColor: AppColor.transparent,
+                indicatorWeight: .1,
+                isScrollable: true,
+                indicatorSize: TabBarIndicatorSize.label,
+                labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                dividerColor: AppColor.transparent,
+                automaticIndicatorColorAdjustment: false,
+                tabs: state.categories!
+                    .map((category) => AppText.h3(category.name ?? '',
+                        color: category.isSelected
+                            ? AppColor.active
+                            : AppColor.black.withOpacity(.7)))
+                    .toList()),
+          ),
         ),
       ),
     );
@@ -461,9 +473,11 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
 }
 
 class SectionWidget extends StatelessWidget {
-  const SectionWidget(
-      {Key? key, required this.categories, required this.globalKeys})
-      : super(key: key);
+  const SectionWidget({
+    Key? key,
+    required this.categories,
+    required this.globalKeys,
+  }) : super(key: key);
 
   final List<DishCategory> categories;
   final List<GlobalKey> globalKeys;
