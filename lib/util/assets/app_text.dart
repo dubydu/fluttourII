@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_color.dart';
 
 enum FontFamilyType {
@@ -15,12 +14,7 @@ extension FontFamilyExtension on FontFamilyType {
   }
 }
 
-enum FontWeightType {
-  regular,
-  medium,
-  semiBold,
-  bold
-}
+enum FontWeightType { regular, medium, semiBold, bold }
 
 extension FontWeightTypeExtension on FontWeightType {
   FontWeight type() {
@@ -46,18 +40,18 @@ class AppText extends StatelessWidget {
   final bool scalable;
   final String? configKey;
 
-  const AppText._(this.text,
-      {Key? key,
-        this.textStyle,
-        this.textAlign,
-        this.overflow,
-        this.maxLines,
-        this.configKey,
-        this.scalable = true
-      })
-      : super(key: key);
+  const AppText._(
+    this.text, {
+    this.textStyle,
+    this.textAlign,
+    this.overflow,
+    this.maxLines,
+    this.configKey,
+    this.scalable = true,
+  });
 
-  factory AppText.primary(String text, {
+  factory AppText.primary(
+    String text, {
     Color? color = AppColor.black,
     FontWeightType? fontWeight = FontWeightType.regular,
     bool scalable = true,
@@ -66,17 +60,16 @@ class AppText extends StatelessWidget {
     int? maxLines,
     double? fontSize = 15.0,
     FontFamilyType? fontFamily = FontFamilyType.exo,
-    TextDecoration decoration = TextDecoration.none
+    TextDecoration decoration = TextDecoration.none,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
+          fontSize: fontSize,
           fontFamily: fontFamily?.name(),
-          decoration: decoration
-      ),
+          decoration: decoration),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -85,7 +78,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.body(String text, {
+  factory AppText.body(
+    String text, {
     Color? color = AppColor.textLightBlack,
     FontWeightType? fontWeight = FontWeightType.regular,
     bool scalable = true,
@@ -93,16 +87,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 16.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -111,7 +104,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.itemTitleSmall(String text, {
+  factory AppText.itemTitleSmall(
+    String text, {
     Color? color = AppColor.black,
     FontWeightType? fontWeight = FontWeightType.semiBold,
     bool scalable = true,
@@ -119,16 +113,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 16.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -137,7 +130,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.itemTitleLarge(String text, {
+  factory AppText.itemTitleLarge(
+    String text, {
     Color? color = AppColor.black,
     FontWeightType? fontWeight = FontWeightType.semiBold,
     bool scalable = true,
@@ -145,16 +139,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 18.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -163,7 +156,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.primaryButtonText(String text, {
+  factory AppText.primaryButtonText(
+    String text, {
     Color? color = AppColor.textLightBlack,
     FontWeightType? fontWeight = FontWeightType.semiBold,
     bool scalable = true,
@@ -171,16 +165,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 14.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -189,7 +182,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.regular(String text, {
+  factory AppText.regular(
+    String text, {
     Color? color = AppColor.textLightBlack,
     FontWeightType? fontWeight = FontWeightType.regular,
     bool scalable = true,
@@ -197,16 +191,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 14.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -215,7 +208,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.currency(String text, {
+  factory AppText.currency(
+    String text, {
     Color? color = AppColor.active,
     FontWeightType? fontWeight = FontWeightType.semiBold,
     bool scalable = true,
@@ -223,16 +217,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 16.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -241,7 +234,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.small(String text, {
+  factory AppText.small(
+    String text, {
     Color? color = AppColor.textLightBlack,
     FontWeightType? fontWeight = FontWeightType.regular,
     bool scalable = true,
@@ -249,16 +243,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 12.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -267,7 +260,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.h6(String text, {
+  factory AppText.h6(
+    String text, {
     Color? color = AppColor.textLightBlack,
     FontWeightType? fontWeight = FontWeightType.medium,
     bool scalable = true,
@@ -275,16 +269,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 28.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -293,7 +286,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.h4(String text, {
+  factory AppText.h4(
+    String text, {
     Color? color = AppColor.black,
     FontWeightType? fontWeight = FontWeightType.semiBold,
     bool scalable = true,
@@ -301,16 +295,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 20.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -319,7 +312,8 @@ class AppText extends StatelessWidget {
     );
   }
 
-  factory AppText.h3(String text, {
+  factory AppText.h3(
+    String text, {
     Color? color = AppColor.black,
     FontWeightType? fontWeight = FontWeightType.semiBold,
     bool scalable = true,
@@ -327,16 +321,15 @@ class AppText extends StatelessWidget {
     TextAlign? textAlign,
     int? maxLines,
     double? fontSize = 24.0,
-    FontFamilyType? fontFamily = FontFamilyType.exo
+    FontFamilyType? fontFamily = FontFamilyType.exo,
   }) {
     return AppText._(
       text,
       textStyle: TextStyle(
           fontWeight: fontWeight?.type(),
           color: color,
-          fontSize: fontSize?.sp,
-          fontFamily: fontFamily?.name()
-      ),
+          fontSize: fontSize,
+          fontFamily: fontFamily?.name()),
       scalable: scalable,
       configKey: configKey,
       textAlign: textAlign,
@@ -353,7 +346,8 @@ class AppText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow,
       maxLines: maxLines,
-      textScaleFactor: scalable ? null : 1.0,
+      textScaler:
+          scalable ? const TextScaler.linear(1.0) : TextScaler.noScaling,
     );
   }
 }

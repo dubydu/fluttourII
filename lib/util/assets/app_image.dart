@@ -62,7 +62,7 @@ class ImageBuilder extends StatelessWidget {
 
   const ImageBuilder(
     this.input, {
-    Key? key,
+    super.key,
     this.height,
     this.width,
     this.color,
@@ -72,7 +72,7 @@ class ImageBuilder extends StatelessWidget {
     this.borderRadius,
     this.placeholder,
     this.errorImageUrl,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 export 'package:easy_localization/easy_localization.dart';
-export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'assets/app_text.dart';
 export 'assets/app_color.dart';
 export 'assets/app_locale.dart';

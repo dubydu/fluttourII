@@ -6,8 +6,8 @@ class BaseMaterialPage extends StatelessWidget {
   const BaseMaterialPage({
     required this.child,
     this.backgroundColor = AppColor.white,
-    Key? key
-  }) : super(key: key);
+    super.key
+  });
 
   final Widget child;
   final Color backgroundColor;

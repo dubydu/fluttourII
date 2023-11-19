@@ -55,15 +55,11 @@ Route<Object>? _buildRoute({
 
 class NoAnimationMaterialPageRoute<T> extends MaterialPageRoute<T> {
   NoAnimationMaterialPageRoute({
-    required WidgetBuilder builder,
-    required RouteSettings settings,
-    bool maintainState = true,
-    bool fullscreenDialog = false,
-  }) : super(
-      builder: builder,
-      maintainState: maintainState,
-      settings: settings,
-      fullscreenDialog: fullscreenDialog);
+    required super.builder,
+    required RouteSettings super.settings,
+    super.maintainState,
+    super.fullscreenDialog,
+  });
 
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
@@ -107,14 +103,9 @@ class CustomMaterialPageRoute<T> extends MaterialPageRoute<T> {
   }
 
   CustomMaterialPageRoute({
-    required WidgetBuilder builder,
-    required RouteSettings settings,
-    bool maintainState = true,
-    bool fullscreenDialog = false,
-  }) : super(
-    builder: builder,
-    settings: settings,
-    maintainState: maintainState,
-    fullscreenDialog: fullscreenDialog,
-  );
+    required super.builder,
+    required RouteSettings super.settings,
+    super.maintainState,
+    super.fullscreenDialog,
+  });
 }

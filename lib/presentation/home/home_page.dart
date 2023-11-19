@@ -6,14 +6,13 @@ import 'package:fluttour/util/util.dart';
 import 'package:fluttour/util/app_global.dart' as global;
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with ResponsiveMixin, AfterLayoutMixin, RouteAware {
+class _HomePageState extends State<HomePage> with AfterLayoutMixin, RouteAware {
   /// HomeBloc
   late HomeBloc _homeBloc;
 
@@ -55,45 +54,46 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    initResponsive(context);
-    return BaseMaterialPage(child: SafeArea(
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          if (state.fluttour != null) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                AppText.h6(
-                  LocaleTexts.appName.tr(),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 8.h),
-                AppText.body(
-                  state.fluttour?.flutterVersion ?? '',
-                  color: AppColor.black,
-                  textAlign: TextAlign.center,
-                  fontSize: 12,
-                ),
-                SizedBox(height: 32.h),
-                /*
-                AppPrimaryButton(
-                  title: LocaleTexts.next.tr().toUpperCase(),
-                  onPressed: () {
-                    transitionToSliverPage();
-                  },
-                )
-                 */
-              ],
-            );
-          } else {
-            return SizedBox(
-              width: 24.sp,
-              height: 24.sp,
-              child: const CupertinoActivityIndicator(),
-            );
-          }
-        },
+    return BaseMaterialPage(
+      child: SafeArea(
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state.fluttour != null) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  AppText.h6(
+                    LocaleTexts.appName.tr(),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8),
+                  AppText.body(
+                    state.fluttour?.flutterVersion ?? '',
+                    color: AppColor.black,
+                    textAlign: TextAlign.center,
+                    fontSize: 12,
+                  ),
+                  const SizedBox(height: 32),
+                  /*
+                  AppPrimaryButton(
+                    title: LocaleTexts.next.tr().toUpperCase(),
+                    onPressed: () {
+                      transitionToSliverPage();
+                    },
+                  )
+                   */
+                ],
+              );
+            } else {
+              return const SizedBox(
+                width: 24,
+                height: 24,
+                child: CupertinoActivityIndicator(),
+              );
+            }
+          },
+        ),
       ),
-    ));
+    );
   }
 }

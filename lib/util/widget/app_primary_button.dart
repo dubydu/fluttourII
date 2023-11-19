@@ -3,10 +3,10 @@ import 'package:fluttour/util/util.dart';
 
 class AppPrimaryButton extends StatelessWidget {
   const AppPrimaryButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.title,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
   final String title;
@@ -15,8 +15,9 @@ class AppPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton.tonal(
       style: FilledButton.styleFrom(
-          backgroundColor: AppColor.active,
-          padding: EdgeInsets.only(bottom: 1.h, left: 15.w, right: 15.w)),
+        backgroundColor: AppColor.active,
+        padding: const EdgeInsets.only(bottom: 1, left: 15, right: 15),
+      ),
       onPressed: onPressed,
       child: AppText.primaryButtonText(
         title,

@@ -31,13 +31,11 @@ class SliverBloc extends Cubit<SliverState> {
     }, (response) {
       response as Tuple2<Brand, List<DishCategory>>;
       // Emit brand and dish categories
-      emit(
-          state.copyWith(
-              brand: response.value1,
-              categories: response.value2,
-              categoryGlobalKeys: response.value2.map((_) => GlobalKey()).toList()
-          )
-      );
+      emit(state.copyWith(
+          brand: response.value1,
+          categories: response.value2,
+          categoryGlobalKeys:
+              response.value2.map((_) => GlobalKey()).toList()));
     });
   }
 
@@ -62,8 +60,7 @@ class SliverBloc extends Cubit<SliverState> {
   }
 
   void onCategorySelected({required DishCategory dishCategory}) {
-    final dishCategories = List<DishCategory>
-        .from(state.categories ?? [])
+    final dishCategories = List<DishCategory>.from(state.categories ?? [])
         .map((category) => category.copyWith(isSelected: false))
         .toList()
         .map((category) {
@@ -78,17 +75,13 @@ class SliverBloc extends Cubit<SliverState> {
 
   int onSectionChanged(bool isDeviceHasNotch) {
     final sectionPositions = state.sectionPositions;
-    final sectionWidgetHeight = state
-        .extentHeight(isDeviceHasNotch: isDeviceHasNotch).h;
-    final sectionIndex = sectionPositions
-        .indexWhere(
-            (offset) => (((offset.h - sectionWidgetHeight) < 0)
-                && ((offset.h - sectionWidgetHeight) > -sectionWidgetHeight))
-    );
+    final sectionWidgetHeight =
+        state.extentHeight(isDeviceHasNotch: isDeviceHasNotch);
+    final sectionIndex = sectionPositions.indexWhere((offset) =>
+        (((offset - sectionWidgetHeight) < 0) &&
+            ((offset - sectionWidgetHeight) > -sectionWidgetHeight)));
     if (sectionIndex != -1) {
-      onCategorySelected(
-          dishCategory: state.categories![sectionIndex]
-      );
+      onCategorySelected(dishCategory: state.categories![sectionIndex]);
     }
     return sectionIndex;
   }
@@ -99,13 +92,12 @@ class SliverBloc extends Cubit<SliverState> {
 }
 
 class SliverState extends Equatable {
-  const SliverState({
-    required this.brand,
-    required this.categories,
-    required this.isCategoryWidgetOnTop,
-    required this.categoryGlobalKeys,
-    required this.recommendDishes
-  });
+  const SliverState(
+      {required this.brand,
+      required this.categories,
+      required this.isCategoryWidgetOnTop,
+      required this.categoryGlobalKeys,
+      required this.recommendDishes});
 
   final Brand? brand;
   final List<DishCategory>? categories;
@@ -113,20 +105,19 @@ class SliverState extends Equatable {
   final List<GlobalKey>? categoryGlobalKeys;
   final bool isCategoryWidgetOnTop;
 
-  SliverState copyWith({
-    Brand? brand,
-    List<DishCategory>? categories,
-    List<GlobalKey>? categoryGlobalKeys,
-    bool? isCategoryWidgetOnTop,
-    List<Dish>? recommendDishes
-  }) {
+  SliverState copyWith(
+      {Brand? brand,
+      List<DishCategory>? categories,
+      List<GlobalKey>? categoryGlobalKeys,
+      bool? isCategoryWidgetOnTop,
+      List<Dish>? recommendDishes}) {
     return SliverState(
-      brand: brand ?? this.brand,
-      categories: categories ?? this.categories,
-      categoryGlobalKeys: categoryGlobalKeys ?? this.categoryGlobalKeys,
-      isCategoryWidgetOnTop: isCategoryWidgetOnTop ?? this.isCategoryWidgetOnTop,
-      recommendDishes: recommendDishes ?? this.recommendDishes
-    );
+        brand: brand ?? this.brand,
+        categories: categories ?? this.categories,
+        categoryGlobalKeys: categoryGlobalKeys ?? this.categoryGlobalKeys,
+        isCategoryWidgetOnTop:
+            isCategoryWidgetOnTop ?? this.isCategoryWidgetOnTop,
+        recommendDishes: recommendDishes ?? this.recommendDishes);
   }
 
   List<double> get sectionPositions {
@@ -141,20 +132,20 @@ class SliverState extends Equatable {
 
   @override
   List<Object?> get props => [
-    brand,
-    categories,
-    categoryGlobalKeys,
-    isCategoryWidgetOnTop,
-    recommendDishes
-  ];
+        brand,
+        categories,
+        categoryGlobalKeys,
+        isCategoryWidgetOnTop,
+        recommendDishes
+      ];
 }
 
 class SliverInitialState extends SliverState {
   const SliverInitialState()
-      : super(brand: null,
-      categories: null,
-      categoryGlobalKeys: null,
-      isCategoryWidgetOnTop: false,
-      recommendDishes: null
-  );
+      : super(
+            brand: null,
+            categories: null,
+            categoryGlobalKeys: null,
+            isCategoryWidgetOnTop: false,
+            recommendDishes: null);
 }

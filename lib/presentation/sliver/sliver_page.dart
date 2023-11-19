@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,14 +10,14 @@ import 'package:fluttour/util/assets/app_image.dart';
 import 'package:fluttour/util/util.dart';
 
 class SliverPage extends StatefulWidget {
-  const SliverPage({Key? key}) : super(key: key);
+  const SliverPage({super.key});
 
   @override
   SliverPageState createState() => SliverPageState();
 }
 
 class SliverPageState extends State<SliverPage>
-    with AfterLayoutMixin, ResponsiveMixin, SingleTickerProviderStateMixin {
+    with AfterLayoutMixin, SingleTickerProviderStateMixin {
   /// Sliver bloc
   late SliverBloc _sliverBloc;
 
@@ -49,7 +48,7 @@ class SliverPageState extends State<SliverPage>
   void _scrollControllerObserver() {
     /// Handle the position of category widget
     double y = AppDevice.detectWidgetPosition(globalKey: categoryWidgetKey).dy;
-    _sliverBloc.onCategoryChanged(isOnTop: y <= 10.h);
+    _sliverBloc.onCategoryChanged(isOnTop: y <= 10);
 
     /// Handle the position of section widget
     final sectionIndex = _sliverBloc.onSectionChanged(isDeviceHasNotch());
@@ -67,13 +66,13 @@ class SliverPageState extends State<SliverPage>
 
   @override
   Widget build(BuildContext context) {
-    initResponsive(context);
     return BaseMaterialPage(
       child: Scaffold(
-          backgroundColor: AppColor.white,
-          body: isDeviceHasNotch()
-              ? _buildBodyWidget()
-              : SafeArea(child: _buildBodyWidget())),
+        backgroundColor: AppColor.white,
+        body: isDeviceHasNotch()
+            ? _buildBodyWidget()
+            : SafeArea(child: _buildBodyWidget()),
+      ),
     );
   }
 
@@ -97,9 +96,9 @@ class SliverPageState extends State<SliverPage>
                     onSharePressed: () {},
                     isDeviceHasNotch: isDeviceHasNotch()),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 0.h,
+                  height: 0,
                 ),
               ),
               // Description
@@ -151,17 +150,17 @@ class SliverPageState extends State<SliverPage>
               // Spacing
               SliverToBoxAdapter(
                 child: SizedBox(
-                  height: isDeviceHasNotch() ? 32.h : 16.h,
+                  height: isDeviceHasNotch() ? 32 : 16,
                 ),
               ),
             ],
           );
         } else {
-          return Center(
+          return const Center(
             child: SizedBox(
-              width: 24.sp,
-              height: 24.sp,
-              child: const CupertinoActivityIndicator(),
+              width: 24,
+              height: 24,
+              child: CupertinoActivityIndicator(),
             ),
           );
         }
@@ -170,9 +169,7 @@ class SliverPageState extends State<SliverPage>
   }
 }
 
-/// The header image widget
-///
-///
+/// MARK: - The header image widget
 class HeaderImageWidget extends SliverPersistentHeaderDelegate {
   HeaderImageWidget({
     required this.state,
@@ -193,14 +190,15 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox(
       width: double.infinity,
-      height: 220.h,
+      height: 220,
       child: Stack(children: <Widget>[
         Positioned(
-            left: 0,
-            top: 0,
-            right: 0,
-            bottom: 0,
-            child: ImageBuilder(state.brand?.image, fit: BoxFit.cover)),
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          child: ImageBuilder(state.brand?.image, fit: BoxFit.cover),
+        ),
         Positioned(
           left: 16,
           top: isDeviceHasNotch ? 0 : 16,
@@ -218,7 +216,7 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
                 InkWell(
                   child: AppIcon.iconShare.widget(),
                 ),
-                SizedBox(width: 16.w),
+                const SizedBox(width: 16),
                 InkWell(
                   child: AppIcon.iconSearch.widget(),
                 ),
@@ -231,10 +229,10 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 220.h;
+  double get maxExtent => 220;
 
   @override
-  double get minExtent => 220.h;
+  double get minExtent => 220;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
@@ -242,104 +240,100 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
   }
 }
 
-/// The header description widget
-///
-///
+/// MARK: - The header description widget
 class HeaderDescriptionWidget extends StatelessWidget {
-  const HeaderDescriptionWidget({Key? key, required this.state})
-      : super(key: key);
+  const HeaderDescriptionWidget({super.key, required this.state});
 
   final SliverState state;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AppText.h3(state.brand?.name ?? ''),
           Container(
-            padding: EdgeInsets.only(top: 14.h),
+            padding: const EdgeInsets.only(top: 14),
             child: AppText.body(state.brand?.tags?.join('  •  ') ?? ''),
           ),
           Container(
-            padding: EdgeInsets.only(top: 14.h),
+            padding: const EdgeInsets.only(top: 14),
             child: Row(
               children: <Widget>[
                 AppText.body('4.3'),
-                SizedBox(width: 10.w),
+                const SizedBox(width: 10),
                 AppIcon.iconStar.widget(),
-                SizedBox(width: 10.w),
+                const SizedBox(width: 10),
                 AppText.body('+200 Ratings'),
               ],
             ),
           ),
           Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(top: 14.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          AppIcon.iconDeliveryPrice.widget(),
-                          SizedBox(width: 8.w),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              AppText.body('Free', color: AppColor.black),
-                              SizedBox(height: 4.h),
-                              AppText.small('Delivery'),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 20.w),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          AppIcon.iconDeliveryTime.widget(),
-                          SizedBox(width: 8.w),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              AppText.body(state.brand?.duration ?? '',
-                                  color: AppColor.black),
-                              SizedBox(height: 4.h),
-                              AppText.small('Minutes'),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      height: 38.h,
-                      child: AppPrimaryButton(
-                        title: 'TAKE AWAY',
-                        onPressed: () {},
-                      ),
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(top: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        AppIcon.iconDeliveryPrice.widget(),
+                        const SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            AppText.body('Free', color: AppColor.black),
+                            const SizedBox(height: 4),
+                            AppText.small('Delivery'),
+                          ],
+                        ),
+                      ],
                     ),
-                  )
-                ],
-              )),
+                    const SizedBox(width: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        AppIcon.iconDeliveryTime.widget(),
+                        const SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            AppText.body(state.brand?.duration ?? '',
+                                color: AppColor.black),
+                            const SizedBox(height: 4),
+                            AppText.small('Minutes'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    height: 38,
+                    child: AppPrimaryButton(
+                      title: 'TAKE AWAY',
+                      onPressed: () {},
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-/// The featured items widget
-///
-///
+/// MARK: - The featured items widget
 class FeaturedItemsWidget extends StatelessWidget {
-  const FeaturedItemsWidget({Key? key, required this.dishes}) : super(key: key);
+  const FeaturedItemsWidget({super.key, required this.dishes});
 
   final List<Dish> dishes;
 
@@ -349,17 +343,17 @@ class FeaturedItemsWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 18.h),
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 18),
           child: AppText.h4('Featured Items'),
         ),
         SizedBox(
-          height: 200.h,
+          height: 200,
           child: ListView.separated(
-            padding: EdgeInsets.only(left: 16.w, right: 16.w),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             scrollDirection: Axis.horizontal,
             itemBuilder: (state, index) {
               return SizedBox(
-                width: 140.w,
+                width: 140,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -367,25 +361,26 @@ class FeaturedItemsWidget extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: AppColor.white,
-                            borderRadius: BorderRadius.circular(8.sp),
-                            border: Border.all(
-                                color: AppColor.lightGray, width: .6)),
+                          color: AppColor.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border:
+                              Border.all(color: AppColor.lightGray, width: .6),
+                        ),
                         child: ImageBuilder(dishes[index].image,
                             fit: BoxFit.fitWidth),
                       ),
                     ),
-                    SizedBox(height: 8.h),
+                    const SizedBox(height: 8),
                     AppText.itemTitleSmall(dishes[index].name ?? '',
                         maxLines: 1),
-                    SizedBox(height: 4.h),
+                    const SizedBox(height: 4),
                     AppText.currency('${dishes[index].price!}¥')
                   ],
                 ),
               );
             },
             separatorBuilder: (_, __) {
-              return SizedBox(width: 14.w);
+              return const SizedBox(width: 14);
             },
             itemCount: dishes.length,
           ),
@@ -398,9 +393,7 @@ class FeaturedItemsWidget extends StatelessWidget {
 /// Returns a product index if any items were pressed
 typedef OnCategoryPressed = Function(int index);
 
-/// The product category widget
-///
-///
+/// MARK: - The product category widget
 class CategoryWidget extends SliverPersistentHeaderDelegate {
   const CategoryWidget({
     required this.state,
@@ -428,28 +421,36 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
           duration: const Duration(milliseconds: 100),
           key: categoryWidgetKey,
           padding: EdgeInsets.only(
-              top: isDeviceHasNotch ? (isWidgetOnTop ? 30.h : 0.h) : 15.h),
+              top: isDeviceHasNotch ? (isWidgetOnTop ? 30 : 0) : 15),
           alignment: Alignment.centerLeft,
           child: DefaultTabController(
             length: state.categories!.length,
             child: TabBar(
-                splashBorderRadius: BorderRadius.circular(16.h),
-                controller: tabController,
-                onTap: onCategoryPressed,
-                indicatorColor: AppColor.transparent,
-                indicatorWeight: .1,
-                isScrollable: true,
-                indicatorSize: TabBarIndicatorSize.label,
-                labelPadding: const EdgeInsets.symmetric(horizontal: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                dividerColor: AppColor.transparent,
-                automaticIndicatorColorAdjustment: false,
-                tabs: state.categories!
-                    .map((category) => AppText.h3(category.name ?? '',
-                        color: category.isSelected
-                            ? AppColor.active
-                            : AppColor.black.withOpacity(.7)))
-                    .toList()),
+              splashBorderRadius: BorderRadius.circular(16),
+              controller: tabController,
+              onTap: onCategoryPressed,
+              indicatorColor: AppColor.transparent,
+              indicatorWeight: .1,
+              isScrollable: true,
+              indicatorSize: TabBarIndicatorSize.label,
+              labelPadding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(left: 16),
+              indicatorPadding: EdgeInsets.zero,
+              dividerColor: AppColor.transparent,
+              automaticIndicatorColorAdjustment: false,
+              tabAlignment: TabAlignment.start,
+              tabs: state.categories!
+                  .map(
+                    (category) => AppText.h3(
+                      category.name ?? '',
+                      textAlign: TextAlign.left,
+                      color: category.isSelected
+                          ? AppColor.active
+                          : AppColor.black.withOpacity(.7),
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
         ),
       ),
@@ -457,7 +458,7 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
   }
 
   double get extentHeight {
-    return state.extentHeight(isDeviceHasNotch: isDeviceHasNotch).h;
+    return state.extentHeight(isDeviceHasNotch: isDeviceHasNotch);
   }
 
   @override
@@ -472,12 +473,13 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
   }
 }
 
+/// MARK: - Section Widget
 class SectionWidget extends StatelessWidget {
   const SectionWidget({
-    Key? key,
+    super.key,
     required this.categories,
     required this.globalKeys,
-  }) : super(key: key);
+  });
 
   final List<DishCategory> categories;
   final List<GlobalKey> globalKeys;
@@ -485,7 +487,7 @@ class SectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        padding: EdgeInsets.only(top: 10.h),
+        padding: const EdgeInsets.only(top: 10),
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         itemBuilder: (context, index) {
@@ -493,8 +495,8 @@ class SectionWidget extends StatelessWidget {
               dishCategory: categories[index], globalKey: globalKeys[index]);
         },
         separatorBuilder: (_, __) {
-          return SizedBox(
-            height: 16.h,
+          return const SizedBox(
+            height: 16,
           );
         },
         itemCount: categories.length);
