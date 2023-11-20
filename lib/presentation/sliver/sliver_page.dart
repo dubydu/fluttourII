@@ -22,10 +22,10 @@ class SliverPageState extends State<SliverPage>
   late SliverBloc _sliverBloc;
 
   /// Scroll controller
-  late final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   /// Global key
-  final GlobalKey categoryWidgetKey = GlobalKey();
+  final GlobalKey _categoryWidgetKey = GlobalKey();
 
   /// Tab controller
   late TabController _tabController;
@@ -47,7 +47,7 @@ class SliverPageState extends State<SliverPage>
 
   void _scrollControllerObserver() {
     /// Handle the position of category widget
-    double y = AppDevice.detectWidgetPosition(globalKey: categoryWidgetKey).dy;
+    double y = AppDevice.detectWidgetPosition(globalKey: _categoryWidgetKey).dy;
     _sliverBloc.onCategoryChanged(isOnTop: y <= 10);
 
     /// Handle the position of section widget
@@ -61,6 +61,7 @@ class SliverPageState extends State<SliverPage>
   void dispose() {
     _tabController.dispose();
     _sliverBloc.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -118,7 +119,7 @@ class SliverPageState extends State<SliverPage>
                     pinned: true,
                     delegate: CategoryWidget(
                       state: state,
-                      categoryWidgetKey: categoryWidgetKey,
+                      categoryWidgetKey: _categoryWidgetKey,
                       isWidgetOnTop: state.isCategoryWidgetOnTop,
                       isDeviceHasNotch: isDeviceHasNotch(),
                       tabController: _tabController,
