@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttour/router/navigation_controller.dart';
+import 'package:fluttour/router/gen_route.dart';
 
 class QueryInterceptor extends InterceptorsWrapper {
   static const _contentType = 'content-type';
@@ -80,11 +80,11 @@ class QueryInterceptor extends InterceptorsWrapper {
 
   Future _validateConnection(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    if (NavigationController.globalNavigatorKey.currentContext == null) {
+    if (rootNavigatorKey.currentContext == null) {
       return;
     }
     return showDialog(
-        context: NavigationController.globalNavigatorKey.currentContext!,
+        context: rootNavigatorKey.currentContext!,
         barrierDismissible: false,
         builder: (context) {
           return Container();

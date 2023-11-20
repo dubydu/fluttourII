@@ -6,6 +6,8 @@ class NamedRoute {
 
   String get routeName => '/${overrideRouteName ?? appRoute.name}';
 
+  String get subRouteName => overrideRouteName ?? appRoute.name;
+
   NamedRoute({
     required this.appRoute,
     this.overrideRouteName,

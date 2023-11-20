@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fluttour/router/navigation_controller.dart';
+import 'package:fluttour/router/navigation_tab.dart';
 import 'package:fluttour/router/routes.dart';
+import 'package:go_router/go_router.dart';
 
 extension AppRouter<T extends StatefulWidget> on State<T> {
   void transitionToHomePage() {
-    NavigationController.push(Routes.home.routeName, replace: true);
+    GoRouter.of(context).go(NavigationTab.home.rootRoute);
   }
 
   void transitionToSliverPage() {
-    NavigationController.push(Routes.sliver.routeName);
+    GoRouter.of(context)
+        .push('${NavigationTab.home.rootRoute}${Routes.sliver.routeName}');
   }
 
   void pop() {
