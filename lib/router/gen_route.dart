@@ -1,56 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:fluttour/presentation/home/home_page.dart';
-import 'package:fluttour/presentation/sliver/sliver_page.dart';
 import 'package:fluttour/presentation/splash/splash_page.dart';
 import 'package:fluttour/router/routes.dart';
+import 'package:go_router/go_router.dart';
+import 'navigation_controller.dart';
+import 'navigation_tab.dart';
 
-Route<Object>? generateRoute(RouteSettings settings) {
-  final namedRoute = settings.name == '/'
-      ? Routes.root
-      : Routes.values.firstWhere((element) {
-    if (settings.name != null) {
-      return settings.name! == '/${element.appRoute.name}';
-    }
-    return false;
-  }, orElse: () => Routes.unknown);
-  debugPrint('\n=============== (Origin: ${settings.name}) Navigating to: ${namedRoute.toString()}\n');
-  switch (namedRoute.appRoute) {
-    case AppRoute.unknown:
-      return _errorRoute();
-    case AppRoute.home:
-      return _buildRoute(settings: settings, screen: const HomePage());
-    case AppRoute.root:
-      return _buildRoute(settings: settings, screen: const SplashPage());
-    case AppRoute.sliver:
-      return _buildRoute(settings: settings, screen: const SliverPage());
-  }
-}
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 
-Route<Object>? _errorRoute() {
-  return MaterialPageRoute(builder: (_) {
+/// MARK: - generateRoute
+final generateRoute = GoRouter(
+  initialLocation: Routes.root.routeName,
+  navigatorKey: rootNavigatorKey,
+  routes: <RouteBase>[
+    /// Splash
+    GoRoute(
+      path: Routes.root.routeName,
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: SplashPage(),
+      ),
+      routes: const <RouteBase>[],
+    ),
+
+    /// Not found page
+    GoRoute(
+      path: Routes.notFound.routeName,
+      builder: (BuildContext context, GoRouterState state) {
+        return NotFoundScreen(uri: state.extra as String? ?? '');
+      },
+    ),
+
+    /// Navigation bar
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        if (state.path == Routes.splash.routeName) {
+          return const SizedBox();
+        }
+        return NavigationController(
+          navigationShell: navigationShell,
+          state: state,
+        );
+      },
+      branches: NavigationTab.values.map((tab) => tab.branch).toList(),
+    ),
+  ],
+);
+
+class NotFoundScreen extends StatelessWidget {
+  /// Constructs a [HomeScreen]
+  const NotFoundScreen({super.key, required this.uri});
+
+  final String uri;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Error'),
       ),
-      body: const Center(
-        child: Text('ERROR'),
-      ),
+      body: Center(child: Text('Can\'t find a page for: $uri')),
     );
-  });
-}
-
-Route<Object>? _buildRoute({
-  required RouteSettings settings,
-  required Widget screen,
-  bool fullscreenDialog = false
-}) {
-  return CustomMaterialPageRoute(
-    settings: settings,
-    fullscreenDialog: fullscreenDialog,
-    builder: (context) {
-      return screen;
-    },
-  );
+  }
 }
 
 class NoAnimationMaterialPageRoute<T> extends MaterialPageRoute<T> {
