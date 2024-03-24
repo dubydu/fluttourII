@@ -58,7 +58,7 @@ jobs:
         run: flutter doctor
       - name: Build iOS
         run: flutter build ipa --flavor prod lib/main_prod.dart --export-method development
-        working-directory: packages/${{ matrix.package }}/example
+        working-directory: lib
         env:
           OTHER_SWIFT_FLAGS: "-warnings-as-errors"
           DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
