@@ -50,7 +50,7 @@ jobs:
         with:
           flutter-version: ${{ matrix.flutter }}
       - name: Build Android
-        run: flutter build apk --flavor prod lib/main_prod.dart --export-method development
+        run: flutter build apk --flavor prod lib/main_prod.dart 
         working-directory: lib
 
 #  build-ios:
