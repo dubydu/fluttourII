@@ -28,7 +28,7 @@ class QueryInterceptor extends InterceptorsWrapper {
       RequestOptions options, RequestInterceptorHandler handler) async {
     if (!ignoreConnection) {
       final result = await connectivity.checkConnectivity();
-      if (result == ConnectivityResult.none) {
+      if (result.contains(ConnectivityResult.none)) {
         return _validateConnection(options, handler);
       }
     }

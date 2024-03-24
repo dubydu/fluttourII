@@ -19,6 +19,8 @@ mixin ConnectivityMixin {
   final connectivity = Connectivity();
   Future<bool> isInConnection() async {
     var connectivityResult = await connectivity.checkConnectivity();
-    return connectivityResult != ConnectivityResult.none;
+    return connectivityResult.contains(ConnectivityResult.ethernet) ||
+        connectivityResult.contains(ConnectivityResult.wifi) ||
+        connectivityResult.contains(ConnectivityResult.mobile);
   }
 }
