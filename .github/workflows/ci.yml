@@ -40,7 +40,7 @@ jobs:
       matrix:
         os: [macos-13, macos-14]
         xcode: ["14.3.1", "15.2"]
-        flutter:  [${{ env.FRB_MAIN_FLUTTER_VERSION }}]
+        flutter: ["3.19.1"]
         exclude:
           - os: macos-13
             xcode: 14.3.1
