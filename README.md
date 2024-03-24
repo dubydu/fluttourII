@@ -4,9 +4,9 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 
 ### [Getting Started](#getting-started)
 
-* Flutter (Channel stable, 3.16.0)
+* Flutter (Channel stable, 3.19.1)
 * Dart 3.2.0
-* Cocoapods 1.12.1
+* Cocoapods 1.15.2
 
 ### [Article](#article)
 * [`Flutter x Clean Architecture`](https://dubydu.medium.com/b53ce9e19d5a)
@@ -63,6 +63,10 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   └── dummy
 │       │   │       ├── dummy_datasource.dart
 │       │   │       └── dummy_datasource_type.dart
+│       │   ├── repositoty
+│       │   │   └── dummy_repository.dart
+│       │   ├── translator
+│       │   │   └── dummy_translator.dart
 │       │   └── error_response.dart
 │       ├── di
 │       │   ├── client_module.dart
@@ -75,8 +79,8 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   │   ├── empty.dart
 │       │   │   ├── failure.dart
 │       │   │   └── dummy.dart
-│       │   ├── translator
-│       │   │   └── dummy_translator.dart
+│       │   ├── repository
+│       │   │   └── dummy_repository_type.dart
 │       │   └── usecase
 │       │       └── dummy
 │       │           ├── dummy_usecase.dart
@@ -91,10 +95,6 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 │       │   └── dummy
 │       │       ├── dummy_page.dart
 │       │       └── dummy_bloc.dart
-│       ├── repository
-│       │   └── dummy
-│       │       ├── dummy_repository.dart
-│       │       └── dummy_repository_type.dart
 │       ├── router
 │       │   ├── gen_route.dart
 │       │   ├── named_route.dart
@@ -140,6 +140,7 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
     });
   });
 ```
+- Run tests `flutter test test/*`
 
 ### [Pitfalls](#pitfalls)
 - Make sure `flutter pub get` before you run the app.

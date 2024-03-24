@@ -11,12 +11,16 @@ class SliverDataSource implements SliverDataSourceType {
   final APIClientType apiClient;
 
   @override
-  Future<BrandResponse> getBrand({required BrandRequest request}) async {
+  Future<BrandResponse> getBrand({
+    required BrandRequest request,
+  }) async {
     return await apiClient.getBrand(id: request.id);
   }
 
   @override
-  Future<List<DishResponse>> getRecommendDishes({required RecommendDishesRequest request}) async {
+  Future<List<DishResponse>> getRecommendDishes({
+    required RecommendDishesRequest request,
+  }) async {
     return await apiClient.getRecommendDishes(id: request.id);
   }
 }
