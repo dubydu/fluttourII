@@ -1,4 +1,4 @@
-[![Build Status](https://app.bitrise.io/app/38259925b6bfe2bd/status.svg?token=7Q0InN8BEzmzxC0GPoddUg&branch=develop)](https://app.bitrise.io/app/38259925b6bfe2bd)
+[![Build Status](https://github.com/dubydu/fluttourII/actions/workflows/ci.yml/badge.svg)](https://github.com/dubydu/fluttourII/actions/workflows/ci.yml)
 
 A Flutter project template, an upgrade version of [`fluttour`](https://github.com/dubydu/fluttour)
 
