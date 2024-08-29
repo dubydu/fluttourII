@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin, RouteAware {
     await _getFluttourDoctor();
   }
 
+  /// Fetch flutter version information
   Future<void> _getFluttourDoctor() async {
     await _homeBloc.getFluttourDoctor();
   }
