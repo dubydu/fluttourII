@@ -7,8 +7,8 @@ on:
     branches: [ "master" ]
 
 env:
-  FRB_MAIN_DART_VERSION: 3.2.0
-  FRB_MAIN_FLUTTER_VERSION: 3.19.1
+  FRB_MAIN_DART_VERSION: 3.5.1
+  FRB_MAIN_FLUTTER_VERSION: 3.24.1
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04]
-        flutter: ["3.19.1"]
+        flutter: ["3.24.1"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v2
@@ -59,8 +59,8 @@ jobs:
    strategy:
      matrix:
        os: [macos-14]
-       xcode: ["15.2"]
-       flutter: ["3.19.1"]
+       xcode: ["15.4"]
+       flutter: ["3.24.1"]
        exclude:
          - os: macos-13
            xcode: 14.3.1
