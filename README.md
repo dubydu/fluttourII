@@ -154,8 +154,5 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 * Development: `flutter build [appbundle/apk] --flavor dev lib/main_dev.dart`
 * Production: `flutter build [appbundle/apk] --flavor prod lib/main_prod.dart`
 
-### [Troubleshooting](#troubleshooting)
-- The connectivity always throw `none` result on iOS Simulator: [`> see this issue`](https://github.com/fluttercommunity/plus_plugins/issues/852)
-
 ### [Practice](#practice)
 - [`Flutter x Magic Sliver Widgets`](https://github.com/dubydu/magic-sliver)
