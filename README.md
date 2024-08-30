@@ -1,11 +1,11 @@
-[![Build Status](https://app.bitrise.io/app/38259925b6bfe2bd/status.svg?token=7Q0InN8BEzmzxC0GPoddUg&branch=develop)](https://app.bitrise.io/app/38259925b6bfe2bd)
+[![Build Status](https://github.com/dubydu/fluttourII/actions/workflows/ci.yml/badge.svg)](https://github.com/dubydu/fluttourII/actions/workflows/ci.yml)
 
 A Flutter project template, an upgrade version of [`fluttour`](https://github.com/dubydu/fluttour)
 
 ### [Getting Started](#getting-started)
 
-* Flutter (Channel stable, 3.19.4)
-* Dart 3.3.2
+* Flutter (Channel stable, 3.24.1)
+* Dart 3.5.1
 * Cocoapods 1.15.2
 
 ### [Article](#article)
@@ -153,9 +153,6 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 #### Android
 * Development: `flutter build [appbundle/apk] --flavor dev lib/main_dev.dart`
 * Production: `flutter build [appbundle/apk] --flavor prod lib/main_prod.dart`
-
-### [Troubleshooting](#troubleshooting)
-- The connectivity always throw `none` result on iOS Simulator: [`> see this issue`](https://github.com/fluttercommunity/plus_plugins/issues/852)
 
 ### [Practice](#practice)
 - [`Flutter x Magic Sliver Widgets`](https://github.com/dubydu/magic-sliver)
