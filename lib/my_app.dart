@@ -9,7 +9,6 @@ import 'package:fluttour/di/usecase_module.dart';
 import 'package:fluttour/presentation/home/home_bloc.dart';
 import 'package:fluttour/presentation/sliver/sliver_bloc.dart';
 import 'package:fluttour/router/gen_route.dart';
-import 'package:fluttour/router/navigation_controller.dart';
 import 'package:fluttour/util/app_global.dart' as global;
 import 'package:fluttour/util/app_observer.dart';
 import 'package:fluttour/util/assets/app_locale.dart';
@@ -47,15 +46,13 @@ class MyAppState extends State<MyApp>
         BlocProvider(create: (_) => HomeBloc(useCase: homeUseCase)),
         BlocProvider(create: (_) => SliverBloc(useCase: sliverUseCase))
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        navigatorObservers: [global.navigationObserver],
         theme: global.theme,
-        onGenerateRoute: generateRoute,
-        navigatorKey: NavigationController.globalNavigatorKey,
+        routerConfig: generateRoute,
       ),
     );
   }
