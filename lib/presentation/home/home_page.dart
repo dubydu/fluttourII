@@ -82,14 +82,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin, RouteAware {
                       fontSize: 12,
                     ),
                     const SizedBox(height: 32),
-                    /*
                     AppPrimaryButton(
                       title: LocaleTexts.next.tr().toUpperCase(),
                       onPressed: () {
                         transitionToSliverPage();
                       },
                     )
-                     */
                   ],
                 );
               } else {

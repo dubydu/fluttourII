@@ -6,7 +6,6 @@ import 'package:fluttour/presentation/sliver/sliver_page.dart';
 import 'package:fluttour/router/routes.dart';
 import 'package:go_router/go_router.dart';
 
-/// MARK: - NavigationTabs
 enum NavigationTab {
   home,
   detail,
@@ -16,9 +15,9 @@ enum NavigationTab {
 extension NavigationTabsExtension on NavigationTab {
   String get rootRoute {
     return switch (this) {
-      NavigationTab.home => '/root-home',
-      NavigationTab.detail => '/root-detail',
-      NavigationTab.settings => '/root-settings',
+      NavigationTab.home => Routes.home.routeName,
+      NavigationTab.detail => Routes.detail.routeName,
+      NavigationTab.settings => Routes.settings.routeName,
     };
   }
 
@@ -47,15 +46,16 @@ extension NavigationTabsExtension on NavigationTab {
           routes: <RouteBase>[
             GoRoute(
               path: rootRoute,
-              pageBuilder: (context, state) => const NoTransitionPage(
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage(
                 child: HomePage(),
               ),
               routes: <RouteBase>[
                 GoRoute(
-                  path: Routes.sliver.subRouteName,
-                  pageBuilder: (context, state) => const NoTransitionPage(
-                    child: SliverPage(),
-                  ),
+                  path: Routes.sliver.subRoute!.name,
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const SliverPage();
+                  },
                 ),
               ],
             ),
