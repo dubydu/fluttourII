@@ -127,7 +127,7 @@ class SliverState extends Equatable {
   }
 
   double extentHeight({required bool isDeviceHasNotch}) {
-    return isDeviceHasNotch ? 90 : 80;
+    return isDeviceHasNotch ? 80 : 70;
   }
 
   @override

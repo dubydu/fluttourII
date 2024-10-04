@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttour/presentation/base/base_material_page.dart';
 import 'package:fluttour/presentation/home/home_bloc.dart';
+import 'package:fluttour/router/navigation_tab.dart';
 import 'package:fluttour/util/util.dart';
 import 'package:fluttour/util/app_global.dart' as global;
 
@@ -56,43 +58,47 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin, RouteAware {
   @override
   Widget build(BuildContext context) {
     return BaseMaterialPage(
-      child: SafeArea(
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state.fluttour != null) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  AppText.h6(
-                    LocaleTexts.appName.tr(),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  AppText.body(
-                    state.fluttour?.flutterVersion ?? '',
-                    color: AppColor.black,
-                    textAlign: TextAlign.center,
-                    fontSize: 12,
-                  ),
-                  const SizedBox(height: 32),
-                  /*
-                  AppPrimaryButton(
-                    title: LocaleTexts.next.tr().toUpperCase(),
-                    onPressed: () {
-                      transitionToSliverPage();
-                    },
-                  )
-                   */
-                ],
-              );
-            } else {
-              return const SizedBox(
-                width: 24,
-                height: 24,
-                child: CupertinoActivityIndicator(),
-              );
-            }
-          },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(NavigationTab.home.item.$1),
+          elevation: 1,
+        ),
+        body: Center(
+          child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state.fluttour != null) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    AppText.h6(
+                      LocaleTexts.appName.tr(),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    AppText.body(
+                      state.fluttour?.flutterVersion ?? '',
+                      color: AppColor.black,
+                      textAlign: TextAlign.center,
+                      fontSize: 12,
+                    ),
+                    const SizedBox(height: 32),
+                    AppPrimaryButton(
+                      title: LocaleTexts.next.tr().toUpperCase(),
+                      onPressed: () {
+                        transitionToSliverPage();
+                      },
+                    )
+                  ],
+                );
+              } else {
+                return const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CupertinoActivityIndicator(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

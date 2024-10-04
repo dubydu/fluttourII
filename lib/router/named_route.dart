@@ -1,18 +1,19 @@
 import 'package:fluttour/router/routes.dart';
 
 class NamedRoute {
-  final AppRoute appRoute;
-  final String? overrideRouteName;
+  final AppRoute mainRoute;
+  final AppRoute? subRoute;
 
-  String get routeName => '/${overrideRouteName ?? appRoute.name}';
+  String get routeName =>
+      '/${mainRoute.name}${subRoute != null ? '/${subRoute!.name}' : ''}';
 
   NamedRoute({
-    required this.appRoute,
-    this.overrideRouteName,
+    required this.mainRoute,
+    this.subRoute,
   });
 
   @override
   String toString() {
-    return 'NamedRoute{route: $appRoute, overrideRouteName: $overrideRouteName}';
+    return 'NamedRoute{route: $routeName}';
   }
 }

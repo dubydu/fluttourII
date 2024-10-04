@@ -417,12 +417,15 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return ClipRRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+        filter: ImageFilter.blur(
+          sigmaX: 100,
+          sigmaY: 100,
+        ),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
           key: categoryWidgetKey,
           padding: EdgeInsets.only(
-              top: isDeviceHasNotch ? (isWidgetOnTop ? 30 : 0) : 15),
+              top: isDeviceHasNotch ? (isWidgetOnTop ? 20 : 0) : 15),
           alignment: Alignment.centerLeft,
           child: DefaultTabController(
             length: state.categories!.length,
@@ -434,7 +437,7 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
               indicatorWeight: .1,
               isScrollable: true,
               indicatorSize: TabBarIndicatorSize.label,
-              labelPadding: const EdgeInsets.only(right: 20),
+              labelPadding: const EdgeInsets.only(right: 30),
               padding: const EdgeInsets.only(left: 16),
               indicatorPadding: EdgeInsets.zero,
               dividerColor: AppColor.transparent,

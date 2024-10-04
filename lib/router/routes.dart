@@ -1,29 +1,42 @@
 import 'named_route.dart';
 
 enum AppRoute {
-  unknown,
   root,
+  notFound,
   home,
-  sliver
+  detail,
+  settings,
+  splash,
+  sliver,
 }
 
 class Routes {
-  static NamedRoute get root =>
-      NamedRoute(appRoute: AppRoute.root);
+  static NamedRoute get root => NamedRoute(
+        mainRoute: AppRoute.root,
+      );
 
-  static NamedRoute get unknown =>
-      NamedRoute(appRoute: AppRoute.unknown);
+  static NamedRoute get notFound => NamedRoute(
+        mainRoute: AppRoute.notFound,
+      );
 
-  static NamedRoute get home =>
-      NamedRoute(appRoute: AppRoute.home);
+  static NamedRoute get splash => NamedRoute(
+        mainRoute: AppRoute.splash,
+      );
 
-  static NamedRoute get sliver =>
-      NamedRoute(appRoute: AppRoute.sliver);
+  static NamedRoute get home => NamedRoute(
+        mainRoute: AppRoute.home,
+      );
 
-  static List<NamedRoute> values = [
-    unknown,
-    root,
-    home,
-    sliver
-  ];
+  static NamedRoute get detail => NamedRoute(
+        mainRoute: AppRoute.detail,
+      );
+
+  static NamedRoute get settings => NamedRoute(
+        mainRoute: AppRoute.settings,
+      );
+
+  static NamedRoute get sliver => NamedRoute(
+        mainRoute: AppRoute.home,
+        subRoute: AppRoute.sliver,
+      );
 }

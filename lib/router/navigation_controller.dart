@@ -1,36 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'navigation_tab.dart';
 
-class NavigationController {
-  static final globalNavigatorKey = GlobalKey<NavigatorState>();
+/// MARK: - NavigationController
+class NavigationController extends StatelessWidget {
+  const NavigationController({
+    Key? key,
+    required this.navigationShell,
+    required this.state,
+  }) : super(key: key ?? const ValueKey<String>('NavigationController'));
+  final StatefulNavigationShell navigationShell;
+  final GoRouterState state;
 
-  /// Returns value from pop if exists.
-  /// [clean] is true to remove all back stacks after pushing
-  /// [replace] is true to replace the current route by new route
-  ///
-  static Future<T?>? push<T extends Object>(
-      String route, {
-        dynamic arguments,
-        bool replace = false,
-        bool clean = false,
-      }) async {
-    if (clean) {
-      return globalNavigatorKey.currentState?.pushNamedAndRemoveUntil(
-        route,
-            (_) => false,
-        arguments: arguments,
-      );
-    }
+  void _goBranch(int index) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
 
-    if (replace) {
-      return globalNavigatorKey.currentState?.pushReplacementNamed(
-        route,
-        arguments: arguments,
-      );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return PrimaryNavigationBar(
+      body: navigationShell,
+      selectedIndex: navigationShell.currentIndex,
+      onDestinationSelected: _goBranch,
+    );
+  }
+}
 
-    return globalNavigatorKey.currentState?.pushNamed(
-      route,
-      arguments: arguments,
+/// MARK: - PrimaryNavigationBar
+class PrimaryNavigationBar extends StatelessWidget {
+  const PrimaryNavigationBar({
+    super.key,
+    required this.body,
+    required this.selectedIndex,
+    required this.onDestinationSelected,
+  });
+  final Widget body;
+  final int selectedIndex;
+  final ValueChanged<int> onDestinationSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: body,
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: selectedIndex,
+        destinations: NavigationTab.values.map((tab) {
+          return NavigationDestination(
+            label: tab.item.$1,
+            icon: tab.item.$2,
+          );
+        }).toList(),
+        onDestinationSelected: onDestinationSelected,
+      ),
     );
   }
 }
