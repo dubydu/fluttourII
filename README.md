@@ -4,8 +4,8 @@ A Flutter project template, an upgrade version of [`fluttour`](https://github.co
 
 ### [Getting Started](#getting-started)
 
-* Flutter (Channel stable, 3.24.1)
-* Dart 3.5.1
+* Flutter (Channel stable, 3.27.0)
+* Dart 3.6.0
 * Cocoapods 1.15.2
 
 ### [Article](#article)
