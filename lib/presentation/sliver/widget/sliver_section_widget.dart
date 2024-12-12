@@ -23,9 +23,9 @@ class SliverSectionWidget extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 24,
         children: <Widget>[
           AppText.h4(dishCategory.name ?? ''),
-          const SizedBox(height: 24),
           ListView.separated(
             padding: EdgeInsets.zero,
             shrinkWrap: true,

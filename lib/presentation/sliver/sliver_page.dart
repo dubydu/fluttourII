@@ -207,6 +207,7 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
           child: SafeArea(
             bottom: false,
             child: Row(
+              spacing: 16,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 InkWell(
@@ -217,7 +218,6 @@ class HeaderImageWidget extends SliverPersistentHeaderDelegate {
                 InkWell(
                   child: AppIcon.iconShare.widget(),
                 ),
-                const SizedBox(width: 16),
                 InkWell(
                   child: AppIcon.iconSearch.widget(),
                 ),
@@ -262,11 +262,10 @@ class HeaderDescriptionWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(top: 14),
             child: Row(
+              spacing: 10,
               children: <Widget>[
                 AppText.body('4.3'),
-                const SizedBox(width: 10),
                 AppIcon.iconStar.widget(),
-                const SizedBox(width: 10),
                 AppText.body('+200 Ratings'),
               ],
             ),
@@ -278,23 +277,23 @@ class HeaderDescriptionWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Row(
+                  spacing: 20,
                   children: <Widget>[
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 8,
                       children: <Widget>[
                         AppIcon.iconDeliveryPrice.widget(),
-                        const SizedBox(width: 8),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 4,
                           children: <Widget>[
                             AppText.body('Free', color: AppColor.black),
-                            const SizedBox(height: 4),
                             AppText.small('Delivery'),
                           ],
                         ),
                       ],
                     ),
-                    const SizedBox(width: 20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -447,7 +446,7 @@ class CategoryWidget extends SliverPersistentHeaderDelegate {
                       textAlign: TextAlign.left,
                       color: category.isSelected
                           ? AppColor.active
-                          : AppColor.black.withOpacity(.7),
+                          : AppColor.black.withValues(alpha: .7),
                     ),
                   )
                   .toList(),
@@ -488,18 +487,19 @@ class SectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        padding: const EdgeInsets.only(top: 10),
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return SliverSectionWidget(
-              dishCategory: categories[index], globalKey: globalKeys[index]);
-        },
-        separatorBuilder: (_, __) {
-          return const SizedBox(
-            height: 16,
-          );
-        },
-        itemCount: categories.length);
+      padding: const EdgeInsets.only(top: 10),
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemBuilder: (context, index) {
+        return SliverSectionWidget(
+            dishCategory: categories[index], globalKey: globalKeys[index]);
+      },
+      separatorBuilder: (_, __) {
+        return const SizedBox(
+          height: 16,
+        );
+      },
+      itemCount: categories.length,
+    );
   }
 }

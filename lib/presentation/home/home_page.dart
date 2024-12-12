@@ -62,12 +62,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin, RouteAware {
             if (state.fluttour != null) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 8,
                 children: <Widget>[
                   AppText.h6(
                     LocaleTexts.appName.tr(),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8),
                   AppText.body(
                     state.fluttour?.flutterVersion ?? '',
                     color: AppColor.black,
